@@ -1,0 +1,1692 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>CYDO - Climate & Youth Development Organization</title>
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <!-- Font Awesome -->
+  <link rel="stylesheet"
+  href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"/>
+
+  <style>
+
+    :root{
+      --primary:#006323;
+      --primary-light:#0b8f39;
+      --secondary:#f4f7f5;
+      --white:#ffffff;
+      --text:#173224;
+      --gray:#69756d;
+      --glass:rgba(255,255,255,0.18);
+      --shadow:0 10px 30px rgba(0,0,0,0.08);
+      --radius:22px;
+      --transition:0.35s ease;
+    }
+
+    *{
+      margin:0;
+      padding:0;
+      box-sizing:border-box;
+      scroll-behavior:smooth;
+    }
+
+    body{
+      font-family:'Poppins',sans-serif;
+      background:var(--secondary);
+      color:var(--text);
+      overflow-x:hidden;
+    }
+
+    img{
+      width:100%;
+      display:block;
+    }
+
+    a{
+      text-decoration:none;
+      color:inherit;
+    }
+
+    section{
+      padding:100px 8%;
+    }
+
+    .container{
+      max-width:1400px;
+      margin:auto;
+    }
+
+    .section-title{
+      text-align:center;
+      margin-bottom:60px;
+    }
+
+    .section-title span{
+      color:var(--primary);
+      font-weight:600;
+      letter-spacing:1px;
+      text-transform:uppercase;
+      font-size:0.9rem;
+    }
+
+    .section-title h2{
+      font-size:2.8rem;
+      margin:12px 0;
+      color:var(--primary);
+    }
+
+    .section-title p{
+      max-width:700px;
+      margin:auto;
+      color:var(--gray);
+      line-height:1.8;
+    }
+
+    /* NAVBAR */
+
+    header{
+      position:fixed;
+      width:100%;
+      top:0;
+      z-index:999;
+      backdrop-filter:blur(14px);
+      background:rgba(255,255,255,0.6);
+      border-bottom:1px solid rgba(255,255,255,0.3);
+    }
+
+    nav{
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      padding:18px 8%;
+    }
+
+    .logo{
+      display:flex;
+      align-items:center;
+      gap:12px;
+      color:var(--primary);
+      font-size:1.5rem;
+      font-weight:800;
+    }
+
+    .logo i{
+      font-size:1.9rem;
+    }
+
+    .nav-links{
+      display:flex;
+      gap:28px;
+      list-style:none;
+    }
+
+    .nav-links a{
+      font-weight:500;
+      position:relative;
+      transition:var(--transition);
+    }
+
+    .nav-links a::after{
+      content:'';
+      position:absolute;
+      left:0;
+      bottom:-6px;
+      width:0%;
+      height:2px;
+      background:var(--primary);
+      transition:var(--transition);
+    }
+
+    .nav-links a:hover::after{
+      width:100%;
+    }
+
+    .nav-links a:hover{
+      color:var(--primary);
+    }
+
+    .hamburger{
+      display:none;
+      font-size:1.5rem;
+      cursor:pointer;
+      color:var(--primary);
+    }
+
+    /* HERO */
+
+    .hero{
+      height:100vh;
+      position:relative;
+      display:flex;
+      align-items:center;
+      overflow:hidden;
+      background:
+      linear-gradient(rgba(255,255,255,0.78), rgba(255,255,255,0.84)),
+      url('https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?q=80&w=1800&auto=format&fit=crop')
+      center/cover no-repeat;
+    }
+
+    .hero-content{
+      max-width:760px;
+      position:relative;
+      z-index:2;
+    }
+
+    .hero-content span{
+      background:rgba(0,99,35,0.12);
+      color:var(--primary);
+      padding:10px 18px;
+      border-radius:50px;
+      display:inline-block;
+      margin-bottom:25px;
+      font-weight:600;
+    }
+
+    .hero-content h1{
+      font-size:4.6rem;
+      line-height:1.1;
+      color:var(--primary);
+      margin-bottom:24px;
+      font-weight:800;
+    }
+
+    .hero-content p{
+      color:#31453a;
+      font-size:1.1rem;
+      line-height:1.9;
+      margin-bottom:35px;
+      max-width:650px;
+    }
+
+    .hero-buttons{
+      display:flex;
+      gap:18px;
+      flex-wrap:wrap;
+    }
+
+    .btn{
+      padding:15px 32px;
+      border-radius:50px;
+      border:none;
+      cursor:pointer;
+      transition:var(--transition);
+      font-weight:600;
+      display:inline-flex;
+      align-items:center;
+      gap:10px;
+      font-size:0.96rem;
+    }
+
+    .btn-primary{
+      background:var(--primary);
+      color:var(--white);
+      box-shadow:var(--shadow);
+    }
+
+    .btn-outline{
+      background:transparent;
+      border:2px solid var(--primary);
+      color:var(--primary);
+    }
+
+    .btn:hover{
+      transform:translateY(-5px) scale(1.03);
+    }
+
+    .floating-cards{
+      position:absolute;
+      right:8%;
+      top:50%;
+      transform:translateY(-50%);
+      display:grid;
+      grid-template-columns:repeat(2,1fr);
+      gap:20px;
+      z-index:2;
+    }
+
+    .float-card{
+      background:rgba(255,255,255,0.6);
+      backdrop-filter:blur(12px);
+      padding:26px;
+      border-radius:20px;
+      box-shadow:var(--shadow);
+      width:220px;
+      animation:float 5s infinite ease-in-out;
+    }
+
+    .float-card:nth-child(2){
+      animation-delay:1s;
+    }
+
+    .float-card:nth-child(3){
+      animation-delay:2s;
+    }
+
+    .float-card:nth-child(4){
+      animation-delay:3s;
+    }
+
+    .float-card i{
+      font-size:2rem;
+      color:var(--primary);
+      margin-bottom:15px;
+    }
+
+    @keyframes float{
+      0%,100%{
+        transform:translateY(0);
+      }
+      50%{
+        transform:translateY(-12px);
+      }
+    }
+
+    .blob{
+      position:absolute;
+      width:500px;
+      height:500px;
+      border-radius:50%;
+      background:rgba(0,99,35,0.09);
+      filter:blur(40px);
+      z-index:1;
+    }
+
+    .blob.one{
+      top:-120px;
+      right:-100px;
+    }
+
+    .blob.two{
+      bottom:-140px;
+      left:-120px;
+    }
+
+    /* ABOUT */
+
+    .about-grid{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:60px;
+      align-items:center;
+    }
+
+    .about-image img{
+      border-radius:var(--radius);
+      box-shadow:var(--shadow);
+      height:100%;
+      object-fit:cover;
+    }
+
+    .about-content h3{
+      font-size:2.3rem;
+      margin-bottom:18px;
+      color:var(--primary);
+    }
+
+    .about-content p{
+      line-height:1.9;
+      color:#415147;
+      margin-bottom:25px;
+    }
+
+    .mission-grid{
+      display:grid;
+      grid-template-columns:repeat(3,1fr);
+      gap:18px;
+      margin-top:35px;
+    }
+
+    .mission-card{
+      background:var(--white);
+      padding:25px;
+      border-radius:18px;
+      box-shadow:var(--shadow);
+      transition:var(--transition);
+    }
+
+    .mission-card:hover{
+      transform:translateY(-10px);
+    }
+
+    .mission-card i{
+      color:var(--primary);
+      font-size:1.8rem;
+      margin-bottom:15px;
+    }
+
+    .stats{
+      margin-top:40px;
+      display:grid;
+      grid-template-columns:repeat(2,1fr);
+      gap:20px;
+    }
+
+    .stat{
+      background:var(--white);
+      padding:28px;
+      border-radius:18px;
+      box-shadow:var(--shadow);
+      text-align:center;
+      transition:var(--transition);
+    }
+
+    .stat:hover{
+      transform:scale(1.04);
+    }
+
+    .stat h2{
+      color:var(--primary);
+      font-size:2.5rem;
+      margin-bottom:10px;
+    }
+
+    /* PROGRAMS */
+
+    .program-grid{
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+      gap:28px;
+    }
+
+    .program-card{
+      background:var(--white);
+      padding:35px;
+      border-radius:22px;
+      box-shadow:var(--shadow);
+      transition:var(--transition);
+      position:relative;
+      overflow:hidden;
+    }
+
+    .program-card::before{
+      content:'';
+      position:absolute;
+      width:120px;
+      height:120px;
+      background:rgba(0,99,35,0.07);
+      border-radius:50%;
+      top:-40px;
+      right:-40px;
+    }
+
+    .program-card:hover{
+      transform:translateY(-12px);
+    }
+
+    .program-card i{
+      width:70px;
+      height:70px;
+      border-radius:18px;
+      background:rgba(0,99,35,0.12);
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      color:var(--primary);
+      font-size:1.8rem;
+      margin-bottom:25px;
+    }
+
+    .program-card h3{
+      margin-bottom:15px;
+      color:var(--primary);
+    }
+
+    .program-card p{
+      color:var(--gray);
+      line-height:1.8;
+    }
+
+    /* IMPACT */
+
+    .impact-grid{
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
+      gap:30px;
+    }
+
+    .impact-card{
+      background:var(--white);
+      padding:30px;
+      border-radius:22px;
+      box-shadow:var(--shadow);
+    }
+
+    .progress{
+      height:10px;
+      background:#dbe5de;
+      border-radius:50px;
+      margin-top:15px;
+      overflow:hidden;
+    }
+
+    .progress span{
+      display:block;
+      height:100%;
+      background:var(--primary);
+      border-radius:50px;
+    }
+
+    /* TEAM */
+
+    .team-grid{
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+      gap:28px;
+    }
+
+    .team-card{
+      background:var(--white);
+      border-radius:24px;
+      overflow:hidden;
+      box-shadow:var(--shadow);
+      text-align:center;
+      transition:var(--transition);
+      position:relative;
+    }
+
+    .team-card:hover{
+      transform:translateY(-12px);
+    }
+
+    .team-card img{
+      height:320px;
+      object-fit:cover;
+    }
+
+    .team-info{
+      padding:25px;
+    }
+
+    .team-info h3{
+      color:var(--primary);
+    }
+
+    .team-social{
+      margin-top:15px;
+      display:flex;
+      justify-content:center;
+      gap:15px;
+    }
+
+    .team-social a{
+      width:40px;
+      height:40px;
+      border-radius:50%;
+      background:#eef4f0;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      transition:var(--transition);
+    }
+
+    .team-social a:hover{
+      background:var(--primary);
+      color:var(--white);
+    }
+
+    /* GALLERY */
+
+    .gallery-grid{
+      columns:3 250px;
+      column-gap:18px;
+    }
+
+    .gallery-item{
+      overflow:hidden;
+      margin-bottom:18px;
+      border-radius:20px;
+      position:relative;
+      cursor:pointer;
+    }
+
+    .gallery-item img{
+      transition:0.5s ease;
+    }
+
+    .gallery-item:hover img{
+      transform:scale(1.08);
+    }
+
+    /* VIDEOS */
+
+    .video-grid{
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(320px,1fr));
+      gap:25px;
+    }
+
+    .video-card{
+      background:var(--white);
+      border-radius:22px;
+      overflow:hidden;
+      box-shadow:var(--shadow);
+      transition:var(--transition);
+    }
+
+    .video-card:hover{
+      transform:translateY(-10px);
+    }
+
+    .video-card iframe{
+      width:100%;
+      height:220px;
+      border:none;
+    }
+
+    .video-content{
+      padding:20px;
+    }
+
+    .video-content h3{
+      font-size:1rem;
+      margin-bottom:10px;
+      line-height:1.6;
+    }
+
+    .video-content span{
+      color:var(--gray);
+      font-size:0.9rem;
+    }
+
+    /* TESTIMONIAL */
+
+    .testimonial-slider{
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(320px,1fr));
+      gap:25px;
+    }
+
+    .testimonial{
+      background:var(--white);
+      padding:35px;
+      border-radius:22px;
+      box-shadow:var(--shadow);
+      transition:var(--transition);
+    }
+
+    .testimonial:hover{
+      transform:translateY(-10px);
+    }
+
+    .testimonial i{
+      color:var(--primary);
+      font-size:2rem;
+      margin-bottom:20px;
+    }
+
+    .testimonial p{
+      line-height:1.8;
+      color:var(--gray);
+      margin-bottom:20px;
+    }
+
+    /* CONTACT */
+
+    .contact-grid{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:40px;
+    }
+
+    .contact-info{
+      display:flex;
+      flex-direction:column;
+      gap:20px;
+    }
+
+    .contact-card{
+      background:rgba(255,255,255,0.6);
+      backdrop-filter:blur(12px);
+      padding:25px;
+      border-radius:20px;
+      box-shadow:var(--shadow);
+      display:flex;
+      gap:18px;
+      align-items:flex-start;
+    }
+
+    .contact-card i{
+      color:var(--primary);
+      font-size:1.5rem;
+    }
+
+    form{
+      background:rgba(255,255,255,0.7);
+      backdrop-filter:blur(12px);
+      padding:35px;
+      border-radius:24px;
+      box-shadow:var(--shadow);
+    }
+
+    .form-group{
+      margin-bottom:20px;
+    }
+
+    input,textarea{
+      width:100%;
+      padding:15px;
+      border:none;
+      border-radius:14px;
+      background:#f3f5f4;
+      outline:none;
+      font-family:inherit;
+    }
+
+    textarea{
+      resize:none;
+      min-height:160px;
+    }
+
+    iframe.map{
+      width:100%;
+      height:260px;
+      border:none;
+      border-radius:20px;
+      margin-top:25px;
+    }
+
+    /* FOOTER */
+
+    footer{
+      background:#07140d;
+      color:#d9e5dc;
+      padding:70px 8% 30px;
+    }
+
+    .footer-grid{
+      display:grid;
+      grid-template-columns:2fr 1fr 1fr;
+      gap:40px;
+      margin-bottom:50px;
+    }
+
+    .footer-links{
+      display:flex;
+      flex-direction:column;
+      gap:14px;
+    }
+
+    .footer-links a:hover{
+      color:#7ef3ab;
+    }
+
+    .newsletter{
+      display:flex;
+      gap:10px;
+      margin-top:20px;
+    }
+
+    .newsletter input{
+      flex:1;
+      background:#12231a;
+      color:white;
+    }
+
+    .socials{
+      display:flex;
+      gap:15px;
+      margin-top:25px;
+    }
+
+    .socials a{
+      width:45px;
+      height:45px;
+      border-radius:50%;
+      background:#11241a;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      transition:var(--transition);
+    }
+
+    .socials a:hover{
+      background:var(--primary);
+      transform:translateY(-5px);
+    }
+
+    .copyright{
+      text-align:center;
+      border-top:1px solid rgba(255,255,255,0.08);
+      padding-top:25px;
+      color:#95a49a;
+    }
+
+    /* SCROLL TOP */
+
+    .scroll-top{
+      position:fixed;
+      right:25px;
+      bottom:25px;
+      width:52px;
+      height:52px;
+      border-radius:50%;
+      background:var(--primary);
+      color:white;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      cursor:pointer;
+      box-shadow:var(--shadow);
+      opacity:0;
+      visibility:hidden;
+      transition:var(--transition);
+      z-index:999;
+    }
+
+    .scroll-top.active{
+      opacity:1;
+      visibility:visible;
+    }
+
+    /* LIGHTBOX */
+
+    .lightbox{
+      position:fixed;
+      inset:0;
+      background:rgba(0,0,0,0.85);
+      display:none;
+      align-items:center;
+      justify-content:center;
+      z-index:9999;
+      padding:20px;
+    }
+
+    .lightbox img{
+      max-width:90%;
+      max-height:90%;
+      border-radius:20px;
+    }
+
+    /* REVEAL */
+
+    .reveal{
+      opacity:0;
+      transform:translateY(60px);
+      transition:1s ease;
+    }
+
+    .reveal.active{
+      opacity:1;
+      transform:translateY(0);
+    }
+
+    /* RESPONSIVE */
+
+    @media(max-width:1100px){
+
+      .floating-cards{
+        display:none;
+      }
+
+      .hero-content h1{
+        font-size:3.8rem;
+      }
+
+      .about-grid,
+      .contact-grid{
+        grid-template-columns:1fr;
+      }
+
+      .mission-grid{
+        grid-template-columns:1fr;
+      }
+    }
+
+    @media(max-width:850px){
+
+      .hamburger{
+        display:block;
+      }
+
+      .nav-links{
+        position:absolute;
+        top:90px;
+        right:-100%;
+        flex-direction:column;
+        background:rgba(255,255,255,0.96);
+        width:280px;
+        padding:35px;
+        border-radius:20px;
+        box-shadow:var(--shadow);
+        transition:0.4s ease;
+      }
+
+      .nav-links.active{
+        right:8%;
+      }
+
+      .hero{
+        padding-top:120px;
+      }
+
+      .hero-content h1{
+        font-size:3rem;
+      }
+
+      .footer-grid{
+        grid-template-columns:1fr;
+      }
+    }
+
+    @media(max-width:600px){
+
+      section{
+        padding:80px 6%;
+      }
+
+      .hero-content h1{
+        font-size:2.3rem;
+      }
+
+      .hero-buttons{
+        flex-direction:column;
+      }
+
+      .btn{
+        width:100%;
+        justify-content:center;
+      }
+
+      .section-title h2{
+        font-size:2rem;
+      }
+
+      .stats{
+        grid-template-columns:1fr;
+      }
+    }
+
+  </style>
+</head>
+
+<body>
+
+  <!-- NAVBAR -->
+
+  <header>
+    <nav>
+
+      <div class="logo">
+        <i class="fa-solid fa-leaf"></i>
+        CYDO
+      </div>
+
+      <ul class="nav-links" id="navLinks">
+        <li><a href="#home">Home</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="#programs">Programs</a></li>
+        <li><a href="#impact">Impact</a></li>
+        <li><a href="#gallery">Gallery</a></li>
+        <li><a href="#team">Team</a></li>
+        <li><a href="#videos">Videos</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+
+      <div class="hamburger" id="hamburger">
+        <i class="fa-solid fa-bars"></i>
+      </div>
+
+    </nav>
+  </header>
+
+  <!-- HERO -->
+
+  <section class="hero" id="home">
+
+    <div class="blob one"></div>
+    <div class="blob two"></div>
+
+    <div class="container">
+
+      <div class="hero-content reveal">
+
+        <span>Youth-Led Climate Organization</span>
+
+        <h1>Empowering Youth for Climate Justice</h1>
+
+        <p>
+          Climate and Youth Development Organization (CYDO) works to inspire,
+          engage, and empower young people through climate action,
+          sustainability initiatives, leadership development,
+          and community resilience programs across Bangladesh.
+        </p>
+
+        <div class="hero-buttons">
+
+          <a href="#contact" class="btn btn-primary">
+            <i class="fa-solid fa-handshake-angle"></i>
+            Join Us
+          </a>
+
+          <a href="#programs" class="btn btn-outline">
+            <i class="fa-solid fa-earth-asia"></i>
+            Our Programs
+          </a>
+
+        </div>
+
+      </div>
+
+      <div class="floating-cards">
+
+        <div class="float-card">
+          <i class="fa-solid fa-users"></i>
+          <h3>500+ Volunteers</h3>
+          <p>Active youth climate leaders.</p>
+        </div>
+
+        <div class="float-card">
+          <i class="fa-solid fa-tree"></i>
+          <h3>100+ Campaigns</h3>
+          <p>Environmental awareness programs.</p>
+        </div>
+
+        <div class="float-card">
+          <i class="fa-solid fa-bullhorn"></i>
+          <h3>Climate Advocacy</h3>
+          <p>Driving social and policy impact.</p>
+        </div>
+
+        <div class="float-card">
+          <i class="fa-solid fa-globe"></i>
+          <h3>Nationwide Reach</h3>
+          <p>Communities across Bangladesh.</p>
+        </div>
+
+      </div>
+
+    </div>
+
+  </section>
+
+  <!-- ABOUT -->
+
+  <section id="about">
+
+    <div class="container">
+
+      <div class="section-title reveal">
+        <span>Who We Are</span>
+        <h2>About CYDO</h2>
+        <p>
+          CYDO is a youth-led nonprofit organization dedicated to climate
+          resilience, environmental sustainability, and empowering youth
+          to become changemakers in their communities.
+        </p>
+      </div>
+
+      <div class="about-grid">
+
+        <div class="about-image reveal">
+          <img src="https://images.unsplash.com/photo-1529156069898-49953e39b3ac?q=80&w=1400&auto=format&fit=crop">
+        </div>
+
+        <div class="about-content reveal">
+
+          <h3>Building a Sustainable Future Together</h3>
+
+          <p>
+            Through community engagement, leadership development,
+            and innovative environmental initiatives, CYDO works
+            to create a greener, more resilient future led by youth.
+          </p>
+
+          <div class="mission-grid">
+
+            <div class="mission-card">
+              <i class="fa-solid fa-bullseye"></i>
+              <h4>Mission</h4>
+              <p>Empower youth to lead sustainable climate solutions.</p>
+            </div>
+
+            <div class="mission-card">
+              <i class="fa-solid fa-eye"></i>
+              <h4>Vision</h4>
+              <p>Create climate-resilient communities through youth action.</p>
+            </div>
+
+            <div class="mission-card">
+              <i class="fa-solid fa-heart"></i>
+              <h4>Values</h4>
+              <p>Leadership, sustainability, equality, and collaboration.</p>
+            </div>
+
+          </div>
+
+          <div class="stats">
+
+            <div class="stat">
+              <h2 class="counter" data-target="500">0</h2>
+              <p>Volunteers</p>
+            </div>
+
+            <div class="stat">
+              <h2 class="counter" data-target="100">0</h2>
+              <p>Campaigns</p>
+            </div>
+
+            <div class="stat">
+              <h2 class="counter" data-target="50000">0</h2>
+              <p>Youth Reached</p>
+            </div>
+
+            <div class="stat">
+              <h2 class="counter" data-target="35">0</h2>
+              <p>Partners</p>
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </section>
+
+  <!-- PROGRAMS -->
+
+  <section id="programs">
+
+    <div class="container">
+
+      <div class="section-title reveal">
+        <span>Focus Areas</span>
+        <h2>Our Programs</h2>
+      </div>
+
+      <div class="program-grid">
+
+        <div class="program-card reveal">
+          <i class="fa-solid fa-leaf"></i>
+          <h3>Climate Action</h3>
+          <p>Promoting climate awareness and sustainable practices.</p>
+        </div>
+
+        <div class="program-card reveal">
+          <i class="fa-solid fa-users"></i>
+          <h3>Youth Leadership</h3>
+          <p>Developing future leaders through engagement and training.</p>
+        </div>
+
+        <div class="program-card reveal">
+          <i class="fa-solid fa-handshake"></i>
+          <h3>Community Development</h3>
+          <p>Empowering local communities through collaborative action.</p>
+        </div>
+
+        <div class="program-card reveal">
+          <i class="fa-solid fa-book-open"></i>
+          <h3>Environmental Education</h3>
+          <p>Educational workshops and sustainability awareness sessions.</p>
+        </div>
+
+        <div class="program-card reveal">
+          <i class="fa-solid fa-scale-balanced"></i>
+          <h3>Advocacy & Policy</h3>
+          <p>Encouraging policy dialogue and climate justice initiatives.</p>
+        </div>
+
+        <div class="program-card reveal">
+          <i class="fa-solid fa-house-flood-water"></i>
+          <h3>Disaster Resilience</h3>
+          <p>Supporting vulnerable communities through resilience programs.</p>
+        </div>
+
+      </div>
+
+    </div>
+
+  </section>
+
+  <!-- IMPACT -->
+
+  <section id="impact">
+
+    <div class="container">
+
+      <div class="section-title reveal">
+        <span>Our Achievements</span>
+        <h2>Impact & Achievements</h2>
+      </div>
+
+      <div class="impact-grid">
+
+        <div class="impact-card reveal">
+          <h3>Climate Campaigns</h3>
+          <div class="progress">
+            <span style="width:90%"></span>
+          </div>
+        </div>
+
+        <div class="impact-card reveal">
+          <h3>Youth Engagement</h3>
+          <div class="progress">
+            <span style="width:85%"></span>
+          </div>
+        </div>
+
+        <div class="impact-card reveal">
+          <h3>Community Awareness</h3>
+          <div class="progress">
+            <span style="width:80%"></span>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+
+  </section>
+
+  <!-- TEAM -->
+
+  <section id="team">
+
+    <div class="container">
+
+      <div class="section-title reveal">
+        <span>Leadership</span>
+        <h2>Meet Our Team</h2>
+      </div>
+
+      <div class="team-grid">
+
+        <div class="team-card reveal">
+          <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?q=80&w=900&auto=format&fit=crop">
+          <div class="team-info">
+            <h3>Shuvro</h3>
+            <p>Finance Secretary</p>
+
+            <div class="team-social">
+              <a href="#"><i class="fab fa-facebook-f"></i></a>
+              <a href="#"><i class="fab fa-linkedin-in"></i></a>
+            </div>
+          </div>
+        </div>
+
+        <div class="team-card reveal">
+          <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&w=900&auto=format&fit=crop">
+          <div class="team-info">
+            <h3>Team Member</h3>
+            <p>Youth Coordinator</p>
+
+            <div class="team-social">
+              <a href="#"><i class="fab fa-facebook-f"></i></a>
+              <a href="#"><i class="fab fa-linkedin-in"></i></a>
+            </div>
+          </div>
+        </div>
+
+        <div class="team-card reveal">
+          <img src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?q=80&w=900&auto=format&fit=crop">
+          <div class="team-info">
+            <h3>Team Member</h3>
+            <p>Program Coordinator</p>
+
+            <div class="team-social">
+              <a href="#"><i class="fab fa-facebook-f"></i></a>
+              <a href="#"><i class="fab fa-linkedin-in"></i></a>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+
+  </section>
+
+  <!-- GALLERY -->
+
+  <section id="gallery">
+
+    <div class="container">
+
+      <div class="section-title reveal">
+        <span>Activities</span>
+        <h2>Gallery</h2>
+      </div>
+
+      <div class="gallery-grid">
+
+        <div class="gallery-item reveal">
+          <img src="https://images.unsplash.com/photo-1494526585095-c41746248156?q=80&w=1000&auto=format&fit=crop">
+        </div>
+
+        <div class="gallery-item reveal">
+          <img src="https://images.unsplash.com/photo-1517048676732-d65bc937f952?q=80&w=1000&auto=format&fit=crop">
+        </div>
+
+        <div class="gallery-item reveal">
+          <img src="https://images.unsplash.com/photo-1521737604893-d14cc237f11d?q=80&w=1000&auto=format&fit=crop">
+        </div>
+
+        <div class="gallery-item reveal">
+          <img src="https://images.unsplash.com/photo-1509099863731-ef4bff19e808?q=80&w=1000&auto=format&fit=crop">
+        </div>
+
+        <div class="gallery-item reveal">
+          <img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?q=80&w=1000&auto=format&fit=crop">
+        </div>
+
+      </div>
+
+    </div>
+
+  </section>
+
+  <!-- VIDEOS -->
+
+  <section id="videos">
+
+    <div class="container">
+
+      <div class="section-title reveal">
+        <span>Media</span>
+        <h2>Latest Videos</h2>
+      </div>
+
+      <div class="video-grid" id="videoContainer">
+
+        <div style="text-align:center;padding:50px;">
+          <i class="fa-solid fa-spinner fa-spin"></i>
+          Loading Videos...
+        </div>
+
+      </div>
+
+    </div>
+
+  </section>
+
+  <!-- TESTIMONIALS -->
+
+  <section>
+
+    <div class="container">
+
+      <div class="section-title reveal">
+        <span>Voices</span>
+        <h2>Testimonials</h2>
+      </div>
+
+      <div class="testimonial-slider">
+
+        <div class="testimonial reveal">
+          <i class="fa-solid fa-quote-left"></i>
+          <p>
+            CYDO inspired our community to take climate action and empower young leaders.
+          </p>
+          <h4>Community Volunteer</h4>
+        </div>
+
+        <div class="testimonial reveal">
+          <i class="fa-solid fa-quote-left"></i>
+          <p>
+            The organization creates opportunities for youth to make meaningful impact.
+          </p>
+          <h4>Youth Activist</h4>
+        </div>
+
+        <div class="testimonial reveal">
+          <i class="fa-solid fa-quote-left"></i>
+          <p>
+            Their environmental awareness campaigns are truly inspiring and impactful.
+          </p>
+          <h4>Program Partner</h4>
+        </div>
+
+      </div>
+
+    </div>
+
+  </section>
+
+  <!-- CONTACT -->
+
+  <section id="contact">
+
+    <div class="container">
+
+      <div class="section-title reveal">
+        <span>Get In Touch</span>
+        <h2>Contact Us</h2>
+      </div>
+
+      <div class="contact-grid">
+
+        <div class="contact-info reveal">
+
+          <div class="contact-card">
+            <i class="fa-solid fa-location-dot"></i>
+            <div>
+              <h4>Location</h4>
+              <p>Bangladesh</p>
+            </div>
+          </div>
+
+          <div class="contact-card">
+            <i class="fa-solid fa-envelope"></i>
+            <div>
+              <h4>Email</h4>
+              <p>contact@cydo.org</p>
+            </div>
+          </div>
+
+          <div class="contact-card">
+            <i class="fa-brands fa-facebook-f"></i>
+            <div>
+              <h4>Facebook Page</h4>
+              <p>facebook.com/CydoBangladesh</p>
+            </div>
+          </div>
+
+          <iframe class="map"
+          src="https://maps.google.com/maps?q=bangladesh&t=&z=5&ie=UTF8&iwloc=&output=embed">
+          </iframe>
+
+        </div>
+
+        <form class="reveal">
+
+          <div class="form-group">
+            <input type="text" placeholder="Your Name">
+          </div>
+
+          <div class="form-group">
+            <input type="email" placeholder="Your Email">
+          </div>
+
+          <div class="form-group">
+            <input type="text" placeholder="Subject">
+          </div>
+
+          <div class="form-group">
+            <textarea placeholder="Your Message"></textarea>
+          </div>
+
+          <button class="btn btn-primary">
+            <i class="fa-solid fa-paper-plane"></i>
+            Send Message
+          </button>
+
+        </form>
+
+      </div>
+
+    </div>
+
+  </section>
+
+  <!-- FOOTER -->
+
+  <footer>
+
+    <div class="footer-grid">
+
+      <div>
+        <div class="logo" style="color:white;">
+          <i class="fa-solid fa-leaf"></i>
+          CYDO
+        </div>
+
+        <p style="margin-top:20px;line-height:1.8;">
+          Climate and Youth Development Organization working for
+          climate justice, sustainability, and youth empowerment.
+        </p>
+
+        <div class="socials">
+
+          <a href="https://www.facebook.com/CydoBangladesh" target="_blank">
+            <i class="fab fa-facebook-f"></i>
+          </a>
+
+          <a href="#"><i class="fab fa-youtube"></i></a>
+          <a href="#"><i class="fab fa-instagram"></i></a>
+          <a href="#"><i class="fab fa-linkedin-in"></i></a>
+
+        </div>
+
+      </div>
+
+      <div>
+
+        <h3 style="margin-bottom:20px;">Quick Links</h3>
+
+        <div class="footer-links">
+          <a href="#about">About</a>
+          <a href="#programs">Programs</a>
+          <a href="#impact">Impact</a>
+          <a href="#contact">Contact</a>
+        </div>
+
+      </div>
+
+      <div>
+
+        <h3 style="margin-bottom:20px;">Newsletter</h3>
+
+        <p>Subscribe for updates and activities.</p>
+
+        <div class="newsletter">
+          <input type="email" placeholder="Email">
+          <button class="btn btn-primary">Join</button>
+        </div>
+
+      </div>
+
+    </div>
+
+    <div class="copyright">
+      © 2026 CYDO - Climate & Youth Development Organization. All Rights Reserved.
+    </div>
+
+  </footer>
+
+  <!-- SCROLL TOP -->
+
+  <div class="scroll-top" id="scrollTop">
+    <i class="fa-solid fa-arrow-up"></i>
+  </div>
+
+  <!-- LIGHTBOX -->
+
+  <div class="lightbox" id="lightbox">
+    <img id="lightboxImg">
+  </div>
+
+  <!-- JS -->
+
+  <script>
+
+    // MOBILE NAV
+
+    const hamburger = document.getElementById('hamburger');
+    const navLinks = document.getElementById('navLinks');
+
+    hamburger.addEventListener('click',()=>{
+      navLinks.classList.toggle('active');
+    });
+
+    document.querySelectorAll('.nav-links a').forEach(link=>{
+      link.addEventListener('click',()=>{
+        navLinks.classList.remove('active');
+      });
+    });
+
+    // SCROLL TOP
+
+    const scrollTopBtn = document.getElementById('scrollTop');
+
+    window.addEventListener('scroll',()=>{
+
+      if(window.scrollY > 300){
+        scrollTopBtn.classList.add('active');
+      }else{
+        scrollTopBtn.classList.remove('active');
+      }
+
+    });
+
+    scrollTopBtn.addEventListener('click',()=>{
+      window.scrollTo({
+        top:0,
+        behavior:'smooth'
+      });
+    });
+
+    // COUNTER
+
+    const counters = document.querySelectorAll('.counter');
+
+    counters.forEach(counter=>{
+
+      const updateCounter = ()=>{
+
+        const target = +counter.getAttribute('data-target');
+        const current = +counter.innerText;
+
+        const increment = target / 100;
+
+        if(current < target){
+
+          counter.innerText = `${Math.ceil(current + increment)}`;
+          setTimeout(updateCounter,20);
+
+        }else{
+
+          counter.innerText = target.toLocaleString() + '+';
+
+        }
+
+      };
+
+      updateCounter();
+
+    });
+
+    // REVEAL ANIMATION
+
+    const reveals = document.querySelectorAll('.reveal');
+
+    const observer = new IntersectionObserver(entries=>{
+
+      entries.forEach(entry=>{
+
+        if(entry.isIntersecting){
+          entry.target.classList.add('active');
+        }
+
+      });
+
+    },{threshold:0.15});
+
+    reveals.forEach(reveal=>{
+      observer.observe(reveal);
+    });
+
+    // GALLERY LIGHTBOX
+
+    const galleryImages = document.querySelectorAll('.gallery-item img');
+    const lightbox = document.getElementById('lightbox');
+    const lightboxImg = document.getElementById('lightboxImg');
+
+    galleryImages.forEach(img=>{
+
+      img.addEventListener('click',()=>{
+
+        lightbox.style.display = 'flex';
+        lightboxImg.src = img.src;
+
+      });
+
+    });
+
+    lightbox.addEventListener('click',()=>{
+      lightbox.style.display='none';
+    });
+
+    // YOUTUBE RSS FEED
+
+    const feedURL =
+    "https://www.youtube.com/feeds/videos.xml?channel_id=UC_x5XG1OV2P6uZZ5FSM9Ttw";
+
+    const rssAPI =
+    `https://api.rss2json.com/v1/api.json?rss_url=${encodeURIComponent(feedURL)}`;
+
+    async function loadVideos(){
+
+      const container = document.getElementById('videoContainer');
+
+      try{
+
+        const response = await fetch(rssAPI);
+        const data = await response.json();
+
+        const videos = data.items.slice(0,3);
+
+        container.innerHTML = videos.map(video=>{
+
+          const videoId = video.guid.split(':').pop();
+
+          return `
+
+            <div class="video-card reveal">
+
+              <iframe
+              src="https://www.youtube.com/embed/${videoId}"
+              allowfullscreen>
+              </iframe>
+
+              <div class="video-content">
+
+                <h3>${video.title}</h3>
+
+                <span>
+                  ${new Date(video.pubDate).toDateString()}
+                </span>
+
+              </div>
+
+            </div>
+
+          `;
+
+        }).join('');
+
+      }catch(error){
+
+        container.innerHTML = `
+          <div style="padding:40px;text-align:center;">
+            Failed to load videos.
+          </div>
+        `;
+
+      }
+
+    }
+
+    loadVideos();
+
+    // FORM
+
+    document.querySelector('form').addEventListener('submit',e=>{
+
+      e.preventDefault();
+
+      alert('Thank you for contacting CYDO!');
+      e.target.reset();
+
+    });
+
+  </script>
+
+</body>
+</html>
