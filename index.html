@@ -2,536 +2,669 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
 <meta name="description" content="CYDO - Climate and Youth Development Organization. Empowering youth for climate action, SRHR awareness, and quality education in Bangladesh.">
 <meta name="keywords" content="CYDO, climate, youth, Bangladesh, NGO, environment, SRHR, education">
-<title>CYDO</title>
+<title>CYDO — Climate & Youth Development Organization</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,400&display=swap" rel="stylesheet">
 <style>
+/* ============================================================
+   DESIGN TOKENS
+============================================================ */
 :root {
-  --green: #16A34A;
-  --green-dark: #15803D;
-  --green-light: #DCFCE7;
-  --green-mid: #4ADE80;
-  --white: #FFFFFF;
-  --gray-50: #F9FAFB;
-  --gray-100: #F3F4F6;
-  --gray-200: #E5E7EB;
-  --gray-300: #D1D5DB;
-  --gray-400: #9CA3AF;
-  --gray-500: #6B7280;
-  --gray-600: #4B5563;
-  --gray-700: #374151;
-  --gray-800: #1F2937;
-  --gray-900: #111827;
-  --font-en: 'Plus Jakarta Sans', sans-serif;
+  --green:        #16A34A;
+  --green-dark:   #14532D;
+  --green-mid:    #22C55E;
+  --green-light:  #DCFCE7;
+  --green-glow:   rgba(34,197,94,0.18);
+  --white:        #FFFFFF;
+  --gray-50:      #F8FAFC;
+  --gray-100:     #F1F5F9;
+  --gray-200:     #E2E8F0;
+  --gray-300:     #CBD5E1;
+  --gray-400:     #94A3B8;
+  --gray-500:     #64748B;
+  --gray-600:     #475569;
+  --gray-700:     #334155;
+  --gray-800:     #1E293B;
+  --gray-900:     #0F172A;
+  --font-head:    'Sora', sans-serif;
+  --font-body:    'DM Sans', sans-serif;
+  --nav-h:        68px;
+  --radius-sm:    8px;
+  --radius-md:    14px;
+  --radius-lg:    22px;
+  --shadow-sm:    0 2px 8px rgba(0,0,0,0.06);
+  --shadow-md:    0 8px 24px rgba(0,0,0,0.09);
+  --shadow-lg:    0 20px 50px rgba(0,0,0,0.12);
+  --transition:   0.28s cubic-bezier(0.4,0,0.2,1);
 }
+
+/* ============================================================
+   RESET & BASE
+============================================================ */
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-html { scroll-behavior: smooth; }
+html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
 body {
-  font-family: var(--font-en);
+  font-family: var(--font-body);
   color: var(--gray-800);
   background: var(--white);
   overflow-x: hidden;
-  line-height: 1.6;
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
 }
+img { display: block; max-width: 100%; height: auto; }
+a { text-decoration: none; color: inherit; }
+button { font-family: inherit; cursor: pointer; }
+ul { list-style: none; }
 
-/* SCROLLBAR */
-::-webkit-scrollbar { width: 4px; }
+/* Scrollbar */
+::-webkit-scrollbar { width: 5px; }
 ::-webkit-scrollbar-track { background: var(--gray-100); }
-::-webkit-scrollbar-thumb { background: var(--green); border-radius: 3px; }
+::-webkit-scrollbar-thumb { background: var(--green); border-radius: 4px; }
 
-/* ========================
+/* Skip link */
+.skip-link {
+  position: absolute; left: -9999px; top: 1rem; z-index: 99999;
+  background: var(--green); color: white; padding: 8px 16px; border-radius: 6px;
+}
+.skip-link:focus { left: 1rem; }
+
+/* ============================================================
+   LAYOUT HELPERS
+============================================================ */
+.container { max-width: 1200px; margin: 0 auto; padding: 0 clamp(1rem, 4vw, 2rem); }
+section { padding: clamp(3rem, 7vw, 5.5rem) 0; }
+.section-label {
+  display: inline-flex; align-items: center; gap: 6px;
+  font-family: var(--font-head); font-size: 0.68rem; font-weight: 700;
+  letter-spacing: 2.5px; text-transform: uppercase;
+  color: var(--green); background: var(--green-light);
+  padding: 5px 13px; border-radius: 999px; margin-bottom: 0.875rem;
+}
+.section-title {
+  font-family: var(--font-head);
+  font-size: clamp(1.65rem, 4vw, 2.65rem);
+  font-weight: 800; line-height: 1.18;
+  color: var(--gray-900); letter-spacing: -0.5px;
+  margin-bottom: 0.75rem;
+}
+.section-title em { font-style: normal; color: var(--green); }
+.section-sub { font-size: 0.96rem; color: var(--gray-500); line-height: 1.75; max-width: 580px; }
+.text-center { text-align: center; }
+.text-center .section-sub { margin: 0 auto; }
+
+/* ============================================================
    NAV
-======================== */
-nav {
-  position: fixed; top: 0; width: 100%; z-index: 1000;
+============================================================ */
+#mainNav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+  height: var(--nav-h);
   background: rgba(255,255,255,0.97);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px);
   border-bottom: 1px solid var(--gray-200);
-  transition: box-shadow 0.3s;
+  transition: box-shadow var(--transition);
 }
-nav.scrolled { box-shadow: 0 4px 24px rgba(22,163,74,0.1); }
+#mainNav.scrolled { box-shadow: 0 4px 24px rgba(22,163,74,0.09); }
 .nav-inner {
-  max-width: 1200px; margin: 0 auto;
+  height: var(--nav-h); max-width: 1200px; margin: 0 auto;
   display: flex; align-items: center; justify-content: space-between;
-  padding: 0 1rem; height: 64px;
+  padding: 0 clamp(1rem, 4vw, 2rem); gap: 1rem;
 }
-.nav-logo { display: flex; align-items: center; gap: 8px; text-decoration: none; }
-.nav-logo img { height: 44px; width: auto; object-fit: contain; }
-.nav-links { display: flex; align-items: center; gap: 1.5rem; list-style: none; }
+.nav-logo { display: flex; align-items: center; flex-shrink: 0; }
+.nav-logo img { height: 42px; width: auto; object-fit: contain; }
+.nav-links {
+  display: flex; align-items: center; gap: clamp(1rem, 2vw, 1.75rem);
+  flex: 1; justify-content: center;
+}
 .nav-links a {
-  font-size: 0.875rem; font-weight: 500; color: var(--gray-600);
-  text-decoration: none; transition: color 0.2s; white-space: nowrap;
+  font-family: var(--font-head); font-size: 0.845rem; font-weight: 500;
+  color: var(--gray-600); transition: color var(--transition); white-space: nowrap;
+  padding: 4px 0; border-bottom: 2px solid transparent;
 }
-.nav-links a:hover { color: var(--green); }
-.nav-right { display: flex; align-items: center; gap: 0.75rem; }
-
+.nav-links a:hover { color: var(--green); border-bottom-color: var(--green); }
+.nav-right { display: flex; align-items: center; gap: 0.625rem; flex-shrink: 0; }
 .btn-nav {
-  background: var(--green); color: white;
-  padding: 8px 16px; border-radius: 8px; font-size: 0.8rem; font-weight: 600;
-  text-decoration: none; transition: all 0.2s; white-space: nowrap; border: none; cursor: pointer;
+  font-family: var(--font-head); background: var(--green); color: white;
+  padding: 8px 18px; border-radius: var(--radius-sm);
+  font-size: 0.82rem; font-weight: 700; border: none;
+  transition: all var(--transition); white-space: nowrap;
 }
-.btn-nav:hover { background: var(--green-dark); }
-
+.btn-nav:hover { background: var(--green-dark); transform: translateY(-1px); box-shadow: 0 4px 14px rgba(22,163,74,0.35); }
 .hamburger {
-  display: none; background: none; border: 1px solid var(--gray-200);
-  cursor: pointer; flex-direction: column; gap: 5px;
-  padding: 8px; border-radius: 8px; align-items: center; justify-content: center;
+  display: none; flex-direction: column; gap: 5px;
+  background: none; border: 1.5px solid var(--gray-200);
+  padding: 9px 10px; border-radius: var(--radius-sm); align-items: center;
+  width: 42px; height: 42px; justify-content: center;
+  transition: border-color var(--transition);
 }
-.hamburger span { width: 20px; height: 2px; background: var(--gray-700); border-radius: 2px; transition: 0.3s; display: block; }
+.hamburger:hover { border-color: var(--green); }
+.hamburger span {
+  width: 18px; height: 2px; background: var(--gray-700);
+  border-radius: 2px; transition: all 0.3s; display: block;
+}
+.hamburger.active span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+.hamburger.active span:nth-child(2) { opacity: 0; transform: scaleX(0); }
+.hamburger.active span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
 
-/* MOBILE NAV */
+/* Mobile nav drawer */
 .mobile-menu {
-  display: none; flex-direction: column;
-  background: white; border-top: 1px solid var(--gray-100);
-  padding: 0.5rem 1rem 1.25rem;
-  max-height: 0;
-  overflow: hidden;
-  transition: max-height 0.35s ease;
+  position: fixed; top: var(--nav-h); left: 0; right: 0; z-index: 999;
+  background: white; border-bottom: 1px solid var(--gray-100);
+  padding: 0 1rem;
+  max-height: 0; overflow: hidden;
+  transition: max-height 0.38s cubic-bezier(0.4,0,0.2,1), padding 0.3s;
+  box-shadow: 0 12px 32px rgba(0,0,0,0.1);
 }
-.mobile-menu.open {
-  display: flex;
-  max-height: 500px;
-}
+.mobile-menu.open { max-height: 520px; padding: 0.75rem 1rem 1.5rem; }
 .mobile-menu a {
-  padding: 0.75rem 0; font-size: 0.95rem; color: var(--gray-700);
-  text-decoration: none; border-bottom: 1px solid var(--gray-100);
-  display: flex; align-items: center; gap: 8px;
+  display: flex; align-items: center; gap: 10px;
+  padding: 0.875rem 0; font-family: var(--font-head);
+  font-size: 0.97rem; font-weight: 500;
+  color: var(--gray-700); border-bottom: 1px solid var(--gray-100);
+  transition: color var(--transition);
 }
 .mobile-menu a:last-child { border-bottom: none; }
+.mobile-menu a:hover { color: var(--green); }
+.mobile-menu-join {
+  margin-top: 1rem; display: block; text-align: center;
+  background: var(--green); color: white;
+  padding: 13px; border-radius: var(--radius-md);
+  font-family: var(--font-head); font-weight: 700; font-size: 0.95rem;
+  border: none; width: 100%; cursor: pointer;
+  transition: all var(--transition);
+}
+.mobile-menu-join:hover { background: var(--green-dark); }
 
-/* ========================
+/* ============================================================
    HERO
-======================== */
+============================================================ */
 .hero {
-  min-height: 100svh; position: relative;
+  min-height: 100svh;
+  background: linear-gradient(148deg, #052e16 0%, #14532d 30%, #15803d 65%, #4ade80 100%);
+  position: relative; overflow: hidden;
   display: flex; align-items: center;
-  background: linear-gradient(135deg, #0A3D1F 0%, #15803D 40%, #16A34A 70%, #4ADE80 100%);
-  overflow: hidden;
-  padding-top: 64px;
+  padding-top: var(--nav-h);
 }
-.hero-bg {
-  position: absolute; inset: 0;
-  background-image:
-    radial-gradient(circle at 20% 50%, rgba(255,255,255,0.05) 0%, transparent 50%),
-    radial-gradient(circle at 80% 20%, rgba(74,222,128,0.15) 0%, transparent 40%),
-    radial-gradient(circle at 60% 80%, rgba(0,0,0,0.1) 0%, transparent 40%);
+.hero-noise {
+  position: absolute; inset: 0; pointer-events: none; opacity: 0.035;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-repeat: repeat; background-size: 256px 256px;
 }
-.hero-pattern {
-  position: absolute; inset: 0; opacity: 0.04;
-  background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='1'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+.hero-orbs { position: absolute; inset: 0; pointer-events: none; overflow: hidden; }
+.hero-orb {
+  position: absolute; border-radius: 50%; filter: blur(80px);
 }
-.hero-content {
+.hero-orb-1 { width: 600px; height: 600px; background: rgba(74,222,128,0.12); top: -200px; right: -100px; animation: orb-drift 12s ease-in-out infinite; }
+.hero-orb-2 { width: 400px; height: 400px; background: rgba(21,128,61,0.2); bottom: -150px; left: -80px; animation: orb-drift 15s ease-in-out infinite reverse; }
+@keyframes orb-drift { 0%,100%{transform:translate(0,0)} 50%{transform:translate(30px,-40px)} }
+
+.hero-inner {
   position: relative; z-index: 2;
-  max-width: 1200px; margin: 0 auto; padding: 4rem 1.25rem 5rem;
-  display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center;
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: clamp(2rem, 5vw, 5rem); align-items: center;
+  padding: clamp(3rem, 8vw, 5rem) 0 clamp(4rem, 9vw, 6rem);
 }
 .hero-text { color: white; }
 .hero-badge {
   display: inline-flex; align-items: center; gap: 8px;
-  background: rgba(255,255,255,0.15); border: 1px solid rgba(255,255,255,0.3);
-  padding: 6px 14px; border-radius: 999px; font-size: 0.75rem; font-weight: 600;
-  letter-spacing: 0.5px; margin-bottom: 1.25rem; color: rgba(255,255,255,0.95);
-  backdrop-filter: blur(10px);
+  background: rgba(255,255,255,0.12); border: 1px solid rgba(255,255,255,0.25);
+  backdrop-filter: blur(12px);
+  padding: 7px 16px; border-radius: 999px;
+  font-family: var(--font-head); font-size: 0.72rem; font-weight: 600;
+  letter-spacing: 0.8px; color: rgba(255,255,255,0.92);
+  margin-bottom: 1.5rem;
 }
-.hero-badge span { width: 8px; height: 8px; background: var(--green-mid); border-radius: 50%; flex-shrink: 0; animation: pulse-dot 2s infinite; }
-@keyframes pulse-dot { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:0.7;transform:scale(1.3)} }
-.hero h1 {
-  font-size: clamp(1.9rem, 6vw, 3.5rem); font-weight: 800;
-  line-height: 1.15; margin-bottom: 1.1rem; letter-spacing: -0.5px;
+.hero-badge-dot { width: 7px; height: 7px; background: #4ade80; border-radius: 50%; flex-shrink: 0; animation: pulse 2s ease-in-out infinite; }
+@keyframes pulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:0.65;transform:scale(1.4)} }
+.hero-title {
+  font-family: var(--font-head);
+  font-size: clamp(2rem, 5.5vw, 3.75rem);
+  font-weight: 800; line-height: 1.12;
+  letter-spacing: -1px; margin-bottom: 1.25rem;
 }
-.hero h1 em { font-style: normal; color: var(--green-mid); }
-.hero p { font-size: clamp(0.9rem, 2.5vw, 1.1rem); opacity: 0.85; margin-bottom: 2rem; line-height: 1.7; }
-.hero-btns { display: flex; gap: 0.75rem; flex-wrap: wrap; }
-.btn-primary {
-  background: white; color: var(--green-dark);
-  padding: 12px 24px; border-radius: 10px; font-weight: 700; font-size: 0.9rem;
-  text-decoration: none; transition: all 0.25s; border: 2px solid transparent;
-  display: inline-flex; align-items: center; gap: 8px; cursor: pointer;
+.hero-title em { font-style: normal; color: #4ade80; }
+.hero-desc {
+  font-size: clamp(0.92rem, 2vw, 1.05rem);
+  opacity: 0.82; margin-bottom: 2.25rem;
+  line-height: 1.78; max-width: 480px;
 }
-.btn-primary:hover { background: var(--green-light); transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,0,0,0.2); }
-.btn-outline {
-  background: transparent; color: white;
-  padding: 12px 24px; border-radius: 10px; font-weight: 600; font-size: 0.9rem;
-  text-decoration: none; transition: all 0.25s; border: 2px solid rgba(255,255,255,0.5);
+.hero-actions { display: flex; gap: 0.875rem; flex-wrap: wrap; }
+.btn-hero-primary {
   display: inline-flex; align-items: center; gap: 8px;
+  background: white; color: var(--green-dark);
+  padding: 13px 26px; border-radius: var(--radius-md);
+  font-family: var(--font-head); font-weight: 700; font-size: 0.9rem;
+  border: 2px solid transparent; transition: all var(--transition); cursor: pointer;
 }
-.btn-outline:hover { background: rgba(255,255,255,0.1); border-color: white; }
+.btn-hero-primary:hover { background: var(--green-light); transform: translateY(-2px); box-shadow: 0 8px 28px rgba(0,0,0,0.22); }
+.btn-hero-outline {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: transparent; color: white;
+  padding: 13px 26px; border-radius: var(--radius-md);
+  font-family: var(--font-head); font-weight: 600; font-size: 0.9rem;
+  border: 2px solid rgba(255,255,255,0.45); transition: all var(--transition);
+}
+.btn-hero-outline:hover { background: rgba(255,255,255,0.1); border-color: rgba(255,255,255,0.8); }
 
-.hero-visual { position: relative; display: flex; justify-content: center; }
-.hero-card-stack { position: relative; width: 320px; height: 340px; }
-.hero-card {
-  position: absolute; background: rgba(255,255,255,0.12); backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  border: 1px solid rgba(255,255,255,0.25); border-radius: 16px;
-  padding: 1.25rem; color: white;
+/* Hero cards */
+.hero-visual { position: relative; display: flex; justify-content: center; align-items: center; }
+.hero-cards-wrap { position: relative; width: min(330px, 90vw); height: 360px; }
+.hcard {
+  position: absolute; background: rgba(255,255,255,0.11);
+  backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255,255,255,0.22); border-radius: 16px;
+  padding: 1.2rem 1.1rem; color: white;
 }
-.hero-card:nth-child(1) { top: 0; left: 0; width: 180px; animation: float1 4s ease-in-out infinite; }
-.hero-card:nth-child(2) { top: 55px; right: 0; width: 200px; animation: float2 5s ease-in-out infinite; }
-.hero-card:nth-child(3) { bottom: 0; left: 30px; width: 220px; animation: float3 4.5s ease-in-out infinite; }
-@keyframes float1 { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-12px)} }
-@keyframes float2 { 0%,100%{transform:translateY(-6px)} 50%{transform:translateY(8px)} }
-@keyframes float3 { 0%,100%{transform:translateY(4px)} 50%{transform:translateY(-8px)} }
-.hero-card-icon { font-size: 1.75rem; margin-bottom: 0.4rem; }
-.hero-card h4 { font-size: 0.85rem; font-weight: 700; margin-bottom: 0.2rem; }
-.hero-card p { font-size: 0.7rem; opacity: 0.75; }
+.hcard:nth-child(1) { top: 0; left: 0; width: 170px; animation: hfloat1 4s ease-in-out infinite; }
+.hcard:nth-child(2) { top: 60px; right: 0; width: 195px; animation: hfloat2 5s ease-in-out infinite; }
+.hcard:nth-child(3) { bottom: 10px; left: 20px; width: 210px; animation: hfloat3 4.5s ease-in-out infinite; }
+@keyframes hfloat1 { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-14px)} }
+@keyframes hfloat2 { 0%,100%{transform:translateY(-5px)} 50%{transform:translateY(10px)} }
+@keyframes hfloat3 { 0%,100%{transform:translateY(5px)} 50%{transform:translateY(-9px)} }
+.hcard-icon { font-size: 1.75rem; margin-bottom: 0.45rem; }
+.hcard h4 { font-family: var(--font-head); font-size: 0.84rem; font-weight: 700; margin-bottom: 0.2rem; }
+.hcard p { font-size: 0.7rem; opacity: 0.72; }
+
+/* Scroll indicator */
 .hero-scroll {
-  position: absolute; bottom: 1.5rem; left: 50%; transform: translateX(-50%);
-  color: rgba(255,255,255,0.6); font-size: 0.75rem;
+  position: absolute; bottom: 2rem; left: 50%; transform: translateX(-50%);
   display: flex; flex-direction: column; align-items: center; gap: 6px;
-  animation: bounce-scroll 2s ease-in-out infinite;
+  color: rgba(255,255,255,0.55); font-size: 0.68rem; letter-spacing: 1px;
+  font-family: var(--font-head);
+  animation: scroll-bob 2.2s ease-in-out infinite;
 }
-@keyframes bounce-scroll { 0%,100%{transform:translateX(-50%) translateY(0)} 50%{transform:translateX(-50%) translateY(6px)} }
-.hero-scroll-line { width: 1px; height: 32px; background: linear-gradient(to bottom, rgba(255,255,255,0.5), transparent); }
+@keyframes scroll-bob { 0%,100%{transform:translateX(-50%) translateY(0)} 50%{transform:translateX(-50%) translateY(7px)} }
+.hero-scroll-line { width: 1px; height: 36px; background: linear-gradient(to bottom, rgba(255,255,255,0.45), transparent); }
 
-/* ========================
-   SECTIONS
-======================== */
-section { padding: 4rem 1.25rem; }
-.container { max-width: 1200px; margin: 0 auto; }
-.section-label {
-  display: inline-block; font-size: 0.7rem; font-weight: 700; letter-spacing: 2px;
-  text-transform: uppercase; color: var(--green); background: var(--green-light);
-  padding: 4px 12px; border-radius: 999px; margin-bottom: 0.75rem;
-}
-.section-title {
-  font-size: clamp(1.6rem, 4vw, 2.5rem); font-weight: 800;
-  color: var(--gray-900); line-height: 1.2; margin-bottom: 0.75rem; letter-spacing: -0.5px;
-}
-.section-title em { font-style: normal; color: var(--green); }
-.section-sub { font-size: 0.95rem; color: var(--gray-500); max-width: 600px; line-height: 1.7; }
-.text-center { text-align: center; }
-.section-sub.center { margin: 0 auto; }
-
-/* ========================
+/* ============================================================
    ABOUT
-======================== */
-.about { background: var(--gray-50); }
-.about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; align-items: center; }
-.about-visual { position: relative; }
-.about-img-wrap {
-  border-radius: 20px; overflow: hidden; aspect-ratio: 4/5;
+============================================================ */
+#about { background: var(--gray-50); }
+.about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(2rem, 5vw, 4rem); align-items: center; }
+.about-img-frame {
+  border-radius: var(--radius-lg); overflow: hidden;
+  aspect-ratio: 5/6;
   background: linear-gradient(135deg, var(--green-dark), var(--green));
-  position: relative;
+  position: relative; box-shadow: var(--shadow-lg);
 }
-.about-img-wrap img {
-  width: 100%; height: 100%; object-fit: cover; object-position: top;
+.about-img-frame img { width: 100%; height: 100%; object-fit: cover; object-position: center top; }
+.about-img-badge {
+  position: absolute; bottom: 1.25rem; left: 1.25rem; right: 1.25rem;
+  background: rgba(5,46,22,0.85); backdrop-filter: blur(12px);
+  border: 1px solid rgba(255,255,255,0.12); border-radius: 12px;
+  padding: 0.875rem 1rem; color: white;
+  display: flex; align-items: center; gap: 0.75rem;
 }
-.vmv-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.75rem; margin-top: 1.5rem; }
+.about-img-badge-icon { font-size: 1.4rem; flex-shrink: 0; }
+.about-img-badge-text h5 { font-family: var(--font-head); font-size: 0.8rem; font-weight: 700; margin-bottom: 0.1rem; }
+.about-img-badge-text p { font-size: 0.68rem; opacity: 0.65; }
+.about-desc { font-size: 0.96rem; color: var(--gray-600); line-height: 1.78; margin-bottom: 1.75rem; }
+.vmv-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.875rem; }
 .vmv-card {
-  background: white; border-radius: 12px; padding: 1rem;
-  border: 1px solid var(--gray-200); transition: all 0.3s;
+  background: white; border-radius: var(--radius-md); padding: 1.1rem;
+  border: 1px solid var(--gray-200); transition: all var(--transition);
 }
-.vmv-card:hover { border-color: var(--green); transform: translateY(-2px); box-shadow: 0 6px 20px rgba(22,163,74,0.1); }
-.vmv-card .icon { font-size: 1.5rem; margin-bottom: 0.4rem; }
-.vmv-card h4 { font-size: 0.8rem; font-weight: 700; color: var(--green-dark); margin-bottom: 0.3rem; text-transform: uppercase; letter-spacing: 0.5px; }
-.vmv-card p { font-size: 0.75rem; color: var(--gray-500); line-height: 1.5; }
+.vmv-card:hover { border-color: var(--green); transform: translateY(-3px); box-shadow: 0 8px 24px rgba(22,163,74,0.1); }
+.vmv-icon { font-size: 1.5rem; margin-bottom: 0.5rem; }
+.vmv-card h4 { font-family: var(--font-head); font-size: 0.75rem; font-weight: 700; color: var(--green-dark); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 0.35rem; }
+.vmv-card p { font-size: 0.78rem; color: var(--gray-500); line-height: 1.55; }
 
-/* ========================
+/* ============================================================
    FOCUS AREAS
-======================== */
-.focus-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.25rem; margin-top: 2.5rem; }
+============================================================ */
+#focus { background: white; }
+.focus-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.25rem; margin-top: 2.75rem; }
 .focus-card {
-  background: white; border-radius: 18px;
-  border: 1px solid var(--gray-200);
-  padding: 1.75rem 1.25rem;
-  transition: all 0.35s cubic-bezier(0.4,0,0.2,1);
+  border-radius: var(--radius-lg); padding: 1.75rem 1.35rem;
+  border: 1px solid var(--gray-200); background: white;
   position: relative; overflow: hidden;
+  transition: all 0.38s cubic-bezier(0.4,0,0.2,1);
 }
-.focus-card::before {
-  content: ''; position: absolute; top: 0; left: 0; right: 0; height: 4px;
-  background: var(--card-color, var(--green));
+.focus-card::after {
+  content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3.5px;
+  background: var(--accent, var(--green)); border-radius: 3.5px 3.5px 0 0;
 }
-.focus-card:hover { transform: translateY(-6px); box-shadow: 0 20px 48px rgba(0,0,0,0.1); border-color: transparent; }
-.focus-icon {
-  width: 56px; height: 56px; border-radius: 14px;
-  background: var(--card-bg, var(--green-light));
+.focus-card:hover { transform: translateY(-7px); box-shadow: 0 24px 52px rgba(0,0,0,0.1); border-color: transparent; }
+.focus-icon-wrap {
+  width: 54px; height: 54px; border-radius: 14px;
+  background: var(--icon-bg, var(--green-light));
   display: flex; align-items: center; justify-content: center;
-  font-size: 1.75rem; margin-bottom: 1rem;
+  font-size: 1.65rem; margin-bottom: 1.1rem;
 }
-.focus-card h3 { font-size: 1rem; font-weight: 700; margin-bottom: 0.6rem; color: var(--gray-800); }
-.focus-card p { font-size: 0.84rem; color: var(--gray-500); line-height: 1.65; }
+.focus-card h3 { font-family: var(--font-head); font-size: 1rem; font-weight: 700; margin-bottom: 0.6rem; color: var(--gray-800); }
+.focus-card p { font-size: 0.84rem; color: var(--gray-500); line-height: 1.68; }
 
-/* ========================
+/* ============================================================
    STATS
-======================== */
-.stats { background: linear-gradient(135deg, #0A3D1F, #15803D); color: white; padding: 3.5rem 1.25rem; }
-.stats-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 1.5rem; }
-.stat-item { text-align: center; }
-.stat-num { font-size: clamp(1.75rem, 4vw, 3rem); font-weight: 800; color: var(--green-mid); line-height: 1; margin-bottom: 0.4rem; }
-.stat-label { font-size: 0.8rem; opacity: 0.8; }
-
-/* ========================
-   TEAM
-======================== */
-.team-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem; margin-top: 2.5rem; }
-.member-card {
-  background: white; border-radius: 14px; overflow: hidden;
-  border: 1px solid var(--gray-200); transition: all 0.3s;
-  text-align: center;
+============================================================ */
+#stats {
+  background: linear-gradient(148deg, #052e16 0%, #14532d 45%, #166534 100%);
+  color: white;
 }
-.member-card:hover { transform: translateY(-4px); box-shadow: 0 10px 28px rgba(22,163,74,0.12); }
+.stats-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 2rem; }
+.stat-item { text-align: center; }
+.stat-num {
+  font-family: var(--font-head);
+  font-size: clamp(2rem, 4vw, 3.25rem);
+  font-weight: 800; color: #4ade80;
+  line-height: 1; margin-bottom: 0.5rem;
+  letter-spacing: -1px;
+}
+.stat-divider { width: 28px; height: 2px; background: rgba(74,222,128,0.4); border-radius: 2px; margin: 0.4rem auto 0.5rem; }
+.stat-label { font-size: 0.8rem; opacity: 0.72; font-family: var(--font-head); font-weight: 500; }
+
+/* ============================================================
+   TEAM
+============================================================ */
+#team { background: var(--gray-50); }
+.team-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.1rem; margin-top: 2.75rem; }
+.member-card {
+  background: white; border-radius: var(--radius-md); overflow: hidden;
+  border: 1px solid var(--gray-200); transition: all var(--transition); text-align: center;
+}
+.member-card:hover { transform: translateY(-5px); box-shadow: 0 14px 36px rgba(22,163,74,0.13); border-color: var(--green-light); }
 .member-photo {
   width: 100%; aspect-ratio: 3/4; overflow: hidden;
-  background: linear-gradient(135deg, var(--green-light), var(--green-mid));
+  background: linear-gradient(135deg, var(--green-light), #86efac);
 }
-.member-photo img {
-  width: 100%; height: 100%; object-fit: cover; object-position: top; display: block;
-}
-.member-info { padding: 0.75rem 0.6rem; }
-.member-name { font-size: 0.82rem; font-weight: 700; color: var(--gray-800); margin-bottom: 0.2rem; line-height: 1.3; }
+.member-photo img { width: 100%; height: 100%; object-fit: cover; object-position: center top; transition: transform 0.45s ease; }
+.member-card:hover .member-photo img { transform: scale(1.05); }
+.member-info { padding: 0.85rem 0.7rem; border-top: 1px solid var(--gray-100); }
+.member-name { font-family: var(--font-head); font-size: 0.83rem; font-weight: 700; color: var(--gray-800); margin-bottom: 0.2rem; line-height: 1.3; }
 .member-role { font-size: 0.68rem; color: var(--green); font-weight: 600; line-height: 1.35; }
 
-/* ========================
+/* ============================================================
    FOUNDERS
-======================== */
-.founders { background: var(--gray-900); color: white; }
-.founders-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.25rem; margin-top: 2.5rem; }
+============================================================ */
+#founders { background: var(--gray-900); color: white; }
+.founders-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.35rem; margin-top: 2.75rem; }
 .founder-card {
-  background: rgba(255,255,255,0.05); border-radius: 16px;
-  border: 1px solid rgba(255,255,255,0.1); overflow: hidden;
-  transition: all 0.3s;
+  background: rgba(255,255,255,0.04); border-radius: var(--radius-lg);
+  border: 1px solid rgba(255,255,255,0.08); overflow: hidden;
+  transition: all var(--transition);
 }
-.founder-card:hover { border-color: var(--green); transform: translateY(-4px); }
+.founder-card:hover { border-color: var(--green); transform: translateY(-5px); box-shadow: 0 16px 40px rgba(22,163,74,0.15); }
 .founder-photo {
-  width: 100%; height: 200px; overflow: hidden;
-  background: linear-gradient(135deg, rgba(22,163,74,0.3), rgba(21,128,61,0.5));
+  width: 100%; height: 210px; overflow: hidden;
+  background: linear-gradient(135deg, rgba(22,163,74,0.25), rgba(5,46,22,0.5));
 }
-.founder-photo img {
-  width: 100%; height: 100%; object-fit: cover; object-position: top; display: block;
-}
-.founder-info { padding: 1.1rem; }
-.founder-name { font-size: 0.95rem; font-weight: 700; color: white; margin-bottom: 0.2rem; }
-.founder-title { font-size: 0.75rem; color: var(--green-mid); font-weight: 600; margin-bottom: 0.6rem; }
-.founder-bio { font-size: 0.78rem; color: rgba(255,255,255,0.65); line-height: 1.6; }
+.founder-photo img { width: 100%; height: 100%; object-fit: cover; object-position: center top; transition: transform 0.45s ease; }
+.founder-card:hover .founder-photo img { transform: scale(1.06); }
+.founder-info { padding: 1.25rem; }
+.founder-name { font-family: var(--font-head); font-size: 0.97rem; font-weight: 700; color: white; margin-bottom: 0.25rem; }
+.founder-title { font-size: 0.72rem; color: #4ade80; font-weight: 700; font-family: var(--font-head); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 0.65rem; }
+.founder-bio { font-size: 0.8rem; color: rgba(255,255,255,0.58); line-height: 1.65; }
 
-/* ========================
+/* ============================================================
    PARTNERS
-======================== */
-.partners-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.25rem; margin-top: 2.5rem; }
+============================================================ */
+#partners { background: white; }
+.partners-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.1rem; margin-top: 2.75rem; }
 .partner-card {
-  background: white; border-radius: 14px; padding: 1.5rem 1rem;
+  background: white; border-radius: var(--radius-md); padding: 1.5rem 1rem;
   border: 1px solid var(--gray-200); text-align: center;
-  transition: all 0.3s; display: flex; flex-direction: column; align-items: center; gap: 0.6rem;
+  transition: all var(--transition);
+  display: flex; flex-direction: column; align-items: center; gap: 0.7rem;
 }
-.partner-card:hover { border-color: var(--green); transform: translateY(-3px); box-shadow: 0 8px 20px rgba(22,163,74,0.1); }
-.partner-logo {
-  width: 64px; height: 64px; border-radius: 50%;
+.partner-card:hover { border-color: var(--green); transform: translateY(-3px); box-shadow: 0 10px 28px rgba(22,163,74,0.1); }
+.partner-logo-wrap {
+  width: 68px; height: 68px; border-radius: 50%;
   background: linear-gradient(135deg, var(--green-light), #d1fae5);
   display: flex; align-items: center; justify-content: center; overflow: hidden;
 }
-.partner-logo img { max-height: 44px; width: auto; max-width: 56px; object-fit: contain; }
-.partner-name { font-size: 0.82rem; font-weight: 700; color: var(--gray-700); line-height: 1.3; }
+.partner-logo-wrap img { max-height: 48px; width: auto; max-width: 60px; object-fit: contain; }
+.partner-name { font-family: var(--font-head); font-size: 0.8rem; font-weight: 700; color: var(--gray-700); line-height: 1.35; }
 
-/* ========================
+/* ============================================================
    PROJECTS
-======================== */
-.projects-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.25rem; margin-top: 2.5rem; }
+============================================================ */
+#projects { background: var(--gray-50); }
+.projects-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.35rem; margin-top: 2.75rem; }
 .project-card {
-  background: white; border-radius: 18px; overflow: hidden;
-  border: 1px solid var(--gray-200); transition: all 0.3s;
+  background: white; border-radius: var(--radius-lg); overflow: hidden;
+  border: 1px solid var(--gray-200); transition: all var(--transition);
 }
-.project-card:hover { transform: translateY(-5px); box-shadow: 0 14px 36px rgba(0,0,0,0.09); }
-.project-img { height: 180px; position: relative; overflow: hidden; }
-.project-img-bg {
-  width: 100%; height: 100%;
-  display: flex; align-items: center; justify-content: center;
-  font-size: 3.5rem;
-}
+.project-card:hover { transform: translateY(-6px); box-shadow: 0 18px 44px rgba(0,0,0,0.1); }
+.project-thumb { height: 185px; position: relative; overflow: hidden; display: flex; align-items: center; justify-content: center; font-size: 3.5rem; }
 .project-tag {
-  position: absolute; top: 0.75rem; left: 0.75rem;
+  position: absolute; top: 0.875rem; left: 0.875rem;
   background: var(--green); color: white;
-  font-size: 0.65rem; font-weight: 700; padding: 3px 10px; border-radius: 999px;
+  font-family: var(--font-head); font-size: 0.63rem; font-weight: 700;
+  padding: 4px 11px; border-radius: 999px; letter-spacing: 0.5px;
 }
-.project-body { padding: 1.25rem; }
-.project-date { font-size: 0.72rem; color: var(--gray-400); margin-bottom: 0.4rem; }
-.project-title { font-size: 0.97rem; font-weight: 700; color: var(--gray-800); margin-bottom: 0.4rem; line-height: 1.4; }
-.project-desc { font-size: 0.82rem; color: var(--gray-500); line-height: 1.6; }
+.project-body { padding: 1.35rem; }
+.project-date { font-size: 0.7rem; color: var(--gray-400); font-weight: 600; font-family: var(--font-head); letter-spacing: 0.3px; margin-bottom: 0.45rem; }
+.project-title { font-family: var(--font-head); font-size: 0.97rem; font-weight: 700; color: var(--gray-800); margin-bottom: 0.45rem; line-height: 1.4; }
+.project-desc { font-size: 0.83rem; color: var(--gray-500); line-height: 1.65; }
 
-/* ========================
+/* ============================================================
    GALLERY
-======================== */
-.gallery { background: var(--gray-50); }
-/* Pattern: 2 | wide | 2 | wide | 2 | wide  using a 2-col base */
+============================================================ */
+#gallery { background: white; }
 .gallery-grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  gap: 10px; margin-top: 2.5rem;
+  gap: 10px; margin-top: 2.75rem;
 }
 .gallery-item {
-  border-radius: 10px; overflow: hidden; cursor: pointer;
-  position: relative; transition: all 0.3s; aspect-ratio: 1;
+  border-radius: 12px; overflow: hidden; cursor: pointer;
+  position: relative; transition: transform 0.3s ease;
+  aspect-ratio: 1;
 }
-/* Every 3rd item (positions 3, 6) spans both columns and becomes wide */
 .gallery-item:nth-child(3n) { grid-column: span 2; aspect-ratio: 16/7; }
 .gallery-item:hover { transform: scale(1.02); }
-.gallery-img { width: 100%; height: 100%; }
-.gallery-img img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 0.4s ease; }
+.gallery-item img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.45s ease; display: block; }
 .gallery-item:hover img { transform: scale(1.08); }
 .gallery-overlay {
-  position: absolute; inset: 0; background: rgba(22,163,74,0.55);
+  position: absolute; inset: 0;
+  background: rgba(5,46,22,0.6);
   display: flex; align-items: center; justify-content: center;
-  color: white; font-size: 1.75rem;
-  opacity: 0; transition: 0.3s;
+  font-size: 1.75rem; color: white;
+  opacity: 0; transition: opacity 0.3s;
 }
 .gallery-item:hover .gallery-overlay { opacity: 1; }
 
-/* ========================
+/* ============================================================
+   NEWS
+============================================================ */
+#news { background: var(--gray-50); }
+.news-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.25rem; margin-top: 2.75rem; }
+.news-card {
+  background: white; border-radius: var(--radius-md); overflow: hidden;
+  border: 1px solid var(--gray-200); transition: all var(--transition);
+}
+.news-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-md); }
+.news-thumb { height: 145px; display: flex; align-items: center; justify-content: center; font-size: 2.75rem; }
+.news-body { padding: 1.2rem; }
+.news-date { font-family: var(--font-head); font-size: 0.68rem; font-weight: 600; color: var(--gray-400); margin-bottom: 0.4rem; letter-spacing: 0.3px; }
+.news-title { font-family: var(--font-head); font-size: 0.93rem; font-weight: 700; color: var(--gray-800); margin-bottom: 0.4rem; line-height: 1.4; }
+.news-excerpt { font-size: 0.79rem; color: var(--gray-500); line-height: 1.65; }
+
+/* ============================================================
+   CTA BAND
+============================================================ */
+#cta {
+  background: linear-gradient(135deg, var(--green-dark) 0%, var(--green) 100%);
+  text-align: center; color: white; padding: clamp(3rem, 6vw, 5rem) 0;
+}
+#cta h2 { font-family: var(--font-head); font-size: clamp(1.75rem, 4vw, 3rem); font-weight: 800; margin-bottom: 0.875rem; letter-spacing: -0.5px; }
+#cta p { font-size: 1rem; opacity: 0.83; margin-bottom: 2.25rem; max-width: 520px; margin-left: auto; margin-right: auto; }
+.btn-cta {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: white; color: var(--green-dark);
+  padding: 14px 36px; border-radius: var(--radius-md);
+  font-family: var(--font-head); font-weight: 700; font-size: 0.97rem;
+  border: none; cursor: pointer; transition: all var(--transition);
+}
+.btn-cta:hover { transform: translateY(-3px); box-shadow: 0 12px 32px rgba(0,0,0,0.22); }
+
+/* ============================================================
+   CONTACT
+============================================================ */
+#contact { background: var(--gray-50); }
+.contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(2rem, 5vw, 4rem); align-items: start; margin-top: 2.75rem; }
+.contact-form-box {
+  background: white; border-radius: var(--radius-lg); padding: clamp(1.25rem, 3vw, 2rem);
+  border: 1px solid var(--gray-200); box-shadow: var(--shadow-sm);
+}
+.contact-form-box h3 { font-family: var(--font-head); font-size: 1.1rem; font-weight: 700; margin-bottom: 1.35rem; color: var(--gray-800); }
+.form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+.form-group { margin-bottom: 1.1rem; }
+.form-group label { display: block; font-family: var(--font-head); font-size: 0.76rem; font-weight: 600; color: var(--gray-700); margin-bottom: 0.375rem; }
+.form-group input,
+.form-group textarea {
+  width: 100%; padding: 10px 13px;
+  border-radius: var(--radius-sm); border: 1.5px solid var(--gray-200);
+  font-family: var(--font-body); font-size: 0.88rem;
+  color: var(--gray-800); background: var(--gray-50);
+  outline: none; transition: border-color var(--transition), background var(--transition);
+}
+.form-group input:focus, .form-group textarea:focus {
+  border-color: var(--green); background: white;
+  box-shadow: 0 0 0 3px rgba(22,163,74,0.08);
+}
+.form-group textarea { resize: vertical; min-height: 115px; }
+.btn-submit {
+  width: 100%; background: var(--green); color: white;
+  padding: 13px; border-radius: var(--radius-md);
+  font-family: var(--font-head); font-weight: 700; font-size: 0.95rem;
+  border: none; cursor: pointer; transition: all var(--transition);
+}
+.btn-submit:hover { background: var(--green-dark); box-shadow: 0 6px 20px rgba(22,163,74,0.3); }
+.contact-info-panel h3 { font-family: var(--font-head); font-size: 1.3rem; font-weight: 700; color: var(--gray-800); margin-bottom: 1.5rem; }
+.info-item { display: flex; gap: 0.875rem; margin-bottom: 1.35rem; align-items: flex-start; }
+.info-icon {
+  width: 42px; height: 42px; border-radius: 11px;
+  background: var(--green-light); display: flex; align-items: center; justify-content: center;
+  font-size: 1.1rem; flex-shrink: 0;
+}
+.info-text h4 { font-family: var(--font-head); font-size: 0.78rem; font-weight: 700; color: var(--gray-700); margin-bottom: 0.15rem; }
+.info-text p, .info-text a { font-size: 0.84rem; color: var(--gray-500); }
+.info-text a:hover { color: var(--green); }
+.map-embed {
+  margin-top: 1.35rem; border-radius: var(--radius-md); overflow: hidden;
+  height: 215px; border: 1px solid var(--gray-200);
+}
+.map-embed iframe { width: 100%; height: 100%; border: 0; display: block; }
+
+/* ============================================================
+   FOOTER
+============================================================ */
+footer {
+  background: var(--gray-900); color: white;
+  padding: clamp(2.5rem, 5vw, 4rem) 0 1.75rem;
+}
+.footer-grid { display: grid; grid-template-columns: 2.2fr 1fr 1fr 1fr; gap: 2.5rem; margin-bottom: 2.75rem; }
+.footer-brand img { height: 42px; width: auto; margin-bottom: 1rem; }
+.footer-brand p { font-size: 0.82rem; color: rgba(255,255,255,0.48); line-height: 1.72; max-width: 250px; margin-bottom: 1.25rem; }
+.footer-socials { display: flex; gap: 0.5rem; flex-wrap: wrap; }
+.footer-social {
+  width: 36px; height: 36px; border-radius: 9px;
+  background: rgba(255,255,255,0.07); display: flex; align-items: center; justify-content: center;
+  font-size: 0.88rem; color: rgba(255,255,255,0.55); transition: all var(--transition);
+}
+.footer-social:hover { background: var(--green); color: white; transform: translateY(-2px); }
+.footer-col h4 {
+  font-family: var(--font-head); font-size: 0.75rem; font-weight: 700;
+  letter-spacing: 1.5px; text-transform: uppercase; color: rgba(255,255,255,0.85); margin-bottom: 1.1rem;
+}
+.footer-col ul li { margin-bottom: 0.55rem; }
+.footer-col ul li a { font-size: 0.82rem; color: rgba(255,255,255,0.48); transition: color var(--transition); }
+.footer-col ul li a:hover { color: #4ade80; }
+.footer-bottom {
+  border-top: 1px solid rgba(255,255,255,0.08); padding-top: 1.75rem;
+  display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 0.75rem;
+}
+.footer-bottom p { font-size: 0.76rem; color: rgba(255,255,255,0.38); }
+
+/* ============================================================
    LIGHTBOX
-======================== */
+============================================================ */
 .lightbox {
   display: none; position: fixed; inset: 0; z-index: 9999;
-  background: rgba(0,0,0,0.92); align-items: center; justify-content: center;
-  padding: 1rem;
+  background: rgba(0,0,0,0.93); align-items: center; justify-content: center; padding: 1rem;
 }
 .lightbox.open { display: flex; }
 .lightbox-inner {
-  max-width: min(90vw, 900px); max-height: 90vh;
-  border-radius: 12px; overflow: hidden;
+  max-width: min(92vw, 920px); max-height: 90vh;
+  border-radius: var(--radius-md); overflow: hidden;
   display: flex; align-items: center; justify-content: center;
 }
-.lightbox-inner img { max-width: 100%; max-height: 90vh; object-fit: contain; border-radius: 12px; }
+.lightbox-inner img { max-width: 100%; max-height: 90vh; object-fit: contain; border-radius: var(--radius-md); }
 .lightbox-close {
   position: fixed; top: 1rem; right: 1rem;
-  background: white; border: none; width: 40px; height: 40px;
-  border-radius: 50%; cursor: pointer; font-size: 1.1rem;
+  background: white; border: none; width: 42px; height: 42px;
+  border-radius: 50%; cursor: pointer; font-size: 1rem;
   display: flex; align-items: center; justify-content: center;
-  z-index: 10000; box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+  z-index: 10000; box-shadow: 0 4px 16px rgba(0,0,0,0.3);
+  transition: all var(--transition);
 }
+.lightbox-close:hover { background: var(--gray-100); transform: scale(1.1); }
 
-/* ========================
-   JOIN CTA
-======================== */
-.join { background: linear-gradient(135deg, var(--green-dark) 0%, var(--green) 100%); color: white; text-align: center; padding: 4rem 1.25rem; }
-.join h2 { font-size: clamp(1.75rem, 4vw, 3rem); font-weight: 800; margin-bottom: 0.75rem; }
-.join p { font-size: 1rem; opacity: 0.85; margin-bottom: 2rem; max-width: 560px; margin-left: auto; margin-right: auto; }
-.btn-white {
-  background: white; color: var(--green-dark);
-  padding: 14px 36px; border-radius: 12px; font-weight: 700; font-size: 1rem;
-  border: none; cursor: pointer; transition: all 0.25s;
-  display: inline-flex; align-items: center; gap: 8px;
-}
-.btn-white:hover { transform: translateY(-2px); box-shadow: 0 10px 28px rgba(0,0,0,0.2); }
-
-/* ========================
-   NEWS
-======================== */
-.news-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.25rem; margin-top: 2.5rem; }
-.news-card {
-  background: white; border-radius: 14px; overflow: hidden;
-  border: 1px solid var(--gray-200); transition: all 0.3s;
-}
-.news-card:hover { transform: translateY(-3px); box-shadow: 0 10px 28px rgba(0,0,0,0.08); }
-.news-img { height: 140px; display: flex; align-items: center; justify-content: center; font-size: 2.75rem; }
-.news-body { padding: 1.1rem; }
-.news-date { font-size: 0.7rem; color: var(--gray-400); margin-bottom: 0.4rem; }
-.news-title { font-size: 0.92rem; font-weight: 700; color: var(--gray-800); margin-bottom: 0.4rem; line-height: 1.4; }
-.news-excerpt { font-size: 0.78rem; color: var(--gray-500); line-height: 1.6; }
-
-/* ========================
-   CONTACT
-======================== */
-.contact { background: var(--gray-50); }
-.contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; align-items: start; }
-.contact-form { background: white; border-radius: 18px; padding: 1.75rem; border: 1px solid var(--gray-200); }
-.form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
-.form-group { margin-bottom: 1.1rem; }
-.form-group label { display: block; font-size: 0.78rem; font-weight: 600; color: var(--gray-700); margin-bottom: 0.35rem; }
-.form-group input, .form-group textarea, .form-group select {
-  width: 100%; padding: 10px 12px; border-radius: 8px;
-  border: 1px solid var(--gray-200); font-family: inherit; font-size: 0.875rem;
-  color: var(--gray-800); transition: border-color 0.2s; background: var(--gray-50); outline: none;
-}
-.form-group input:focus, .form-group textarea:focus { border-color: var(--green); background: white; }
-.form-group textarea { resize: vertical; min-height: 110px; }
-.btn-submit {
-  width: 100%; background: var(--green); color: white;
-  padding: 12px; border-radius: 10px; font-weight: 700; font-size: 0.95rem;
-  border: none; cursor: pointer; transition: all 0.25s;
-}
-.btn-submit:hover { background: var(--green-dark); }
-.contact-info h3 { font-size: 1.3rem; font-weight: 700; margin-bottom: 1.25rem; color: var(--gray-800); }
-.info-item { display: flex; gap: 0.875rem; margin-bottom: 1.25rem; align-items: flex-start; }
-.info-icon { width: 40px; height: 40px; border-radius: 10px; background: var(--green-light); display: flex; align-items: center; justify-content: center; font-size: 1.1rem; flex-shrink: 0; }
-.info-text h4 { font-size: 0.8rem; font-weight: 700; color: var(--gray-700); margin-bottom: 0.15rem; }
-.info-text p, .info-text a { font-size: 0.82rem; color: var(--gray-500); text-decoration: none; }
-.map-placeholder {
-  margin-top: 1.25rem; border-radius: 14px; overflow: hidden;
-  height: 220px; background: var(--gray-200); border: 1px solid var(--gray-200);
-}
-.map-placeholder iframe { width: 100%; height: 100%; border: 0; display: block; }
-
-/* ========================
-   FOOTER
-======================== */
-footer { background: var(--gray-900); color: white; padding: 3.5rem 1.25rem 2rem; }
-.footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 2.5rem; margin-bottom: 2.5rem; }
-.footer-brand p { font-size: 0.82rem; color: rgba(255,255,255,0.5); margin: 0.875rem 0; line-height: 1.7; max-width: 260px; }
-.footer-socials { display: flex; gap: 0.4rem; flex-wrap: wrap; }
-.footer-social {
-  width: 34px; height: 34px; border-radius: 8px;
-  background: rgba(255,255,255,0.08); display: flex; align-items: center; justify-content: center;
-  font-size: 0.9rem; text-decoration: none; color: rgba(255,255,255,0.6); transition: all 0.2s;
-}
-.footer-social:hover { background: var(--green); color: white; }
-.footer-col h4 { font-size: 0.8rem; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: rgba(255,255,255,0.9); margin-bottom: 1rem; }
-.footer-col ul { list-style: none; }
-.footer-col ul li { margin-bottom: 0.5rem; }
-.footer-col ul li a { font-size: 0.82rem; color: rgba(255,255,255,0.5); text-decoration: none; transition: color 0.2s; }
-.footer-col ul li a:hover { color: var(--green-mid); }
-.footer-bottom { border-top: 1px solid rgba(255,255,255,0.1); padding-top: 1.75rem; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 0.5rem; }
-.footer-bottom p { font-size: 0.75rem; color: rgba(255,255,255,0.4); }
-
-/* ========================
+/* ============================================================
    MODAL
-======================== */
+============================================================ */
 .modal-overlay {
   display: none; position: fixed; inset: 0; z-index: 9998;
-  background: rgba(0,0,0,0.6); backdrop-filter: blur(4px); -webkit-backdrop-filter: blur(4px);
+  background: rgba(0,0,0,0.55); backdrop-filter: blur(5px);
   align-items: center; justify-content: center; padding: 1.25rem;
 }
 .modal-overlay.open { display: flex; }
 .modal-box {
-  background: white; border-radius: 20px; padding: 2.25rem; width: 100%; max-width: 480px;
-  position: relative; animation: modal-in 0.3s cubic-bezier(0.34,1.56,0.64,1);
+  background: white; border-radius: var(--radius-lg);
+  padding: clamp(1.5rem, 4vw, 2.25rem); width: 100%; max-width: 460px;
+  position: relative; animation: modal-pop 0.32s cubic-bezier(0.34,1.56,0.64,1) forwards;
 }
-@keyframes modal-in { from{opacity:0;transform:scale(0.92) translateY(20px)} to{opacity:1;transform:scale(1) translateY(0)} }
-.modal-close { position: absolute; top: 1rem; right: 1rem; background: var(--gray-100); border: none; width: 34px; height: 34px; border-radius: 50%; cursor: pointer; font-size: 0.95rem; display: flex; align-items: center; justify-content: center; }
-.modal-icon { font-size: 2.75rem; margin-bottom: 0.75rem; }
-.modal-box h3 { font-size: 1.3rem; font-weight: 800; margin-bottom: 0.4rem; color: var(--gray-800); }
-.modal-box p { font-size: 0.875rem; color: var(--gray-500); margin-bottom: 1.25rem; line-height: 1.6; }
-.btn-modal-primary {
+@keyframes modal-pop { from{opacity:0;transform:scale(0.9) translateY(20px)} to{opacity:1;transform:scale(1) translateY(0)} }
+.modal-close {
+  position: absolute; top: 1rem; right: 1rem;
+  background: var(--gray-100); border: none; width: 34px; height: 34px;
+  border-radius: 50%; cursor: pointer; font-size: 0.9rem;
+  display: flex; align-items: center; justify-content: center;
+  transition: all var(--transition);
+}
+.modal-close:hover { background: var(--gray-200); }
+.modal-icon { font-size: 2.75rem; margin-bottom: 0.875rem; }
+.modal-box h3 { font-family: var(--font-head); font-size: 1.35rem; font-weight: 800; margin-bottom: 0.5rem; color: var(--gray-800); }
+.modal-box .modal-desc { font-size: 0.875rem; color: var(--gray-500); margin-bottom: 1.5rem; line-height: 1.65; }
+.btn-modal {
   display: inline-flex; align-items: center; gap: 8px;
   background: var(--green); color: white;
-  padding: 11px 24px; border-radius: 10px; font-weight: 700; font-size: 0.92rem;
-  text-decoration: none; transition: all 0.25s; border: none; cursor: pointer;
+  padding: 12px 26px; border-radius: var(--radius-md);
+  font-family: var(--font-head); font-weight: 700; font-size: 0.92rem;
+  border: none; cursor: pointer; transition: all var(--transition);
+  text-decoration: none;
 }
-.btn-modal-primary:hover { background: var(--green-dark); }
+.btn-modal:hover { background: var(--green-dark); box-shadow: 0 6px 20px rgba(22,163,74,0.3); }
+.modal-note { margin-top: 1rem; font-size: 0.75rem; color: var(--gray-400); }
 
-/* ========================
-   ANIMATIONS
-======================== */
-.reveal { opacity: 0; transform: translateY(24px); transition: opacity 0.55s ease, transform 0.55s ease; }
-.reveal.visible { opacity: 1; transform: translateY(0); }
-
-/* ========================
+/* ============================================================
    TOAST
-======================== */
+============================================================ */
 .toast {
-  position: fixed; bottom: 1.5rem; left: 50%; transform: translateX(-50%) translateY(100px);
-  background: var(--gray-800); color: white; padding: 11px 22px; border-radius: 10px;
-  font-size: 0.875rem; z-index: 9999; transition: transform 0.4s cubic-bezier(0.34,1.56,0.64,1);
+  position: fixed; bottom: 1.5rem; left: 50%;
+  transform: translateX(-50%) translateY(80px);
+  background: var(--gray-800); color: white;
+  padding: 11px 24px; border-radius: var(--radius-md);
+  font-family: var(--font-head); font-size: 0.875rem; font-weight: 600;
+  z-index: 9999; transition: transform 0.4s cubic-bezier(0.34,1.56,0.64,1);
   display: flex; align-items: center; gap: 8px; white-space: nowrap;
+  box-shadow: var(--shadow-md);
 }
 .toast.show { transform: translateX(-50%) translateY(0); }
 
-/* ========================
-   TABLET (≤1024px)
-======================== */
+/* ============================================================
+   REVEAL ANIMATION
+============================================================ */
+.reveal { opacity: 0; transform: translateY(28px); transition: opacity 0.58s ease, transform 0.58s ease; }
+.reveal.visible { opacity: 1; transform: translateY(0); }
+
+/* ============================================================
+   TABLET ≤ 1024px
+============================================================ */
 @media (max-width: 1024px) {
   .focus-grid { grid-template-columns: repeat(2, 1fr); }
   .stats-grid { grid-template-columns: repeat(3, 1fr); }
@@ -540,245 +673,238 @@ footer { background: var(--gray-900); color: white; padding: 3.5rem 1.25rem 2rem
   .footer-grid { grid-template-columns: 1fr 1fr; gap: 2rem; }
 }
 
-/* ========================
-   MOBILE (≤768px)
-======================== */
+/* ============================================================
+   MOBILE ≤ 768px
+============================================================ */
 @media (max-width: 768px) {
-  section { padding: 3rem 1rem; }
+  :root { --nav-h: 60px; }
 
-  /* NAV */
+  /* Nav */
   .nav-links { display: none; }
   .hamburger { display: flex; }
   .btn-nav { padding: 7px 14px; font-size: 0.78rem; }
 
-  /* HERO */
-  .hero-content {
-    grid-template-columns: 1fr; text-align: center;
-    padding: 3rem 1rem 4.5rem; gap: 0;
-  }
+  /* Hero */
+  .hero-inner { grid-template-columns: 1fr; text-align: center; }
   .hero-visual { display: none; }
-  .hero-btns { justify-content: center; }
-  .hero h1 { font-size: clamp(1.75rem, 7vw, 2.4rem); }
-  .hero p { font-size: 0.92rem; max-width: 100%; }
-  .hero-badge { font-size: 0.7rem; }
-  .btn-primary, .btn-outline { padding: 11px 20px; font-size: 0.875rem; }
+  .hero-desc { margin-left: auto; margin-right: auto; }
+  .hero-actions { justify-content: center; }
+  .hero-title { letter-spacing: -0.5px; }
 
-  /* ABOUT */
-  .about-grid { grid-template-columns: 1fr; gap: 2rem; }
-  .about-img-wrap { aspect-ratio: 16/9; }
-  .vmv-grid { grid-template-columns: 1fr; gap: 0.6rem; }
+  /* About */
+  .about-grid { grid-template-columns: 1fr; }
+  .about-img-frame { aspect-ratio: 16/10; }
+  .vmv-grid { grid-template-columns: 1fr; }
 
-  /* FOCUS */
-  .focus-grid { grid-template-columns: 1fr; gap: 1rem; }
+  /* Focus */
+  .focus-grid { grid-template-columns: 1fr; }
 
-  /* STATS */
-  .stats-grid { grid-template-columns: repeat(2, 1fr); gap: 1.5rem; }
-  .stat-num { font-size: 2rem; }
+  /* Stats */
+  .stats-grid { grid-template-columns: repeat(2, 1fr); gap: 1.75rem; }
 
-  /* TEAM */
-  .team-grid { grid-template-columns: repeat(2, 1fr); gap: 1rem; }
-  .member-name { font-size: 0.85rem; }
-  .member-role { font-size: 0.7rem; }
+  /* Team */
+  .team-grid { grid-template-columns: repeat(2, 1fr); }
 
-  /* FOUNDERS */
-  .founders-grid { grid-template-columns: 1fr; gap: 1.25rem; }
-  .founder-photo { height: 200px; }
+  /* Founders */
+  .founders-grid { grid-template-columns: 1fr; }
 
-  /* PARTNERS */
-  .partners-grid { grid-template-columns: repeat(2, 1fr); gap: 0.875rem; }
+  /* Partners */
+  .partners-grid { grid-template-columns: repeat(2, 1fr); }
 
-  /* PROJECTS */
-  .projects-grid { grid-template-columns: 1fr; gap: 1rem; }
+  /* Projects */
+  .projects-grid { grid-template-columns: 1fr; }
 
-  /* GALLERY */
-  .gallery-grid { gap: 8px; }
-  /* pattern stays same on mobile - 2 normal, 1 wide repeating */
+  /* News */
+  .news-grid { grid-template-columns: 1fr; }
 
-  /* NEWS */
-  .news-grid { grid-template-columns: 1fr; gap: 1rem; }
+  /* Contact */
+  .contact-grid { grid-template-columns: 1fr; }
+  .form-row { grid-template-columns: 1fr; }
 
-  /* CONTACT */
-  .contact-grid { grid-template-columns: 1fr; gap: 2rem; }
-  .form-row { grid-template-columns: 1fr; gap: 0; }
-
-  /* FOOTER */
+  /* Footer */
   .footer-grid { grid-template-columns: 1fr; gap: 1.75rem; }
   .footer-brand p { max-width: 100%; }
   .footer-bottom { flex-direction: column; text-align: center; }
 }
 
-/* ========================
-   SMALL MOBILE (≤480px)
-======================== */
+/* ============================================================
+   SMALL MOBILE ≤ 480px
+============================================================ */
 @media (max-width: 480px) {
-  section { padding: 2.5rem 0.875rem; }
-
-  /* NAV */
-  .nav-inner { height: 58px; padding: 0 0.875rem; }
-  .nav-logo img { height: 38px; }
-
-  /* HERO */
-  .hero { padding-top: 58px; }
-  .hero-content { padding: 2.5rem 0.875rem 4rem; }
-  .hero h1 { font-size: clamp(1.6rem, 8vw, 2.2rem); letter-spacing: -0.3px; }
-  .hero-btns { flex-direction: column; align-items: center; gap: 0.6rem; }
-  .btn-primary, .btn-outline { width: 100%; justify-content: center; }
-
-  /* STATS */
-  .stats { padding: 2.5rem 0.875rem; }
-  .stats-grid { grid-template-columns: repeat(2, 1fr); gap: 1.25rem; }
-  /* last stat full width if 5 items */
-  .stat-item:last-child:nth-child(odd) { grid-column: span 2; }
-
-  /* TEAM */
-  .team-grid { grid-template-columns: 1fr 1fr; gap: 0.75rem; }
-
-  /* GALLERY */
-  .gallery-grid { grid-template-columns: 1fr 1fr; gap: 6px; }
-  .gallery-item:nth-child(3), .gallery-item:nth-child(7) { grid-column: span 2; }
-
-  /* PARTNERS */
-  .partners-grid { grid-template-columns: repeat(2, 1fr); gap: 0.75rem; }
-  .partner-card { padding: 1rem 0.75rem; }
-
-  /* MODAL */
-  .modal-box { padding: 1.75rem 1.25rem; border-radius: 16px; }
-
-  /* SECTION TITLE */
-  .section-title { font-size: clamp(1.45rem, 6vw, 1.9rem); }
-
-  /* CONTACT FORM */
-  .contact-form { padding: 1.25rem; }
-}
-
-/* ========================
-   VERY SMALL (≤360px)
-======================== */
-@media (max-width: 360px) {
-  .hero h1 { font-size: 1.55rem; }
-  .team-grid { grid-template-columns: 1fr; }
+  .hero-actions { flex-direction: column; align-items: center; }
+  .btn-hero-primary, .btn-hero-outline { width: 100%; justify-content: center; }
   .stats-grid { grid-template-columns: 1fr 1fr; }
+  .stat-item:last-child:nth-child(odd) { grid-column: span 2; }
+  .partners-grid { grid-template-columns: 1fr 1fr; }
+  .team-grid { grid-template-columns: 1fr 1fr; }
+  .gallery-grid { gap: 7px; }
+  .modal-box { border-radius: 16px; }
 }
 
-/* ========================
-   TOUCH / HOVER IMPROVEMENTS
-======================== */
+/* ============================================================
+   VERY SMALL ≤ 360px
+============================================================ */
+@media (max-width: 360px) {
+  .team-grid { grid-template-columns: 1fr; }
+  .stats-grid { grid-template-columns: 1fr; }
+  .section-title { font-size: 1.5rem; }
+}
+
+/* ============================================================
+   TOUCH DEVICES — disable hover lifts
+============================================================ */
 @media (hover: none) {
   .focus-card:hover,
   .member-card:hover,
   .founder-card:hover,
   .partner-card:hover,
   .project-card:hover,
-  .news-card:hover { transform: none; }
+  .news-card:hover,
+  .vmv-card:hover { transform: none; box-shadow: none; }
   .gallery-overlay { display: none; }
+}
+
+/* ============================================================
+   HIGH CONTRAST / PRINT
+============================================================ */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation: none !important; transition: none !important; }
 }
 </style>
 </head>
 <body>
 
-<!-- NAV -->
-<nav id="mainNav">
+<a href="#main" class="skip-link">Skip to main content</a>
+
+<!-- ============================================================
+     NAV
+============================================================ -->
+<nav id="mainNav" role="navigation" aria-label="Main navigation">
   <div class="nav-inner">
-    <a href="/" class="nav-logo">
-      <img src="https://i.ibb.co.com/qYYFBZgb/Cydo-org.png" alt="CYDO">
+    <a href="/" class="nav-logo" aria-label="CYDO Home">
+      <img src="https://i.ibb.co.com/qYYFBZgb/Cydo-org.png" alt="CYDO Logo" width="160" height="42">
     </a>
-    <ul class="nav-links" id="navLinks">
+    <ul class="nav-links" role="list">
       <li><a href="#about">About</a></li>
       <li><a href="#focus">Focus Areas</a></li>
       <li><a href="#team">Team</a></li>
       <li><a href="#projects">Projects</a></li>
+      <li><a href="#gallery">Gallery</a></li>
       <li><a href="#contact">Contact</a></li>
     </ul>
     <div class="nav-right">
-      <button class="btn-nav" onclick="openModal()">Join Our Team</button>
-      <button class="hamburger" id="hamburger" onclick="toggleMenu()" aria-label="Menu" aria-expanded="false">
+      <button class="btn-nav" onclick="openModal()" aria-label="Join our team">Join Our Team</button>
+      <button class="hamburger" id="hamburger" onclick="toggleMenu()" aria-label="Toggle menu" aria-expanded="false" aria-controls="mobileMenu">
         <span></span><span></span><span></span>
       </button>
     </div>
   </div>
-  <div class="mobile-menu" id="mobileMenu">
-    <a href="#about" onclick="closeMenu()">🌱 About</a>
-    <a href="#focus" onclick="closeMenu()">🎯 Focus Areas</a>
-    <a href="#team" onclick="closeMenu()">👥 Team</a>
-    <a href="#founders" onclick="closeMenu()">⭐ Founders</a>
-    <a href="#projects" onclick="closeMenu()">📋 Projects</a>
-    <a href="#gallery" onclick="closeMenu()">📸 Gallery</a>
-    <a href="#news" onclick="closeMenu()">📰 News</a>
-    <a href="#contact" onclick="closeMenu()">✉️ Contact</a>
-  </div>
 </nav>
 
-<!-- HERO -->
-<section class="hero" id="home">
-  <div class="hero-bg"></div>
-  <div class="hero-pattern"></div>
-  <div class="hero-content container">
-    <div class="hero-text">
-      <div class="hero-badge">
-        <span></span>
-        Bangladesh's Youth Climate Movement
-      </div>
-      <h1>Empowering Youth <em>Protecting</em> Tomorrow</h1>
-      <p>CYDO unites passionate young leaders across Bangladesh to drive climate action, advance SRHR awareness, promote quality education, and build sustainable communities.</p>
-      <div class="hero-btns">
-        <button class="btn-primary" onclick="openModal()">Join Our Team</button>
-        <a href="#about" class="btn-outline">Learn More</a>
-      </div>
-    </div>
-    <div class="hero-visual">
-      <div class="hero-card-stack">
-        <div class="hero-card">
-          <div class="hero-card-icon">♻️</div>
-          <h4>Waste Management</h4>
-          <p>Clean communities</p>
+<!-- Mobile drawer -->
+<div class="mobile-menu" id="mobileMenu" role="menu">
+  <a href="#about" onclick="closeMenu()" role="menuitem">🌱 About</a>
+  <a href="#focus" onclick="closeMenu()" role="menuitem">🎯 Focus Areas</a>
+  <a href="#team" onclick="closeMenu()" role="menuitem">👥 Team</a>
+  <a href="#founders" onclick="closeMenu()" role="menuitem">⭐ Founders</a>
+  <a href="#projects" onclick="closeMenu()" role="menuitem">📋 Projects</a>
+  <a href="#gallery" onclick="closeMenu()" role="menuitem">📸 Gallery</a>
+  <a href="#news" onclick="closeMenu()" role="menuitem">📰 News</a>
+  <a href="#contact" onclick="closeMenu()" role="menuitem">✉️ Contact</a>
+  <button class="mobile-menu-join" onclick="closeMenu();openModal();">🌿 Join Our Team</button>
+</div>
+
+<main id="main">
+
+<!-- ============================================================
+     HERO
+============================================================ -->
+<section class="hero" id="home" aria-label="Hero">
+  <div class="hero-noise" aria-hidden="true"></div>
+  <div class="hero-orbs" aria-hidden="true">
+    <div class="hero-orb hero-orb-1"></div>
+    <div class="hero-orb hero-orb-2"></div>
+  </div>
+  <div class="container">
+    <div class="hero-inner">
+      <div class="hero-text">
+        <div class="hero-badge" role="note">
+          <span class="hero-badge-dot" aria-hidden="true"></span>
+          Bangladesh's Youth Climate Movement
         </div>
-        <div class="hero-card">
-          <div class="hero-card-icon">🌍</div>
-          <h4>Climate Action</h4>
-          <p>50+ volunteers</p>
+        <h1 class="hero-title">
+          Empowering Youth<br><em>Protecting</em> Tomorrow
+        </h1>
+        <p class="hero-desc">CYDO unites passionate young leaders across Bangladesh to drive climate action, advance SRHR awareness, promote quality education, and build sustainable communities.</p>
+        <div class="hero-actions">
+          <button class="btn-hero-primary" onclick="openModal()">🌿 Join Our Team</button>
+          <a href="#about" class="btn-hero-outline">Learn More ↓</a>
         </div>
-        <div class="hero-card">
-          <div class="hero-card-icon">🎓</div>
-          <h4>Quality Education</h4>
-          <p>100+ beneficiaries</p>
+      </div>
+      <div class="hero-visual" aria-hidden="true">
+        <div class="hero-cards-wrap">
+          <div class="hcard">
+            <div class="hcard-icon">♻️</div>
+            <h4>Waste Management</h4>
+            <p>Clean communities</p>
+          </div>
+          <div class="hcard">
+            <div class="hcard-icon">🌍</div>
+            <h4>Climate Action</h4>
+            <p>50+ volunteers</p>
+          </div>
+          <div class="hcard">
+            <div class="hcard-icon">🎓</div>
+            <h4>Quality Education</h4>
+            <p>1500+ beneficiaries</p>
+          </div>
         </div>
       </div>
     </div>
   </div>
-  <div class="hero-scroll">
-    <span style="font-size:0.72rem;opacity:0.6">Scroll down</span>
+  <div class="hero-scroll" aria-hidden="true">
+    <span>Scroll</span>
     <div class="hero-scroll-line"></div>
   </div>
 </section>
 
-<!-- ABOUT -->
-<section class="about" id="about">
+<!-- ============================================================
+     ABOUT
+============================================================ -->
+<section id="about">
   <div class="container">
     <div class="about-grid">
       <div class="about-visual reveal">
-        <div class="about-img-wrap">
-          <img src="https://i.ibb.co.com/YFRSC3x1/2.jpg" alt="CYDO community work">
+        <div class="about-img-frame">
+          <img src="https://i.ibb.co.com/YFRSC3x1/2.jpg" alt="CYDO volunteers working in the community" loading="lazy">
+          <div class="about-img-badge">
+            <div class="about-img-badge-icon">🏆</div>
+            <div class="about-img-badge-text">
+              <h5>Youth-Led Organization</h5>
+              <p>Active since 2023 · Bagerhat, Bangladesh</p>
+            </div>
+          </div>
         </div>
       </div>
       <div class="reveal">
         <div class="section-label">About Us</div>
         <h2 class="section-title">Who We <em>Are</em></h2>
-        <p style="color:var(--gray-500);line-height:1.75;margin-bottom:1.25rem;font-size:0.95rem">
-          Our organization is a youth-led, community-based non-profit organization working to promote sustainable development, social justice, and youth empowerment in Bangladesh. We currently have around 50 active volunteers who contribute across various roles, including event management, teaching support, social media outreach, and fieldwork coordination.
+        <p class="about-desc">
+          CYDO is a youth-led, community-based non-profit organization working to promote sustainable development, social justice, and youth empowerment in Bangladesh. We currently have around 50 active volunteers who contribute across various roles — including event management, teaching support, social media outreach, and fieldwork coordination.
         </p>
         <div class="vmv-grid">
           <div class="vmv-card">
-            <div class="icon">🔭</div>
+            <div class="vmv-icon">🔭</div>
             <h4>Vision</h4>
             <p>Empowering youth for a sustainable and inclusive society.</p>
           </div>
           <div class="vmv-card">
-            <div class="icon">🎯</div>
+            <div class="vmv-icon">🎯</div>
             <h4>Mission</h4>
             <p>A world where every child and youth thrives with dignity, equality, and opportunity.</p>
           </div>
           <div class="vmv-card">
-            <div class="icon">💎</div>
+            <div class="vmv-icon">💎</div>
             <h4>Values</h4>
             <p>Youth Leadership, Integrity, Inclusion, Innovation, Responsibility, Empathy, Collaboration.</p>
           </div>
@@ -788,32 +914,34 @@ footer { background: var(--gray-900); color: white; padding: 3.5rem 1.25rem 2rem
   </div>
 </section>
 
-<!-- FOCUS AREAS -->
+<!-- ============================================================
+     FOCUS AREAS
+============================================================ -->
 <section id="focus">
   <div class="container">
     <div class="text-center reveal">
       <div class="section-label">What We Do</div>
       <h2 class="section-title">Our <em>Focus Areas</em></h2>
-      <p class="section-sub center">Four interconnected pillars driving sustainable development and youth empowerment across Bangladesh.</p>
+      <p class="section-sub">Four interconnected pillars driving sustainable development and youth empowerment across Bangladesh.</p>
     </div>
     <div class="focus-grid">
-      <div class="focus-card reveal" style="--card-color:#16A34A;--card-bg:#DCFCE7">
-        <div class="focus-icon">♻️</div>
+      <div class="focus-card reveal" style="--accent:#16A34A;--icon-bg:#DCFCE7">
+        <div class="focus-icon-wrap">♻️</div>
         <h3>Waste Management</h3>
         <p>Promoting zero-waste communities through awareness campaigns, recycling drives, and sustainable waste disposal practices across urban and rural areas.</p>
       </div>
-      <div class="focus-card reveal" style="--card-color:#2563EB;--card-bg:#DBEAFE">
-        <div class="focus-icon" style="background:#DBEAFE">🌟</div>
+      <div class="focus-card reveal" style="--accent:#2563EB;--icon-bg:#DBEAFE">
+        <div class="focus-icon-wrap" style="background:#DBEAFE">🌟</div>
         <h3>Youth Empowerment</h3>
         <p>Building leadership skills, civic engagement, and entrepreneurial mindsets among young Bangladeshis through workshops, mentorship, and community-led initiatives.</p>
       </div>
-      <div class="focus-card reveal" style="--card-color:#DC2626;--card-bg:#FEE2E2">
-        <div class="focus-icon" style="background:#FEE2E2">❤️</div>
+      <div class="focus-card reveal" style="--accent:#DC2626;--icon-bg:#FEE2E2">
+        <div class="focus-icon-wrap" style="background:#FEE2E2">❤️</div>
         <h3>SRHR Awareness</h3>
         <p>Advocating for sexual and reproductive health rights through peer education, safe spaces, and evidence-based campaigns that break stigma and foster informed choices.</p>
       </div>
-      <div class="focus-card reveal" style="--card-color:#D97706;--card-bg:#FEF3C7">
-        <div class="focus-icon" style="background:#FEF3C7">📚</div>
+      <div class="focus-card reveal" style="--accent:#D97706;--icon-bg:#FEF3C7">
+        <div class="focus-icon-wrap" style="background:#FEF3C7">📚</div>
         <h3>Quality Education</h3>
         <p>Ensuring access to quality, inclusive education for marginalized youth through digital literacy programs, scholarship campaigns, and teacher training initiatives.</p>
       </div>
@@ -821,121 +949,105 @@ footer { background: var(--gray-900); color: white; padding: 3.5rem 1.25rem 2rem
   </div>
 </section>
 
-<!-- STATS -->
-<section class="stats">
+<!-- ============================================================
+     STATS
+============================================================ -->
+<section id="stats">
   <div class="container">
     <div class="stats-grid">
       <div class="stat-item reveal">
         <div class="stat-num" data-target="150">0</div>
+        <div class="stat-divider"></div>
         <div class="stat-label">Volunteers</div>
       </div>
       <div class="stat-item reveal">
         <div class="stat-num" data-target="50">0</div>
+        <div class="stat-divider"></div>
         <div class="stat-label">Members</div>
       </div>
       <div class="stat-item reveal">
         <div class="stat-num" data-target="1500">0</div>
+        <div class="stat-divider"></div>
         <div class="stat-label">Beneficiaries</div>
       </div>
       <div class="stat-item reveal">
         <div class="stat-num" data-target="3">0</div>
+        <div class="stat-divider"></div>
         <div class="stat-label">Projects Completed</div>
       </div>
       <div class="stat-item reveal">
-        <div class="stat-num" data-target="5">0</div>
+        <div class="stat-num" data-target="8">0</div>
+        <div class="stat-divider"></div>
         <div class="stat-label">Partner Organizations</div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- EXECUTIVE COMMITTEE -->
+<!-- ============================================================
+     TEAM
+============================================================ -->
 <section id="team">
   <div class="container">
     <div class="text-center reveal">
       <div class="section-label">Our Leadership</div>
       <h2 class="section-title">Executive <em>Committee</em></h2>
-      <p class="section-sub center">Dedicated young leaders steering CYDO's mission forward with passion and purpose.</p>
+      <p class="section-sub">Dedicated young leaders steering CYDO's mission forward with passion and purpose.</p>
     </div>
     <div class="team-grid">
       <div class="member-card reveal">
-        <div class="member-photo"><img src="https://i.ibb.co.com/8grJMCGS/1.jpg" alt="Md. Mahide Hasan"></div>
-        <div class="member-info">
-          <div class="member-name">Md. Mahide Hasan</div>
-          <div class="member-role">President</div>
-        </div>
+        <div class="member-photo"><img src="https://i.ibb.co.com/8grJMCGS/1.jpg" alt="Md. Mahide Hasan" loading="lazy"></div>
+        <div class="member-info"><div class="member-name">Md. Mahide Hasan</div><div class="member-role">President</div></div>
       </div>
       <div class="member-card reveal">
-        <div class="member-photo"><img src="https://i.ibb.co.com/8g6ZXs9N/2.jpg" alt="Khan Asadur Rahman"></div>
-        <div class="member-info">
-          <div class="member-name">Khan Asadur Rahman</div>
-          <div class="member-role">General Secretary</div>
-        </div>
+        <div class="member-photo"><img src="https://i.ibb.co.com/8g6ZXs9N/2.jpg" alt="Khan Asadur Rahman" loading="lazy"></div>
+        <div class="member-info"><div class="member-name">Khan Asadur Rahman</div><div class="member-role">General Secretary</div></div>
       </div>
       <div class="member-card reveal">
-        <div class="member-photo"><img src="https://i.ibb.co.com/Zp2ytTpd/3.jpg" alt="Amit Das Shuvro"></div>
-        <div class="member-info">
-          <div class="member-name">Amit Das Shuvro</div>
-          <div class="member-role">Finance Secretary</div>
-        </div>
+        <div class="member-photo"><img src="https://i.ibb.co.com/Zp2ytTpd/3.jpg" alt="Amit Das Shuvro" loading="lazy"></div>
+        <div class="member-info"><div class="member-name">Amit Das Shuvro</div><div class="member-role">Finance Secretary</div></div>
       </div>
       <div class="member-card reveal">
-        <div class="member-photo"><img src="https://i.ibb.co.com/qVPpgVH/4.jpg" alt="Shalaha Ahmad Rabby"></div>
-        <div class="member-info">
-          <div class="member-name">Shalaha Ahmad Rabby</div>
-          <div class="member-role">Office Secretary</div>
-        </div>
+        <div class="member-photo"><img src="https://i.ibb.co.com/qVPpgVH/4.jpg" alt="Shalaha Ahmad Rabby" loading="lazy"></div>
+        <div class="member-info"><div class="member-name">Shalaha Ahmad Rabby</div><div class="member-role">Office Secretary</div></div>
       </div>
       <div class="member-card reveal">
-        <div class="member-photo"><img src="https://i.ibb.co.com/WNkL3Wmv/5.jpg" alt="Farista Islam Aysha"></div>
-        <div class="member-info">
-          <div class="member-name">Farista Islam Aysha</div>
-          <div class="member-role">Social Welfare Secretary</div>
-        </div>
+        <div class="member-photo"><img src="https://i.ibb.co.com/WNkL3Wmv/5.jpg" alt="Farista Islam Aysha" loading="lazy"></div>
+        <div class="member-info"><div class="member-name">Farista Islam Aysha</div><div class="member-role">Social Welfare Secretary</div></div>
       </div>
       <div class="member-card reveal">
-        <div class="member-photo"><img src="https://i.ibb.co.com/DH5kvNH2/6.jpg" alt="Aliullah"></div>
-        <div class="member-info">
-          <div class="member-name">Aliullah</div>
-          <div class="member-role">Education &amp; Study Circle Secretary</div>
-        </div>
+        <div class="member-photo"><img src="https://i.ibb.co.com/DH5kvNH2/6.jpg" alt="Aliullah" loading="lazy"></div>
+        <div class="member-info"><div class="member-name">Aliullah</div><div class="member-role">Education &amp; Study Circle Secretary</div></div>
       </div>
       <div class="member-card reveal">
-        <div class="member-photo"><img src="https://i.ibb.co.com/DPFSjCsL/7.jpg" alt="Imran Mridha"></div>
-        <div class="member-info">
-          <div class="member-name">Imran Mridha</div>
-          <div class="member-role">Youth &amp; Sports Affairs Secretary</div>
-        </div>
+        <div class="member-photo"><img src="https://i.ibb.co.com/DPFSjCsL/7.jpg" alt="Imran Mridha" loading="lazy"></div>
+        <div class="member-info"><div class="member-name">Imran Mridha</div><div class="member-role">Youth &amp; Sports Affairs Secretary</div></div>
       </div>
       <div class="member-card reveal">
-        <div class="member-photo"><img src="https://i.ibb.co.com/B564tB1n/8.jpg" alt="Sumiya Sharmin Prama"></div>
-        <div class="member-info">
-          <div class="member-name">Sumiya Sharmin Prama</div>
-          <div class="member-role">Women &amp; Child Affairs Secretary</div>
-        </div>
+        <div class="member-photo"><img src="https://i.ibb.co.com/B564tB1n/8.jpg" alt="Sumiya Sharmin Prama" loading="lazy"></div>
+        <div class="member-info"><div class="member-name">Sumiya Sharmin Prama</div><div class="member-role">Women &amp; Child Affairs Secretary</div></div>
       </div>
       <div class="member-card reveal">
-        <div class="member-photo"><img src="https://i.ibb.co.com/NgWH5H9z/9.jpg" alt="Jannatul Islam Lamia"></div>
-        <div class="member-info">
-          <div class="member-name">Jannatul Islam Lamia</div>
-          <div class="member-role">Executive Member</div>
-        </div>
+        <div class="member-photo"><img src="https://i.ibb.co.com/NgWH5H9z/9.jpg" alt="Jannatul Islam Lamia" loading="lazy"></div>
+        <div class="member-info"><div class="member-name">Jannatul Islam Lamia</div><div class="member-role">Executive Member</div></div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- FOUNDERS -->
-<section class="founders" id="founders">
+<!-- ============================================================
+     FOUNDERS
+============================================================ -->
+<section id="founders">
   <div class="container">
     <div class="text-center reveal">
-      <div class="section-label" style="background:rgba(74,222,128,0.15);color:#4ADE80">Our Story</div>
+      <div class="section-label" style="background:rgba(74,222,128,0.15);color:#4ade80">Our Story</div>
       <h2 class="section-title" style="color:white">Meet the <em>Founders</em></h2>
-      <p class="section-sub center" style="color:rgba(255,255,255,0.6)">Three visionary young leaders who built CYDO from the ground up.</p>
+      <p class="section-sub" style="color:rgba(255,255,255,0.58)">Three visionary young leaders who built CYDO from the ground up.</p>
     </div>
     <div class="founders-grid">
       <div class="founder-card reveal">
-        <div class="founder-photo"><img src="https://i.ibb.co.com/Zp2ytTpd/3.jpg" alt="Amit Das Shuvro"></div>
+        <div class="founder-photo"><img src="https://i.ibb.co.com/Zp2ytTpd/3.jpg" alt="Amit Das Shuvro" loading="lazy"></div>
         <div class="founder-info">
           <div class="founder-name">Amit Das Shuvro</div>
           <div class="founder-title">Co-Founder</div>
@@ -943,7 +1055,7 @@ footer { background: var(--gray-900); color: white; padding: 3.5rem 1.25rem 2rem
         </div>
       </div>
       <div class="founder-card reveal">
-        <div class="founder-photo"><img src="https://i.ibb.co.com/8grJMCGS/1.jpg" alt="Md. Mahide Hasan"></div>
+        <div class="founder-photo"><img src="https://i.ibb.co.com/8grJMCGS/1.jpg" alt="Md. Mahide Hasan" loading="lazy"></div>
         <div class="founder-info">
           <div class="founder-name">Md. Mahide Hasan</div>
           <div class="founder-title">Co-Founder</div>
@@ -951,76 +1063,53 @@ footer { background: var(--gray-900); color: white; padding: 3.5rem 1.25rem 2rem
         </div>
       </div>
       <div class="founder-card reveal">
-        <div class="founder-photo"><img src="https://i.ibb.co.com/8g6ZXs9N/2.jpg" alt="Khan Asadur Rahman"></div>
+        <div class="founder-photo"><img src="https://i.ibb.co.com/8g6ZXs9N/2.jpg" alt="Khan Asadur Rahman" loading="lazy"></div>
         <div class="founder-info">
           <div class="founder-name">Khan Asadur Rahman</div>
           <div class="founder-title">Co-Founder</div>
-          <p class="founder-bio">An education reform advocate with expertise in inclusive curriculum design. Spearheaded CYDO's quality education pillar and partnership strategy, forging alliances with 15 national and international organizations.</p>
+          <p class="founder-bio">An education reform advocate with expertise in inclusive curriculum design. Spearheaded CYDO's quality education pillar and partnership strategy, forging alliances with national and international organizations.</p>
         </div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- PARTNERS -->
+<!-- ============================================================
+     PARTNERS
+============================================================ -->
 <section id="partners">
   <div class="container">
     <div class="text-center reveal">
       <div class="section-label">Collaboration</div>
       <h2 class="section-title">Our Working <em>Partners</em></h2>
-      <p class="section-sub center">Organizations we collaborate with to maximize our impact across Bangladesh.</p>
+      <p class="section-sub">Organizations we collaborate with to maximize our impact across Bangladesh.</p>
     </div>
     <div class="partners-grid">
-      <div class="partner-card reveal">
-        <div class="partner-logo"><img src="https://i.ibb.co.com/9kBXmsKQ/pngegg.png" alt="BRAC"></div>
-        <div class="partner-name">BRAC Bangladesh</div>
-      </div>
-      <div class="partner-card reveal">
-        <div class="partner-logo"><img src="https://i.ibb.co.com/Wp3yq8s4/Activesta-Bangladesh.png" alt="Activista"></div>
-        <div class="partner-name">Activista Bangladesh</div>
-      </div>
-      <div class="partner-card reveal">
-        <div class="partner-logo"><img src="https://i.ibb.co.com/G4H9XWYx/JAAGO-Logo-Black-Transparent.png" alt="JAAGO"></div>
-        <div class="partner-name">JAAGO Foundation</div>
-      </div>
-      <div class="partner-card reveal">
-        <div class="partner-logo"><img src="https://i.ibb.co.com/WpWm4N0p/BYC-Logo.webp" alt="BYC"></div>
-        <div class="partner-name">Bangladesh Youth Coalition</div>
-      </div>
-      <div class="partner-card reveal">
-        <div class="partner-logo"><img src="https://i.ibb.co.com/M53jQBVH/logo.png" alt="ActionAid"></div>
-        <div class="partner-name">ActionAid Bangladesh</div>
-      </div>
-      <div class="partner-card reveal">
-        <div class="partner-logo"><img src="https://i.ibb.co.com/MkYvpB3g/SN-BD-Logo-RGB-Black-Text-Brand-Color-Symbol-Without-Tagline.png" alt="Share Net"></div>
-        <div class="partner-name">Share Net Bangladesh</div>
-      </div>
-      <div class="partner-card reveal">
-        <div class="partner-logo"><img src="https://i.ibb.co.com/8JCq0Jv/share-image.png" alt="RHRN2"></div>
-        <div class="partner-name">Right Here Right Now 2</div>
-      </div>
-      <div class="partner-card reveal">
-        <div class="partner-logo"><img src="https://i.ibb.co.com/jPwG66bm/DYD.jpg" alt="DYD"></div>
-        <div class="partner-name">Department of Youth Development</div>
-      </div>
+      <div class="partner-card reveal"><div class="partner-logo-wrap"><img src="https://i.ibb.co.com/9kBXmsKQ/pngegg.png" alt="BRAC" loading="lazy"></div><div class="partner-name">BRAC Bangladesh</div></div>
+      <div class="partner-card reveal"><div class="partner-logo-wrap"><img src="https://i.ibb.co.com/Wp3yq8s4/Activesta-Bangladesh.png" alt="Activista" loading="lazy"></div><div class="partner-name">Activista Bangladesh</div></div>
+      <div class="partner-card reveal"><div class="partner-logo-wrap"><img src="https://i.ibb.co.com/G4H9XWYx/JAAGO-Logo-Black-Transparent.png" alt="JAAGO" loading="lazy"></div><div class="partner-name">JAAGO Foundation</div></div>
+      <div class="partner-card reveal"><div class="partner-logo-wrap"><img src="https://i.ibb.co.com/WpWm4N0p/BYC-Logo.webp" alt="BYC" loading="lazy"></div><div class="partner-name">Bangladesh Youth Coalition</div></div>
+      <div class="partner-card reveal"><div class="partner-logo-wrap"><img src="https://i.ibb.co.com/M53jQBVH/logo.png" alt="ActionAid" loading="lazy"></div><div class="partner-name">ActionAid Bangladesh</div></div>
+      <div class="partner-card reveal"><div class="partner-logo-wrap"><img src="https://i.ibb.co.com/MkYvpB3g/SN-BD-Logo-RGB-Black-Text-Brand-Color-Symbol-Without-Tagline.png" alt="Share Net" loading="lazy"></div><div class="partner-name">Share Net Bangladesh</div></div>
+      <div class="partner-card reveal"><div class="partner-logo-wrap"><img src="https://i.ibb.co.com/8JCq0Jv/share-image.png" alt="RHRN2" loading="lazy"></div><div class="partner-name">Right Here Right Now 2</div></div>
+      <div class="partner-card reveal"><div class="partner-logo-wrap"><img src="https://i.ibb.co.com/jPwG66bm/DYD.jpg" alt="DYD" loading="lazy"></div><div class="partner-name">Dept. of Youth Development</div></div>
     </div>
   </div>
 </section>
 
-<!-- PROJECTS -->
-<section id="projects" style="background:var(--gray-50)">
+<!-- ============================================================
+     PROJECTS
+============================================================ -->
+<section id="projects">
   <div class="container">
     <div class="text-center reveal">
       <div class="section-label">Recent Work</div>
       <h2 class="section-title">Projects &amp; <em>Activities</em></h2>
-      <p class="section-sub center">Impactful programs and events shaping a better Bangladesh for future generations.</p>
+      <p class="section-sub">Impactful programs and events shaping a better Bangladesh for future generations.</p>
     </div>
     <div class="projects-grid">
       <div class="project-card reveal">
-        <div class="project-img">
-          <div class="project-img-bg" style="background:linear-gradient(135deg,#DCFCE7,#86EFAC)">♻️</div>
-          <div class="project-tag">Waste Management</div>
-        </div>
+        <div class="project-thumb" style="background:linear-gradient(135deg,#DCFCE7,#86EFAC)">♻️<div class="project-tag">Waste Management</div></div>
         <div class="project-body">
           <div class="project-date">March 2025</div>
           <div class="project-title">Green Khulna: City-Wide Recycling Campaign</div>
@@ -1028,10 +1117,7 @@ footer { background: var(--gray-900); color: white; padding: 3.5rem 1.25rem 2rem
         </div>
       </div>
       <div class="project-card reveal">
-        <div class="project-img">
-          <div class="project-img-bg" style="background:linear-gradient(135deg,#DBEAFE,#93C5FD)">🎓</div>
-          <div class="project-tag" style="background:#2563EB">Education</div>
-        </div>
+        <div class="project-thumb" style="background:linear-gradient(135deg,#DBEAFE,#93C5FD)">🎓<div class="project-tag" style="background:#2563EB">Education</div></div>
         <div class="project-body">
           <div class="project-date">January 2025</div>
           <div class="project-title">Digital Literacy for Rural Youth</div>
@@ -1039,10 +1125,7 @@ footer { background: var(--gray-900); color: white; padding: 3.5rem 1.25rem 2rem
         </div>
       </div>
       <div class="project-card reveal">
-        <div class="project-img">
-          <div class="project-img-bg" style="background:linear-gradient(135deg,#FEE2E2,#FCA5A5)">❤️</div>
-          <div class="project-tag" style="background:#DC2626">SRHR</div>
-        </div>
+        <div class="project-thumb" style="background:linear-gradient(135deg,#FEE2E2,#FCA5A5)">❤️<div class="project-tag" style="background:#DC2626">SRHR</div></div>
         <div class="project-body">
           <div class="project-date">November 2024</div>
           <div class="project-title">Safe Spaces: SRHR Peer Education Program</div>
@@ -1053,179 +1136,193 @@ footer { background: var(--gray-900); color: white; padding: 3.5rem 1.25rem 2rem
   </div>
 </section>
 
-<!-- GALLERY -->
-<section class="gallery" id="gallery">
+<!-- ============================================================
+     GALLERY
+============================================================ -->
+<section id="gallery">
   <div class="container">
     <div class="text-center reveal">
       <div class="section-label">Moments</div>
       <h2 class="section-title">Our <em>Gallery</em></h2>
-      <p class="section-sub center">Snapshots from our campaigns, events, and community activities across Bangladesh.</p>
+      <p class="section-sub">Snapshots from our campaigns, events, and community activities across Bangladesh.</p>
     </div>
     <div class="gallery-grid">
-      <div class="gallery-item reveal" onclick="openLightbox('https://i.ibb.co.com/WpYkGs4N/1st-Meetup.jpg')">
-        <div class="gallery-img"><img src="https://i.ibb.co.com/WpYkGs4N/1st-Meetup.jpg" alt="1st Meetup" loading="lazy"></div>
-        <div class="gallery-overlay">🔍</div>
+      <div class="gallery-item reveal" onclick="openLightbox('https://i.ibb.co.com/WpYkGs4N/1st-Meetup.jpg')" tabindex="0" role="button" aria-label="View 1st Meetup photo">
+        <img src="https://i.ibb.co.com/WpYkGs4N/1st-Meetup.jpg" alt="1st Meetup" loading="lazy"><div class="gallery-overlay" aria-hidden="true">🔍</div>
       </div>
-      <div class="gallery-item reveal" onclick="openLightbox('https://i.ibb.co.com/s9XLxk9w/Image-2026-02-10-at-12-07-15-AM.jpg')">
-        <div class="gallery-img"><img src="https://i.ibb.co.com/s9XLxk9w/Image-2026-02-10-at-12-07-15-AM.jpg" alt="Event" loading="lazy"></div>
-        <div class="gallery-overlay">🔍</div>
+      <div class="gallery-item reveal" onclick="openLightbox('https://i.ibb.co.com/s9XLxk9w/Image-2026-02-10-at-12-07-15-AM.jpg')" tabindex="0" role="button" aria-label="View event photo">
+        <img src="https://i.ibb.co.com/s9XLxk9w/Image-2026-02-10-at-12-07-15-AM.jpg" alt="Event" loading="lazy"><div class="gallery-overlay" aria-hidden="true">🔍</div>
       </div>
-      <div class="gallery-item reveal" onclick="openLightbox('https://i.ibb.co.com/nsf2dJkZ/IMG-6820.jpg')">
-        <div class="gallery-img"><img src="https://i.ibb.co.com/nsf2dJkZ/IMG-6820.jpg" alt="Climate March" loading="lazy"></div>
-        <div class="gallery-overlay">🔍</div>
+      <div class="gallery-item reveal" onclick="openLightbox('https://i.ibb.co.com/nsf2dJkZ/IMG-6820.jpg')" tabindex="0" role="button" aria-label="View climate march photo">
+        <img src="https://i.ibb.co.com/nsf2dJkZ/IMG-6820.jpg" alt="Climate March" loading="lazy"><div class="gallery-overlay" aria-hidden="true">🔍</div>
       </div>
-      <div class="gallery-item reveal" onclick="openLightbox('https://i.ibb.co.com/hRm5vXxR/Whats-App-Image-2025-08-13-at-19-23-16-402a1fc5.jpg')">
-        <div class="gallery-img"><img src="https://i.ibb.co.com/hRm5vXxR/Whats-App-Image-2025-08-13-at-19-23-16-402a1fc5.jpg" alt="Seminar" loading="lazy"></div>
-        <div class="gallery-overlay">🔍</div>
+      <div class="gallery-item reveal" onclick="openLightbox('https://i.ibb.co.com/hRm5vXxR/Whats-App-Image-2025-08-13-at-19-23-16-402a1fc5.jpg')" tabindex="0" role="button" aria-label="View seminar photo">
+        <img src="https://i.ibb.co.com/hRm5vXxR/Whats-App-Image-2025-08-13-at-19-23-16-402a1fc5.jpg" alt="Seminar" loading="lazy"><div class="gallery-overlay" aria-hidden="true">🔍</div>
       </div>
-      <div class="gallery-item reveal" onclick="openLightbox('https://i.ibb.co.com/6JZzNDk2/09-02-2026.jpg')">
-        <div class="gallery-img"><img src="https://i.ibb.co.com/6JZzNDk2/09-02-2026.jpg" alt="Youth Summit" loading="lazy"></div>
-        <div class="gallery-overlay">🔍</div>
+      <div class="gallery-item reveal" onclick="openLightbox('https://i.ibb.co.com/6JZzNDk2/09-02-2026.jpg')" tabindex="0" role="button" aria-label="View youth summit photo">
+        <img src="https://i.ibb.co.com/6JZzNDk2/09-02-2026.jpg" alt="Youth Summit" loading="lazy"><div class="gallery-overlay" aria-hidden="true">🔍</div>
       </div>
-      <div class="gallery-item reveal" onclick="openLightbox('https://i.ibb.co.com/dx2ctk5/IMG-7104.jpg')">
-        <div class="gallery-img"><img src="https://i.ibb.co.com/dx2ctk5/IMG-7104.jpg" alt="Meeting" loading="lazy"></div>
-        <div class="gallery-overlay">🔍</div>
+      <div class="gallery-item reveal" onclick="openLightbox('https://i.ibb.co.com/dx2ctk5/IMG-7104.jpg')" tabindex="0" role="button" aria-label="View meeting photo">
+        <img src="https://i.ibb.co.com/dx2ctk5/IMG-7104.jpg" alt="Meeting" loading="lazy"><div class="gallery-overlay" aria-hidden="true">🔍</div>
       </div>
-      <div class="gallery-item reveal" onclick="openLightbox('https://i.ibb.co.com/PsKwh7Cq/2.jpg')">
-        <div class="gallery-img"><img src="https://i.ibb.co.com/PsKwh7Cq/2.jpg" alt="Community Camp" loading="lazy"></div>
-        <div class="gallery-overlay">🔍</div>
+      <div class="gallery-item reveal" onclick="openLightbox('https://i.ibb.co.com/PsKwh7Cq/2.jpg')" tabindex="0" role="button" aria-label="View community camp photo">
+        <img src="https://i.ibb.co.com/PsKwh7Cq/2.jpg" alt="Community Camp" loading="lazy"><div class="gallery-overlay" aria-hidden="true">🔍</div>
       </div>
-      <div class="gallery-item reveal" onclick="openLightbox('https://i.ibb.co.com/twc78KZm/Whats-App-Image-2026-01-26-at-11-10-15-PM.jpg')">
-        <div class="gallery-img"><img src="https://i.ibb.co.com/twc78KZm/Whats-App-Image-2026-01-26-at-11-10-15-PM.jpg" alt="Tree Plantation" loading="lazy"></div>
-        <div class="gallery-overlay">🔍</div>
+      <div class="gallery-item reveal" onclick="openLightbox('https://i.ibb.co.com/twc78KZm/Whats-App-Image-2026-01-26-at-11-10-15-PM.jpg')" tabindex="0" role="button" aria-label="View tree plantation photo">
+        <img src="https://i.ibb.co.com/twc78KZm/Whats-App-Image-2026-01-26-at-11-10-15-PM.jpg" alt="Tree Plantation" loading="lazy"><div class="gallery-overlay" aria-hidden="true">🔍</div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- NEWS -->
+<!-- ============================================================
+     NEWS
+============================================================ -->
 <section id="news">
   <div class="container">
     <div class="text-center reveal">
       <div class="section-label">Stay Updated</div>
       <h2 class="section-title">News &amp; <em>Updates</em></h2>
-      <p class="section-sub center">Latest announcements, achievements, and stories from CYDO's work across Bangladesh.</p>
+      <p class="section-sub">Latest announcements, achievements, and stories from CYDO's work across Bangladesh.</p>
     </div>
     <div class="news-grid">
       <div class="news-card reveal">
-        <div class="news-img" style="background:linear-gradient(135deg,#DCFCE7,#86EFAC)">🌿</div>
+        <div class="news-thumb" style="background:linear-gradient(135deg,#DCFCE7,#86EFAC)">🌿</div>
         <div class="news-body">
           <div class="news-date">May 15, 2025</div>
           <div class="news-title">CYDO Receives National Youth Excellence Award 2025</div>
-          <div class="news-excerpt">CYDO was honored with the National Youth Excellence Award for outstanding contributions to climate action and education...</div>
+          <div class="news-excerpt">CYDO was honored with the National Youth Excellence Award for outstanding contributions to climate action and education across Bangladesh.</div>
         </div>
       </div>
       <div class="news-card reveal">
-        <div class="news-img" style="background:linear-gradient(135deg,#DBEAFE,#93C5FD)">🤝</div>
+        <div class="news-thumb" style="background:linear-gradient(135deg,#DBEAFE,#93C5FD)">🤝</div>
         <div class="news-body">
           <div class="news-date">April 22, 2025</div>
           <div class="news-title">New Partnership with UNDP for Climate Resilience Program</div>
-          <div class="news-excerpt">CYDO signs a landmark MoU with UNDP Bangladesh to implement a 2-year youth climate resilience program across coastal districts...</div>
+          <div class="news-excerpt">CYDO signs a landmark MoU with UNDP Bangladesh to implement a 2-year youth climate resilience program across coastal districts.</div>
         </div>
       </div>
       <div class="news-card reveal">
-        <div class="news-img" style="background:linear-gradient(135deg,#FEF3C7,#FCD34D)">📣</div>
+        <div class="news-thumb" style="background:linear-gradient(135deg,#FEF3C7,#FCD34D)">📣</div>
         <div class="news-body">
           <div class="news-date">March 8, 2025</div>
           <div class="news-title">CYDO Launches Women-Led Climate Action Initiative</div>
-          <div class="news-excerpt">On International Women's Day, CYDO launched its flagship Women for Climate initiative, empowering 200 young women as frontline climate leaders...</div>
+          <div class="news-excerpt">On International Women's Day, CYDO launched its flagship Women for Climate initiative, empowering 200 young women as frontline climate leaders.</div>
         </div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- CONTACT -->
-<section class="contact" id="contact">
+<!-- ============================================================
+     CTA
+============================================================ -->
+<section id="cta" aria-label="Call to action">
   <div class="container">
-    <div class="text-center reveal" style="margin-bottom:2.5rem">
+    <h2>Ready to Make a Difference?</h2>
+    <p>Join hundreds of passionate young Bangladeshis driving real change in their communities. Your journey starts here.</p>
+    <button class="btn-cta" onclick="openModal()">🌿 Join Our Team Today</button>
+  </div>
+</section>
+
+<!-- ============================================================
+     CONTACT
+============================================================ -->
+<section id="contact">
+  <div class="container">
+    <div class="text-center reveal">
       <div class="section-label">Get in Touch</div>
       <h2 class="section-title">Contact <em>Us</em></h2>
-      <p class="section-sub center">Have a question, partnership proposal, or want to get involved? We'd love to hear from you.</p>
+      <p class="section-sub">Have a question, partnership proposal, or want to get involved? We'd love to hear from you.</p>
     </div>
     <div class="contact-grid">
-      <div class="contact-form reveal">
-        <h3 style="font-size:1.1rem;font-weight:700;margin-bottom:1.25rem;color:var(--gray-800)">Send us a Message</h3>
+      <div class="contact-form-box reveal">
+        <h3>Send us a Message</h3>
         <div class="form-row">
           <div class="form-group">
-            <label>Full Name</label>
-            <input type="text" placeholder="Your name">
+            <label for="fname">Full Name</label>
+            <input id="fname" type="text" placeholder="Your name" autocomplete="name">
           </div>
           <div class="form-group">
-            <label>Email Address</label>
-            <input type="email" placeholder="your@email.com">
+            <label for="femail">Email Address</label>
+            <input id="femail" type="email" placeholder="your@email.com" autocomplete="email">
           </div>
         </div>
         <div class="form-group">
-          <label>Subject</label>
-          <input type="text" placeholder="How can we help?">
+          <label for="fsubject">Subject</label>
+          <input id="fsubject" type="text" placeholder="How can we help?">
         </div>
         <div class="form-group">
-          <label>Message</label>
-          <textarea placeholder="Write your message here..."></textarea>
+          <label for="fmessage">Message</label>
+          <textarea id="fmessage" placeholder="Write your message here..."></textarea>
         </div>
         <button class="btn-submit" onclick="showToast()">Send Message ✉️</button>
       </div>
-      <div class="contact-info reveal">
+      <div class="contact-info-panel reveal">
         <h3>Contact Information</h3>
         <div class="info-item">
-          <div class="info-icon">📍</div>
+          <div class="info-icon" aria-hidden="true">📍</div>
           <div class="info-text">
             <h4>Office Address</h4>
             <p>1 No. Cross Road, Dashani, Bagerhat Sadar, Bagerhat-9300</p>
           </div>
         </div>
         <div class="info-item">
-          <div class="info-icon">✉️</div>
+          <div class="info-icon" aria-hidden="true">✉️</div>
           <div class="info-text">
             <h4>Email</h4>
             <a href="mailto:cydobangladesh@gmail.com">cydobangladesh@gmail.com</a>
           </div>
         </div>
         <div class="info-item">
-          <div class="info-icon">📞</div>
+          <div class="info-icon" aria-hidden="true">📞</div>
           <div class="info-text">
             <h4>Phone</h4>
-            <a href="tel:+8801990956886">+880 1990-956886</a>
+            <a href="tel:+8801990956886">+880 1990-956886</a><br>
+            <a href="tel:+8801772293363">+880 1772-293363</a>
           </div>
         </div>
         <div class="info-item">
-          <div class="info-icon">🕒</div>
+          <div class="info-icon" aria-hidden="true">🕒</div>
           <div class="info-text">
             <h4>Office Hours</h4>
             <p>Saturday – Thursday, 9:00 AM – 6:00 PM</p>
           </div>
         </div>
-        <div class="map-placeholder">
-          <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3681.953306230696!2d89.7829232!3d22.6555295!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x39fff7a63de7b993%3A0x71527e57cd06493b!2sCYDO!5e0!3m2!1sen!2sbd!4v1780158373737!5m2!1sen!2sbd" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+        <div class="map-embed">
+          <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3681.953306230696!2d89.7829232!3d22.6555295!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x39fff7a63de7b993%3A0x71527e57cd06493b!2sCYDO!5e0!3m2!1sen!2sbd!4v1780158373737!5m2!1sen!2sbd" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="CYDO Office Location"></iframe>
         </div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- FOOTER -->
+</main>
+
+<!-- ============================================================
+     FOOTER
+============================================================ -->
 <footer>
   <div class="container">
     <div class="footer-grid">
       <div class="footer-brand">
-        <img src="https://i.ibb.co.com/R4YqTSyc/Cydo-white.png" alt="CYDO" style="height:44px;width:auto;">
+        <img src="https://i.ibb.co.com/R4YqTSyc/Cydo-white.png" alt="CYDO" width="130" height="42">
         <p>Climate and Youth Development Organization — empowering Bangladesh's youth for a sustainable, equitable future.</p>
         <div class="footer-socials">
-          <a class="footer-social" href="https://www.facebook.com/CydoBangladesh" aria-label="Facebook">
-            <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" fill="currentColor" viewBox="0 0 16 16"><path d="M16 8.049c0-4.446-3.582-8.05-8-8.05C3.58 0-.002 3.603-.002 8.05c0 4.017 2.926 7.347 6.75 7.951v-5.625h-2.03V8.05H6.75V6.275c0-2.017 1.195-3.131 3.022-3.131.876 0 1.791.157 1.791.157v1.98h-1.009c-.993 0-1.303.621-1.303 1.258v1.51h2.218l-.354 2.326H9.25V16c3.824-.604 6.75-3.934 6.75-7.951"/></svg>
+          <a class="footer-social" href="https://www.facebook.com/CydoBangladesh" aria-label="Facebook" rel="noopener noreferrer" target="_blank">
+            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="currentColor" viewBox="0 0 16 16"><path d="M16 8.049c0-4.446-3.582-8.05-8-8.05C3.58 0-.002 3.603-.002 8.05c0 4.017 2.926 7.347 6.75 7.951v-5.625h-2.03V8.05H6.75V6.275c0-2.017 1.195-3.131 3.022-3.131.876 0 1.791.157 1.791.157v1.98h-1.009c-.993 0-1.303.621-1.303 1.258v1.51h2.218l-.354 2.326H9.25V16c3.824-.604 6.75-3.934 6.75-7.951"/></svg>
           </a>
-          <a class="footer-social" href="https://x.com/CydoBangladesh" aria-label="X / Twitter">
-            <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" fill="currentColor" viewBox="0 0 16 16"><path d="M12.6.75h2.454l-5.36 6.142L16 15.25h-4.937l-3.867-5.07-4.425 5.07H.316l5.733-6.57L0 .75h5.063l3.495 4.633L12.601.75Zm-.86 13.028h1.36L4.323 2.145H2.865z"/></svg>
+          <a class="footer-social" href="https://x.com/CydoBangladesh" aria-label="X / Twitter" rel="noopener noreferrer" target="_blank">
+            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="currentColor" viewBox="0 0 16 16"><path d="M12.6.75h2.454l-5.36 6.142L16 15.25h-4.937l-3.867-5.07-4.425 5.07H.316l5.733-6.57L0 .75h5.063l3.495 4.633L12.601.75Zm-.86 13.028h1.36L4.323 2.145H2.865z"/></svg>
           </a>
-          <a class="footer-social" href="https://www.linkedin.com/company/cydobangladesh/" aria-label="LinkedIn">
-            <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" fill="currentColor" viewBox="0 0 16 16"><path d="M0 1.146C0 .513.526 0 1.175 0h13.65C15.474 0 16 .513 16 1.146v13.708c0 .633-.526 1.146-1.175 1.146H1.175C.526 16 0 15.487 0 14.854zm4.943 12.248V6.169H2.542v7.225zm-1.2-8.212c.837 0 1.358-.554 1.358-1.248-.015-.709-.52-1.248-1.342-1.248S2.4 3.226 2.4 3.934c0 .694.521 1.248 1.327 1.248zm4.908 8.212V9.359c0-.216.016-.432.08-.586.173-.431.568-.878 1.232-.878.869 0 1.216.662 1.216 1.634v3.865h2.401V9.25c0-2.22-1.184-3.252-2.764-3.252-1.274 0-1.845.7-2.165 1.193v.025h-.016l.016-.025V6.169h-2.4c.03.678 0 7.225 0 7.225z"/></svg>
+          <a class="footer-social" href="https://www.linkedin.com/company/cydobangladesh/" aria-label="LinkedIn" rel="noopener noreferrer" target="_blank">
+            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="currentColor" viewBox="0 0 16 16"><path d="M0 1.146C0 .513.526 0 1.175 0h13.65C15.474 0 16 .513 16 1.146v13.708c0 .633-.526 1.146-1.175 1.146H1.175C.526 16 0 15.487 0 14.854zm4.943 12.248V6.169H2.542v7.225zm-1.2-8.212c.837 0 1.358-.554 1.358-1.248-.015-.709-.52-1.248-1.342-1.248S2.4 3.226 2.4 3.934c0 .694.521 1.248 1.327 1.248zm4.908 8.212V9.359c0-.216.016-.432.08-.586.173-.431.568-.878 1.232-.878.869 0 1.216.662 1.216 1.634v3.865h2.401V9.25c0-2.22-1.184-3.252-2.764-3.252-1.274 0-1.845.7-2.165 1.193v.025h-.016l.016-.025V6.169h-2.4c.03.678 0 7.225 0 7.225z"/></svg>
           </a>
-          <a class="footer-social" href="https://www.instagram.com/cydobangladesh" aria-label="Instagram">
-            <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" fill="currentColor" viewBox="0 0 16 16"><path d="M8 0C5.829 0 5.556.01 4.703.048 3.85.088 3.269.222 2.76.42a3.9 3.9 0 0 0-1.417.923A3.9 3.9 0 0 0 .42 2.76C.222 3.268.087 3.85.048 4.7.01 5.555 0 5.827 0 8.001c0 2.172.01 2.444.048 3.297.04.852.174 1.433.372 1.942.205.526.478.972.923 1.417.444.445.89.719 1.416.923.51.198 1.09.333 1.942.372C5.555 15.99 5.827 16 8 16s2.444-.01 3.298-.048c.851-.04 1.434-.174 1.943-.372a3.9 3.9 0 0 0 1.416-.923c.445-.445.718-.891.923-1.417.197-.509.332-1.09.372-1.942C15.99 10.445 16 10.173 16 8s-.01-2.445-.048-3.299c-.04-.851-.175-1.433-.372-1.941a3.9 3.9 0 0 0-.923-1.417A3.9 3.9 0 0 0 13.24.42c-.51-.198-1.092-.333-1.943-.372C10.443.01 10.172 0 7.998 0zm-.717 1.442h.718c2.136 0 2.389.007 3.232.046.78.035 1.204.166 1.486.275.373.145.64.319.92.599s.453.546.598.92c.11.281.24.705.275 1.485.039.843.047 1.096.047 3.231s-.008 2.389-.047 3.232c-.035.78-.166 1.203-.275 1.485a2.5 2.5 0 0 1-.599.919c-.28.28-.546.453-.92.598-.28.11-.704.24-1.485.276-.843.038-1.096.047-3.232.047s-2.39-.009-3.233-.047c-.78-.036-1.203-.166-1.485-.276a2.5 2.5 0 0 1-.92-.598 2.5 2.5 0 0 1-.6-.92c-.109-.281-.24-.705-.275-1.485-.038-.843-.046-1.096-.046-3.233s.008-2.388.046-3.231c.036-.78.166-1.204.276-1.486.145-.373.319-.64.599-.92s.546-.453.92-.598c.282-.11.705-.24 1.485-.276.738-.034 1.024-.044 2.515-.045zm4.988 1.328a.96.96 0 1 0 0 1.92.96.96 0 0 0 0-1.92m-4.27 1.122a4.109 4.109 0 1 0 0 8.217 4.109 4.109 0 0 0 0-8.217m0 1.441a2.667 2.667 0 1 1 0 5.334 2.667 2.667 0 0 1 0-5.334"/></svg>
+          <a class="footer-social" href="https://www.instagram.com/cydobangladesh" aria-label="Instagram" rel="noopener noreferrer" target="_blank">
+            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="currentColor" viewBox="0 0 16 16"><path d="M8 0C5.829 0 5.556.01 4.703.048 3.85.088 3.269.222 2.76.42a3.9 3.9 0 0 0-1.417.923A3.9 3.9 0 0 0 .42 2.76C.222 3.268.087 3.85.048 4.7.01 5.555 0 5.827 0 8.001c0 2.172.01 2.444.048 3.297.04.852.174 1.433.372 1.942.205.526.478.972.923 1.417.444.445.89.719 1.416.923.51.198 1.09.333 1.942.372C5.555 15.99 5.827 16 8 16s2.444-.01 3.298-.048c.851-.04 1.434-.174 1.943-.372a3.9 3.9 0 0 0 1.416-.923c.445-.445.718-.891.923-1.417.197-.509.332-1.09.372-1.942C15.99 10.445 16 10.173 16 8s-.01-2.445-.048-3.299c-.04-.851-.175-1.433-.372-1.941a3.9 3.9 0 0 0-.923-1.417A3.9 3.9 0 0 0 13.24.42c-.51-.198-1.092-.333-1.943-.372C10.443.01 10.172 0 7.998 0zm-.717 1.442h.718c2.136 0 2.389.007 3.232.046.78.035 1.204.166 1.486.275.373.145.64.319.92.599s.453.546.598.92c.11.281.24.705.275 1.485.039.843.047 1.096.047 3.231s-.008 2.389-.047 3.232c-.035.78-.166 1.203-.275 1.485a2.5 2.5 0 0 1-.599.919c-.28.28-.546.453-.92.598-.28.11-.704.24-1.485.276-.843.038-1.096.047-3.232.047s-2.39-.009-3.233-.047c-.78-.036-1.203-.166-1.485-.276a2.5 2.5 0 0 1-.92-.598 2.5 2.5 0 0 1-.6-.92c-.109-.281-.24-.705-.275-1.485-.038-.843-.046-1.096-.046-3.233s.008-2.388.046-3.231c.036-.78.166-1.204.276-1.486.145-.373.319-.64.599-.92s.546-.453.92-.598c.282-.11.705-.24 1.485-.276.738-.034 1.024-.044 2.515-.045zm4.988 1.328a.96.96 0 1 0 0 1.92.96.96 0 0 0 0-1.92m-4.27 1.122a4.109 4.109 0 1 0 0 8.217 4.109 4.109 0 0 0 0-8.217m0 1.441a2.667 2.667 0 1 1 0 5.334 2.667 2.667 0 0 1 0-5.334"/></svg>
           </a>
-          <a class="footer-social" href="https://www.youtube.com/@CydoBangladesh" aria-label="YouTube">
-            <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" fill="currentColor" viewBox="0 0 16 16"><path d="M8.051 1.999h.089c.822.003 4.987.033 6.11.335a2.01 2.01 0 0 1 1.415 1.42c.101.38.172.883.22 1.402l.01.104.022.26.008.104c.065.914.073 1.77.074 1.957v.075c-.001.194-.01 1.108-.082 2.06l-.008.105-.009.104c-.05.572-.124 1.14-.235 1.558a2.01 2.01 0 0 1-1.415 1.42c-1.16.312-5.569.334-6.18.335h-.142c-.309 0-1.587-.006-2.927-.052l-.17-.006-.087-.004-.171-.007-.171-.007c-1.11-.049-2.167-.128-2.654-.26a2.01 2.01 0 0 1-1.415-1.419c-.111-.417-.185-.986-.235-1.558L.09 9.82l-.008-.104A31 31 0 0 1 0 7.68v-.123c.002-.215.01-.958.064-1.778l.007-.103.003-.052.008-.104.022-.26.01-.104c.048-.519.119-1.023.22-1.402a2.01 2.01 0 0 1 1.415-1.42c.487-.13 1.544-.21 2.654-.26l.17-.007.172-.006.086-.003.171-.007A100 100 0 0 1 7.858 2zM6.4 5.209v4.818l4.157-2.408z"/></svg>
+          <a class="footer-social" href="https://www.youtube.com/@CydoBangladesh" aria-label="YouTube" rel="noopener noreferrer" target="_blank">
+            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="currentColor" viewBox="0 0 16 16"><path d="M8.051 1.999h.089c.822.003 4.987.033 6.11.335a2.01 2.01 0 0 1 1.415 1.42c.101.38.172.883.22 1.402l.01.104.022.26.008.104c.065.914.073 1.77.074 1.957v.075c-.001.194-.01 1.108-.082 2.06l-.008.105-.009.104c-.05.572-.124 1.14-.235 1.558a2.01 2.01 0 0 1-1.415 1.42c-1.16.312-5.569.334-6.18.335h-.142c-.309 0-1.587-.006-2.927-.052l-.17-.006-.087-.004-.171-.007-.171-.007c-1.11-.049-2.167-.128-2.654-.26a2.01 2.01 0 0 1-1.415-1.419c-.111-.417-.185-.986-.235-1.558L.09 9.82l-.008-.104A31 31 0 0 1 0 7.68v-.123c.002-.215.01-.958.064-1.778l.007-.103.003-.052.008-.104.022-.26.01-.104c.048-.519.119-1.023.22-1.402a2.01 2.01 0 0 1 1.415-1.42c.487-.13 1.544-.21 2.654-.26l.17-.007.172-.006.086-.003.171-.007A100 100 0 0 1 7.858 2zM6.4 5.209v4.818l4.157-2.408z"/></svg>
           </a>
         </div>
       </div>
@@ -1243,8 +1340,8 @@ footer { background: var(--gray-900); color: white; padding: 3.5rem 1.25rem 2rem
         <h4>Get Involved</h4>
         <ul>
           <li><a href="#" onclick="openModal();return false">Join CYDO</a></li>
-          <li><a href="#">Volunteer</a></li>
-          <li><a href="https://forms.gle/ngrqrHndZfkn4v9H9">Donate</a></li>
+          <li><a href="#" onclick="openModal();return false">Volunteer</a></li>
+          <li><a href="https://forms.gle/ngrqrHndZfkn4v9H9" rel="noopener" target="_blank">Donate</a></li>
           <li><a href="#partners">Partner With Us</a></li>
           <li><a href="#news">Newsletter</a></li>
         </ul>
@@ -1255,106 +1352,113 @@ footer { background: var(--gray-900); color: white; padding: 3.5rem 1.25rem 2rem
           <li><a href="tel:+8801990956886">+880 1990-956886</a></li>
           <li><a href="tel:+8801772293363">+880 1772-293363</a></li>
           <li><a href="mailto:cydobangladesh@gmail.com">cydobangladesh@gmail.com</a></li>
-          <li><a href="#contact">Bagerhat-9300, Bangladesh</a></li>
+          <li><a href="#contact">Bagerhat-9300, BD</a></li>
         </ul>
       </div>
     </div>
     <div class="footer-bottom">
-      <p>© 2026 CYDO. All rights reserved.</p>
+      <p>© 2026 CYDO — Climate &amp; Youth Development Organization. All rights reserved.</p>
       <p>Designed with 🤍 for a sustainable future.</p>
     </div>
   </div>
 </footer>
 
-<!-- LIGHTBOX -->
-<div class="lightbox" id="lightbox" onclick="closeLightbox()">
-  <button class="lightbox-close" onclick="closeLightbox()">✕</button>
+<!-- ============================================================
+     LIGHTBOX
+============================================================ -->
+<div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Image viewer" onclick="closeLightbox()">
+  <button class="lightbox-close" onclick="closeLightbox()" aria-label="Close lightbox">✕</button>
   <div class="lightbox-inner" onclick="event.stopPropagation()">
-    <img id="lightbox-img" src="" alt="Gallery preview">
+    <img id="lightboxImg" src="" alt="Gallery image preview">
   </div>
 </div>
 
-<!-- JOIN MODAL -->
-<div class="modal-overlay" id="joinModal" onclick="closeModal()">
+<!-- ============================================================
+     JOIN MODAL
+============================================================ -->
+<div class="modal-overlay" id="joinModal" role="dialog" aria-modal="true" aria-labelledby="modalTitle" onclick="closeModal()">
   <div class="modal-box" onclick="event.stopPropagation()">
-    <button class="modal-close" onclick="closeModal()">✕</button>
-    <div class="modal-icon">☘️</div>
-    <h3>Join the CYDO Movement</h3>
-    <p>Be part of Bangladesh's most impactful youth climate organization. Fill out our membership application to get started.</p>
-    <a href="https://forms.gle/eJQrZJBiUwYzmfUV7" target="_blank" class="btn-modal-primary" rel="noopener">
+    <button class="modal-close" onclick="closeModal()" aria-label="Close modal">✕</button>
+    <div class="modal-icon" aria-hidden="true">☘️</div>
+    <h3 id="modalTitle">Join the CYDO Movement</h3>
+    <p class="modal-desc">Be part of Bangladesh's most impactful youth climate organization. Fill out our membership application to get started on your journey.</p>
+    <a href="https://forms.gle/eJQrZJBiUwYzmfUV7" target="_blank" rel="noopener noreferrer" class="btn-modal">
       📑 Open Application Form
     </a>
-    <p style="margin-top:1rem;font-size:0.78rem;color:var(--gray-400)">Questions? Email us at cydobangladesh@gmail.com</p>
+    <p class="modal-note">Questions? Email us at <a href="mailto:cydobangladesh@gmail.com" style="color:var(--green)">cydobangladesh@gmail.com</a></p>
   </div>
 </div>
 
-<!-- TOAST -->
-<div class="toast" id="toast">✅ Message sent successfully!</div>
+<!-- Toast -->
+<div class="toast" id="toast" role="status" aria-live="polite">✅ Message sent successfully!</div>
 
+<!-- ============================================================
+     SCRIPTS
+============================================================ -->
 <script>
-const APPLICATION_FORM_URL = 'https://forms.gle/eJQrZJBiUwYzmfUV7';
-
-// NAV SCROLL
+// ---- NAV SCROLL ----
+const nav = document.getElementById('mainNav');
 window.addEventListener('scroll', () => {
-  document.getElementById('mainNav').classList.toggle('scrolled', window.scrollY > 50);
+  nav.classList.toggle('scrolled', window.scrollY > 40);
 }, { passive: true });
 
-// HAMBURGER
+// ---- HAMBURGER ----
 let menuOpen = false;
+const hamburger = document.getElementById('hamburger');
+const mobileMenu = document.getElementById('mobileMenu');
+
 function toggleMenu() {
   menuOpen = !menuOpen;
-  const menu = document.getElementById('mobileMenu');
-  const btn = document.getElementById('hamburger');
-  menu.classList.toggle('open', menuOpen);
-  btn.setAttribute('aria-expanded', menuOpen);
+  mobileMenu.classList.toggle('open', menuOpen);
+  hamburger.classList.toggle('active', menuOpen);
+  hamburger.setAttribute('aria-expanded', menuOpen);
+  document.body.style.overflow = menuOpen ? 'hidden' : '';
 }
 function closeMenu() {
   menuOpen = false;
-  document.getElementById('mobileMenu').classList.remove('open');
-  document.getElementById('hamburger').setAttribute('aria-expanded', 'false');
+  mobileMenu.classList.remove('open');
+  hamburger.classList.remove('active');
+  hamburger.setAttribute('aria-expanded', 'false');
+  document.body.style.overflow = '';
 }
-
-// Close menu when clicking outside
 document.addEventListener('click', (e) => {
-  const nav = document.getElementById('mainNav');
-  if (menuOpen && !nav.contains(e.target)) closeMenu();
+  if (menuOpen && !nav.contains(e.target) && !mobileMenu.contains(e.target)) closeMenu();
 });
 
-// SCROLL REVEAL
-const revealObserver = new IntersectionObserver((entries) => {
+// ---- SCROLL REVEAL ----
+const revealObs = new IntersectionObserver((entries) => {
   entries.forEach((e, i) => {
     if (e.isIntersecting) {
-      setTimeout(() => e.target.classList.add('visible'), i * 55);
-      revealObserver.unobserve(e.target);
+      setTimeout(() => e.target.classList.add('visible'), i * 60);
+      revealObs.unobserve(e.target);
     }
   });
-}, { threshold: 0.08, rootMargin: '0px 0px -30px 0px' });
-document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+}, { threshold: 0.07, rootMargin: '0px 0px -28px 0px' });
+document.querySelectorAll('.reveal').forEach(el => revealObs.observe(el));
 
-// COUNTER
-function animateCounter(el) {
-  const target = parseInt(el.dataset.target);
-  const duration = 1800;
-  const steps = 60;
-  const increment = target / steps;
-  let current = 0;
-  const timer = setInterval(() => {
-    current = Math.min(current + increment, target);
-    el.textContent = Math.floor(current).toLocaleString() + '+';
-    if (current >= target) clearInterval(timer);
-  }, duration / steps);
+// ---- COUNTER ----
+function runCounter(el) {
+  const target = +el.dataset.target;
+  const dur = 1800, steps = 60;
+  const inc = target / steps;
+  let cur = 0;
+  const t = setInterval(() => {
+    cur = Math.min(cur + inc, target);
+    el.textContent = Math.floor(cur).toLocaleString() + '+';
+    if (cur >= target) clearInterval(t);
+  }, dur / steps);
 }
-const counterObserver = new IntersectionObserver((entries) => {
+const cntObs = new IntersectionObserver((entries) => {
   entries.forEach(e => {
-    if (e.isIntersecting && !e.target.dataset.animated) {
-      e.target.dataset.animated = 'true';
-      animateCounter(e.target);
+    if (e.isIntersecting && !e.target.dataset.ran) {
+      e.target.dataset.ran = '1';
+      runCounter(e.target);
     }
   });
 }, { threshold: 0.5 });
-document.querySelectorAll('[data-target]').forEach(el => counterObserver.observe(el));
+document.querySelectorAll('[data-target]').forEach(el => cntObs.observe(el));
 
-// MODAL
+// ---- MODAL ----
 function openModal() {
   document.getElementById('joinModal').classList.add('open');
   document.body.style.overflow = 'hidden';
@@ -1364,29 +1468,48 @@ function closeModal() {
   document.body.style.overflow = '';
 }
 
-// LIGHTBOX
+// ---- LIGHTBOX ----
 function openLightbox(src) {
-  document.getElementById('lightbox-img').src = src;
+  document.getElementById('lightboxImg').src = src;
   document.getElementById('lightbox').classList.add('open');
   document.body.style.overflow = 'hidden';
 }
 function closeLightbox() {
   document.getElementById('lightbox').classList.remove('open');
-  document.getElementById('lightbox-img').src = '';
+  document.getElementById('lightboxImg').src = '';
   document.body.style.overflow = '';
 }
+// Keyboard nav for gallery items
+document.querySelectorAll('.gallery-item').forEach(item => {
+  item.addEventListener('keydown', e => {
+    if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); item.click(); }
+  });
+});
 
-// TOAST
+// ---- TOAST ----
 function showToast() {
   const t = document.getElementById('toast');
   t.classList.add('show');
   setTimeout(() => t.classList.remove('show'), 3500);
 }
 
-// ESCAPE KEY
+// ---- ESCAPE KEY ----
 document.addEventListener('keydown', e => {
   if (e.key === 'Escape') { closeModal(); closeLightbox(); closeMenu(); }
 });
+
+// ---- ACTIVE NAV LINK on scroll ----
+const sections = document.querySelectorAll('section[id]');
+const navAnchors = document.querySelectorAll('.nav-links a[href^="#"]');
+const highlightNav = () => {
+  let cur = '';
+  sections.forEach(s => { if (window.scrollY >= s.offsetTop - 100) cur = s.id; });
+  navAnchors.forEach(a => {
+    a.style.color = a.getAttribute('href') === '#' + cur ? 'var(--green)' : '';
+    a.style.borderBottomColor = a.getAttribute('href') === '#' + cur ? 'var(--green)' : 'transparent';
+  });
+};
+window.addEventListener('scroll', highlightNav, { passive: true });
 </script>
 </body>
 </html>
