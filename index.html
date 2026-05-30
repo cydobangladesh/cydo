@@ -1,1692 +1,1424 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>CYDO - Climate & Youth Development Organization</title>
-
-  <!-- Google Fonts -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-
-  <!-- Font Awesome -->
-  <link rel="stylesheet"
-  href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"/>
-
-  <style>
-
-    :root{
-      --primary:#006323;
-      --primary-light:#0b8f39;
-      --secondary:#f4f7f5;
-      --white:#ffffff;
-      --text:#173224;
-      --gray:#69756d;
-      --glass:rgba(255,255,255,0.18);
-      --shadow:0 10px 30px rgba(0,0,0,0.08);
-      --radius:22px;
-      --transition:0.35s ease;
-    }
-
-    *{
-      margin:0;
-      padding:0;
-      box-sizing:border-box;
-      scroll-behavior:smooth;
-    }
-
-    body{
-      font-family:'Poppins',sans-serif;
-      background:var(--secondary);
-      color:var(--text);
-      overflow-x:hidden;
-    }
-
-    img{
-      width:100%;
-      display:block;
-    }
-
-    a{
-      text-decoration:none;
-      color:inherit;
-    }
-
-    section{
-      padding:100px 8%;
-    }
-
-    .container{
-      max-width:1400px;
-      margin:auto;
-    }
-
-    .section-title{
-      text-align:center;
-      margin-bottom:60px;
-    }
-
-    .section-title span{
-      color:var(--primary);
-      font-weight:600;
-      letter-spacing:1px;
-      text-transform:uppercase;
-      font-size:0.9rem;
-    }
-
-    .section-title h2{
-      font-size:2.8rem;
-      margin:12px 0;
-      color:var(--primary);
-    }
-
-    .section-title p{
-      max-width:700px;
-      margin:auto;
-      color:var(--gray);
-      line-height:1.8;
-    }
-
-    /* NAVBAR */
-
-    header{
-      position:fixed;
-      width:100%;
-      top:0;
-      z-index:999;
-      backdrop-filter:blur(14px);
-      background:rgba(255,255,255,0.6);
-      border-bottom:1px solid rgba(255,255,255,0.3);
-    }
-
-    nav{
-      display:flex;
-      justify-content:space-between;
-      align-items:center;
-      padding:18px 8%;
-    }
-
-    .logo{
-      display:flex;
-      align-items:center;
-      gap:12px;
-      color:var(--primary);
-      font-size:1.5rem;
-      font-weight:800;
-    }
-
-    .logo i{
-      font-size:1.9rem;
-    }
-
-    .nav-links{
-      display:flex;
-      gap:28px;
-      list-style:none;
-    }
-
-    .nav-links a{
-      font-weight:500;
-      position:relative;
-      transition:var(--transition);
-    }
-
-    .nav-links a::after{
-      content:'';
-      position:absolute;
-      left:0;
-      bottom:-6px;
-      width:0%;
-      height:2px;
-      background:var(--primary);
-      transition:var(--transition);
-    }
-
-    .nav-links a:hover::after{
-      width:100%;
-    }
-
-    .nav-links a:hover{
-      color:var(--primary);
-    }
-
-    .hamburger{
-      display:none;
-      font-size:1.5rem;
-      cursor:pointer;
-      color:var(--primary);
-    }
-
-    /* HERO */
-
-    .hero{
-      height:100vh;
-      position:relative;
-      display:flex;
-      align-items:center;
-      overflow:hidden;
-      background:
-      linear-gradient(rgba(255,255,255,0.78), rgba(255,255,255,0.84)),
-      url('https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?q=80&w=1800&auto=format&fit=crop')
-      center/cover no-repeat;
-    }
-
-    .hero-content{
-      max-width:760px;
-      position:relative;
-      z-index:2;
-    }
-
-    .hero-content span{
-      background:rgba(0,99,35,0.12);
-      color:var(--primary);
-      padding:10px 18px;
-      border-radius:50px;
-      display:inline-block;
-      margin-bottom:25px;
-      font-weight:600;
-    }
-
-    .hero-content h1{
-      font-size:4.6rem;
-      line-height:1.1;
-      color:var(--primary);
-      margin-bottom:24px;
-      font-weight:800;
-    }
-
-    .hero-content p{
-      color:#31453a;
-      font-size:1.1rem;
-      line-height:1.9;
-      margin-bottom:35px;
-      max-width:650px;
-    }
-
-    .hero-buttons{
-      display:flex;
-      gap:18px;
-      flex-wrap:wrap;
-    }
-
-    .btn{
-      padding:15px 32px;
-      border-radius:50px;
-      border:none;
-      cursor:pointer;
-      transition:var(--transition);
-      font-weight:600;
-      display:inline-flex;
-      align-items:center;
-      gap:10px;
-      font-size:0.96rem;
-    }
-
-    .btn-primary{
-      background:var(--primary);
-      color:var(--white);
-      box-shadow:var(--shadow);
-    }
-
-    .btn-outline{
-      background:transparent;
-      border:2px solid var(--primary);
-      color:var(--primary);
-    }
-
-    .btn:hover{
-      transform:translateY(-5px) scale(1.03);
-    }
-
-    .floating-cards{
-      position:absolute;
-      right:8%;
-      top:50%;
-      transform:translateY(-50%);
-      display:grid;
-      grid-template-columns:repeat(2,1fr);
-      gap:20px;
-      z-index:2;
-    }
-
-    .float-card{
-      background:rgba(255,255,255,0.6);
-      backdrop-filter:blur(12px);
-      padding:26px;
-      border-radius:20px;
-      box-shadow:var(--shadow);
-      width:220px;
-      animation:float 5s infinite ease-in-out;
-    }
-
-    .float-card:nth-child(2){
-      animation-delay:1s;
-    }
-
-    .float-card:nth-child(3){
-      animation-delay:2s;
-    }
-
-    .float-card:nth-child(4){
-      animation-delay:3s;
-    }
-
-    .float-card i{
-      font-size:2rem;
-      color:var(--primary);
-      margin-bottom:15px;
-    }
-
-    @keyframes float{
-      0%,100%{
-        transform:translateY(0);
-      }
-      50%{
-        transform:translateY(-12px);
-      }
-    }
-
-    .blob{
-      position:absolute;
-      width:500px;
-      height:500px;
-      border-radius:50%;
-      background:rgba(0,99,35,0.09);
-      filter:blur(40px);
-      z-index:1;
-    }
-
-    .blob.one{
-      top:-120px;
-      right:-100px;
-    }
-
-    .blob.two{
-      bottom:-140px;
-      left:-120px;
-    }
-
-    /* ABOUT */
-
-    .about-grid{
-      display:grid;
-      grid-template-columns:1fr 1fr;
-      gap:60px;
-      align-items:center;
-    }
-
-    .about-image img{
-      border-radius:var(--radius);
-      box-shadow:var(--shadow);
-      height:100%;
-      object-fit:cover;
-    }
-
-    .about-content h3{
-      font-size:2.3rem;
-      margin-bottom:18px;
-      color:var(--primary);
-    }
-
-    .about-content p{
-      line-height:1.9;
-      color:#415147;
-      margin-bottom:25px;
-    }
-
-    .mission-grid{
-      display:grid;
-      grid-template-columns:repeat(3,1fr);
-      gap:18px;
-      margin-top:35px;
-    }
-
-    .mission-card{
-      background:var(--white);
-      padding:25px;
-      border-radius:18px;
-      box-shadow:var(--shadow);
-      transition:var(--transition);
-    }
-
-    .mission-card:hover{
-      transform:translateY(-10px);
-    }
-
-    .mission-card i{
-      color:var(--primary);
-      font-size:1.8rem;
-      margin-bottom:15px;
-    }
-
-    .stats{
-      margin-top:40px;
-      display:grid;
-      grid-template-columns:repeat(2,1fr);
-      gap:20px;
-    }
-
-    .stat{
-      background:var(--white);
-      padding:28px;
-      border-radius:18px;
-      box-shadow:var(--shadow);
-      text-align:center;
-      transition:var(--transition);
-    }
-
-    .stat:hover{
-      transform:scale(1.04);
-    }
-
-    .stat h2{
-      color:var(--primary);
-      font-size:2.5rem;
-      margin-bottom:10px;
-    }
-
-    /* PROGRAMS */
-
-    .program-grid{
-      display:grid;
-      grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
-      gap:28px;
-    }
-
-    .program-card{
-      background:var(--white);
-      padding:35px;
-      border-radius:22px;
-      box-shadow:var(--shadow);
-      transition:var(--transition);
-      position:relative;
-      overflow:hidden;
-    }
-
-    .program-card::before{
-      content:'';
-      position:absolute;
-      width:120px;
-      height:120px;
-      background:rgba(0,99,35,0.07);
-      border-radius:50%;
-      top:-40px;
-      right:-40px;
-    }
-
-    .program-card:hover{
-      transform:translateY(-12px);
-    }
-
-    .program-card i{
-      width:70px;
-      height:70px;
-      border-radius:18px;
-      background:rgba(0,99,35,0.12);
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      color:var(--primary);
-      font-size:1.8rem;
-      margin-bottom:25px;
-    }
-
-    .program-card h3{
-      margin-bottom:15px;
-      color:var(--primary);
-    }
-
-    .program-card p{
-      color:var(--gray);
-      line-height:1.8;
-    }
-
-    /* IMPACT */
-
-    .impact-grid{
-      display:grid;
-      grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
-      gap:30px;
-    }
-
-    .impact-card{
-      background:var(--white);
-      padding:30px;
-      border-radius:22px;
-      box-shadow:var(--shadow);
-    }
-
-    .progress{
-      height:10px;
-      background:#dbe5de;
-      border-radius:50px;
-      margin-top:15px;
-      overflow:hidden;
-    }
-
-    .progress span{
-      display:block;
-      height:100%;
-      background:var(--primary);
-      border-radius:50px;
-    }
-
-    /* TEAM */
-
-    .team-grid{
-      display:grid;
-      grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
-      gap:28px;
-    }
-
-    .team-card{
-      background:var(--white);
-      border-radius:24px;
-      overflow:hidden;
-      box-shadow:var(--shadow);
-      text-align:center;
-      transition:var(--transition);
-      position:relative;
-    }
-
-    .team-card:hover{
-      transform:translateY(-12px);
-    }
-
-    .team-card img{
-      height:320px;
-      object-fit:cover;
-    }
-
-    .team-info{
-      padding:25px;
-    }
-
-    .team-info h3{
-      color:var(--primary);
-    }
-
-    .team-social{
-      margin-top:15px;
-      display:flex;
-      justify-content:center;
-      gap:15px;
-    }
-
-    .team-social a{
-      width:40px;
-      height:40px;
-      border-radius:50%;
-      background:#eef4f0;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      transition:var(--transition);
-    }
-
-    .team-social a:hover{
-      background:var(--primary);
-      color:var(--white);
-    }
-
-    /* GALLERY */
-
-    .gallery-grid{
-      columns:3 250px;
-      column-gap:18px;
-    }
-
-    .gallery-item{
-      overflow:hidden;
-      margin-bottom:18px;
-      border-radius:20px;
-      position:relative;
-      cursor:pointer;
-    }
-
-    .gallery-item img{
-      transition:0.5s ease;
-    }
-
-    .gallery-item:hover img{
-      transform:scale(1.08);
-    }
-
-    /* VIDEOS */
-
-    .video-grid{
-      display:grid;
-      grid-template-columns:repeat(auto-fit,minmax(320px,1fr));
-      gap:25px;
-    }
-
-    .video-card{
-      background:var(--white);
-      border-radius:22px;
-      overflow:hidden;
-      box-shadow:var(--shadow);
-      transition:var(--transition);
-    }
-
-    .video-card:hover{
-      transform:translateY(-10px);
-    }
-
-    .video-card iframe{
-      width:100%;
-      height:220px;
-      border:none;
-    }
-
-    .video-content{
-      padding:20px;
-    }
-
-    .video-content h3{
-      font-size:1rem;
-      margin-bottom:10px;
-      line-height:1.6;
-    }
-
-    .video-content span{
-      color:var(--gray);
-      font-size:0.9rem;
-    }
-
-    /* TESTIMONIAL */
-
-    .testimonial-slider{
-      display:grid;
-      grid-template-columns:repeat(auto-fit,minmax(320px,1fr));
-      gap:25px;
-    }
-
-    .testimonial{
-      background:var(--white);
-      padding:35px;
-      border-radius:22px;
-      box-shadow:var(--shadow);
-      transition:var(--transition);
-    }
-
-    .testimonial:hover{
-      transform:translateY(-10px);
-    }
-
-    .testimonial i{
-      color:var(--primary);
-      font-size:2rem;
-      margin-bottom:20px;
-    }
-
-    .testimonial p{
-      line-height:1.8;
-      color:var(--gray);
-      margin-bottom:20px;
-    }
-
-    /* CONTACT */
-
-    .contact-grid{
-      display:grid;
-      grid-template-columns:1fr 1fr;
-      gap:40px;
-    }
-
-    .contact-info{
-      display:flex;
-      flex-direction:column;
-      gap:20px;
-    }
-
-    .contact-card{
-      background:rgba(255,255,255,0.6);
-      backdrop-filter:blur(12px);
-      padding:25px;
-      border-radius:20px;
-      box-shadow:var(--shadow);
-      display:flex;
-      gap:18px;
-      align-items:flex-start;
-    }
-
-    .contact-card i{
-      color:var(--primary);
-      font-size:1.5rem;
-    }
-
-    form{
-      background:rgba(255,255,255,0.7);
-      backdrop-filter:blur(12px);
-      padding:35px;
-      border-radius:24px;
-      box-shadow:var(--shadow);
-    }
-
-    .form-group{
-      margin-bottom:20px;
-    }
-
-    input,textarea{
-      width:100%;
-      padding:15px;
-      border:none;
-      border-radius:14px;
-      background:#f3f5f4;
-      outline:none;
-      font-family:inherit;
-    }
-
-    textarea{
-      resize:none;
-      min-height:160px;
-    }
-
-    iframe.map{
-      width:100%;
-      height:260px;
-      border:none;
-      border-radius:20px;
-      margin-top:25px;
-    }
-
-    /* FOOTER */
-
-    footer{
-      background:#07140d;
-      color:#d9e5dc;
-      padding:70px 8% 30px;
-    }
-
-    .footer-grid{
-      display:grid;
-      grid-template-columns:2fr 1fr 1fr;
-      gap:40px;
-      margin-bottom:50px;
-    }
-
-    .footer-links{
-      display:flex;
-      flex-direction:column;
-      gap:14px;
-    }
-
-    .footer-links a:hover{
-      color:#7ef3ab;
-    }
-
-    .newsletter{
-      display:flex;
-      gap:10px;
-      margin-top:20px;
-    }
-
-    .newsletter input{
-      flex:1;
-      background:#12231a;
-      color:white;
-    }
-
-    .socials{
-      display:flex;
-      gap:15px;
-      margin-top:25px;
-    }
-
-    .socials a{
-      width:45px;
-      height:45px;
-      border-radius:50%;
-      background:#11241a;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      transition:var(--transition);
-    }
-
-    .socials a:hover{
-      background:var(--primary);
-      transform:translateY(-5px);
-    }
-
-    .copyright{
-      text-align:center;
-      border-top:1px solid rgba(255,255,255,0.08);
-      padding-top:25px;
-      color:#95a49a;
-    }
-
-    /* SCROLL TOP */
-
-    .scroll-top{
-      position:fixed;
-      right:25px;
-      bottom:25px;
-      width:52px;
-      height:52px;
-      border-radius:50%;
-      background:var(--primary);
-      color:white;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      cursor:pointer;
-      box-shadow:var(--shadow);
-      opacity:0;
-      visibility:hidden;
-      transition:var(--transition);
-      z-index:999;
-    }
-
-    .scroll-top.active{
-      opacity:1;
-      visibility:visible;
-    }
-
-    /* LIGHTBOX */
-
-    .lightbox{
-      position:fixed;
-      inset:0;
-      background:rgba(0,0,0,0.85);
-      display:none;
-      align-items:center;
-      justify-content:center;
-      z-index:9999;
-      padding:20px;
-    }
-
-    .lightbox img{
-      max-width:90%;
-      max-height:90%;
-      border-radius:20px;
-    }
-
-    /* REVEAL */
-
-    .reveal{
-      opacity:0;
-      transform:translateY(60px);
-      transition:1s ease;
-    }
-
-    .reveal.active{
-      opacity:1;
-      transform:translateY(0);
-    }
-
-    /* RESPONSIVE */
-
-    @media(max-width:1100px){
-
-      .floating-cards{
-        display:none;
-      }
-
-      .hero-content h1{
-        font-size:3.8rem;
-      }
-
-      .about-grid,
-      .contact-grid{
-        grid-template-columns:1fr;
-      }
-
-      .mission-grid{
-        grid-template-columns:1fr;
-      }
-    }
-
-    @media(max-width:850px){
-
-      .hamburger{
-        display:block;
-      }
-
-      .nav-links{
-        position:absolute;
-        top:90px;
-        right:-100%;
-        flex-direction:column;
-        background:rgba(255,255,255,0.96);
-        width:280px;
-        padding:35px;
-        border-radius:20px;
-        box-shadow:var(--shadow);
-        transition:0.4s ease;
-      }
-
-      .nav-links.active{
-        right:8%;
-      }
-
-      .hero{
-        padding-top:120px;
-      }
-
-      .hero-content h1{
-        font-size:3rem;
-      }
-
-      .footer-grid{
-        grid-template-columns:1fr;
-      }
-    }
-
-    @media(max-width:600px){
-
-      section{
-        padding:80px 6%;
-      }
-
-      .hero-content h1{
-        font-size:2.3rem;
-      }
-
-      .hero-buttons{
-        flex-direction:column;
-      }
-
-      .btn{
-        width:100%;
-        justify-content:center;
-      }
-
-      .section-title h2{
-        font-size:2rem;
-      }
-
-      .stats{
-        grid-template-columns:1fr;
-      }
-    }
-
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="CYDO - Climate and Youth Development Organization. Empowering youth for climate action, SRHR awareness, and quality education in Bangladesh.">
+<meta name="keywords" content="CYDO, climate, youth, Bangladesh, NGO, environment, SRHR, education">
+<title>CYDO - Climate and Youth Development Organization</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root {
+  --green: #16A34A;
+  --green-dark: #15803D;
+  --green-light: #DCFCE7;
+  --green-mid: #4ADE80;
+  --white: #FFFFFF;
+  --gray-50: #F9FAFB;
+  --gray-100: #F3F4F6;
+  --gray-200: #E5E7EB;
+  --gray-300: #D1D5DB;
+  --gray-400: #9CA3AF;
+  --gray-500: #6B7280;
+  --gray-600: #4B5563;
+  --gray-700: #374151;
+  --gray-800: #1F2937;
+  --gray-900: #111827;
+  --font-en: 'Plus Jakarta Sans', sans-serif;
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: var(--font-en);
+  color: var(--gray-800);
+  background: var(--white);
+  overflow-x: hidden;
+  line-height: 1.6;
+}
+
+/* LANGUAGE */
+
+/* SCROLLBAR */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: var(--gray-100); }
+::-webkit-scrollbar-thumb { background: var(--green); border-radius: 3px; }
+
+/* NAV */
+nav {
+  position: fixed; top: 0; width: 100%; z-index: 1000;
+  background: rgba(255,255,255,0.95);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--gray-200);
+  transition: box-shadow 0.3s;
+}
+nav.scrolled { box-shadow: 0 4px 24px rgba(22,163,74,0.1); }
+.nav-inner {
+  max-width: 1200px; margin: 0 auto;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0 1.5rem; height: 72px;
+}
+.nav-logo { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+.nav-logo img { height: 48px; width: 48px; object-fit: contain; }
+.nav-logo-text { font-size: 1.25rem; font-weight: 800; color: var(--green-dark); letter-spacing: -0.5px; }
+.nav-links { display: flex; align-items: center; gap: 2rem; list-style: none; }
+.nav-links a {
+  font-size: 0.875rem; font-weight: 500; color: var(--gray-600);
+  text-decoration: none; transition: color 0.2s; white-space: nowrap;
+}
+.nav-links a:hover { color: var(--green); }
+.nav-right { display: flex; align-items: center; gap: 1rem; }
+
+.btn-nav {
+  background: var(--green); color: white;
+  padding: 8px 20px; border-radius: 8px; font-size: 0.875rem; font-weight: 600;
+  text-decoration: none; transition: all 0.2s; white-space: nowrap; border: none; cursor: pointer;
+}
+.btn-nav:hover { background: var(--green-dark); transform: translateY(-1px); box-shadow: 0 4px 12px rgba(22,163,74,0.3); }
+.hamburger { display: none; background: none; border: none; cursor: pointer; flex-direction: column; gap: 5px; }
+.hamburger span { width: 24px; height: 2px; background: var(--gray-700); border-radius: 2px; transition: 0.3s; display: block; }
+
+/* MOBILE NAV */
+.mobile-menu {
+  display: none; flex-direction: column;
+  background: white; border-top: 1px solid var(--gray-200);
+  padding: 1rem 1.5rem 1.5rem;
+}
+.mobile-menu.open { display: flex; }
+.mobile-menu a { padding: 0.75rem 0; font-size: 0.95rem; color: var(--gray-700); text-decoration: none; border-bottom: 1px solid var(--gray-100); }
+
+/* HERO */
+.hero {
+  min-height: 100vh; position: relative;
+  display: flex; align-items: center;
+  background: linear-gradient(135deg, #0A3D1F 0%, #15803D 40%, #16A34A 70%, #4ADE80 100%);
+  overflow: hidden;
+  padding-top: 72px;
+}
+.hero-bg {
+  position: absolute; inset: 0;
+  background-image:
+    radial-gradient(circle at 20% 50%, rgba(255,255,255,0.05) 0%, transparent 50%),
+    radial-gradient(circle at 80% 20%, rgba(74,222,128,0.15) 0%, transparent 40%),
+    radial-gradient(circle at 60% 80%, rgba(0,0,0,0.1) 0%, transparent 40%);
+}
+.hero-pattern {
+  position: absolute; inset: 0; opacity: 0.04;
+  background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='1'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+}
+.hero-content {
+  position: relative; z-index: 2;
+  max-width: 1200px; margin: 0 auto; padding: 5rem 1.5rem;
+  display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center;
+}
+.hero-text { color: white; }
+.hero-badge {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: rgba(255,255,255,0.15); border: 1px solid rgba(255,255,255,0.3);
+  padding: 6px 16px; border-radius: 999px; font-size: 0.8rem; font-weight: 600;
+  letter-spacing: 0.5px; margin-bottom: 1.5rem; color: rgba(255,255,255,0.95);
+  backdrop-filter: blur(10px);
+}
+.hero-badge span { width: 8px; height: 8px; background: var(--green-mid); border-radius: 50%; animation: pulse-dot 2s infinite; }
+@keyframes pulse-dot { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:0.7;transform:scale(1.3)} }
+.hero h1 {
+  font-size: clamp(2.2rem, 5vw, 3.5rem); font-weight: 800;
+  line-height: 1.15; margin-bottom: 1.25rem; letter-spacing: -1px;
+}
+.hero h1 em { font-style: normal; color: var(--green-mid); }
+.hero p { font-size: 1.1rem; opacity: 0.85; margin-bottom: 2.5rem; max-width: 500px; line-height: 1.7; }
+.hero-btns { display: flex; gap: 1rem; flex-wrap: wrap; }
+.btn-primary {
+  background: white; color: var(--green-dark);
+  padding: 14px 32px; border-radius: 10px; font-weight: 700; font-size: 0.95rem;
+  text-decoration: none; transition: all 0.25s; border: 2px solid transparent;
+  display: inline-flex; align-items: center; gap: 8px;
+}
+.btn-primary:hover { background: var(--green-light); transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,0,0,0.2); }
+.btn-outline {
+  background: transparent; color: white;
+  padding: 14px 32px; border-radius: 10px; font-weight: 600; font-size: 0.95rem;
+  text-decoration: none; transition: all 0.25s; border: 2px solid rgba(255,255,255,0.5);
+  display: inline-flex; align-items: center; gap: 8px;
+}
+.btn-outline:hover { background: rgba(255,255,255,0.1); border-color: white; transform: translateY(-2px); }
+.hero-visual { position: relative; display: flex; justify-content: center; }
+.hero-card-stack { position: relative; width: 360px; height: 380px; }
+.hero-card {
+  position: absolute; background: rgba(255,255,255,0.12); backdrop-filter: blur(20px);
+  border: 1px solid rgba(255,255,255,0.25); border-radius: 20px;
+  padding: 1.5rem; color: white;
+}
+.hero-card:nth-child(1) { top: 0; left: 0; width: 200px; animation: float1 4s ease-in-out infinite; }
+.hero-card:nth-child(2) { top: 60px; right: 0; width: 220px; animation: float2 5s ease-in-out infinite; }
+.hero-card:nth-child(3) { bottom: 0; left: 40px; width: 240px; animation: float3 4.5s ease-in-out infinite; }
+@keyframes float1 { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-12px)} }
+@keyframes float2 { 0%,100%{transform:translateY(-6px)} 50%{transform:translateY(8px)} }
+@keyframes float3 { 0%,100%{transform:translateY(4px)} 50%{transform:translateY(-8px)} }
+.hero-card-icon { font-size: 2rem; margin-bottom: 0.5rem; }
+.hero-card h4 { font-size: 0.9rem; font-weight: 700; margin-bottom: 0.25rem; }
+.hero-card p { font-size: 0.75rem; opacity: 0.75; }
+.hero-scroll {
+  position: absolute; bottom: 2rem; left: 50%; transform: translateX(-50%);
+  color: rgba(255,255,255,0.6); font-size: 0.8rem;
+  display: flex; flex-direction: column; align-items: center; gap: 8px;
+  animation: bounce-scroll 2s ease-in-out infinite;
+}
+@keyframes bounce-scroll { 0%,100%{transform:translateX(-50%) translateY(0)} 50%{transform:translateX(-50%) translateY(6px)} }
+.hero-scroll-line { width: 1px; height: 40px; background: linear-gradient(to bottom, rgba(255,255,255,0.5), transparent); }
+
+/* SECTIONS */
+section { padding: 5rem 1.5rem; }
+.container { max-width: 1200px; margin: 0 auto; }
+.section-label {
+  display: inline-block; font-size: 0.75rem; font-weight: 700; letter-spacing: 2px;
+  text-transform: uppercase; color: var(--green); background: var(--green-light);
+  padding: 4px 14px; border-radius: 999px; margin-bottom: 1rem;
+}
+.section-title { font-size: clamp(1.8rem, 3.5vw, 2.5rem); font-weight: 800; color: var(--gray-900); line-height: 1.2; margin-bottom: 1rem; letter-spacing: -0.5px; }
+.section-title em { font-style: normal; color: var(--green); }
+.section-sub { font-size: 1.05rem; color: var(--gray-500); max-width: 600px; line-height: 1.7; }
+.text-center { text-align: center; }
+.section-sub.center { margin: 0 auto; }
+
+/* ABOUT */
+.about { background: var(--gray-50); }
+.about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center; }
+.about-visual { position: relative; }
+.about-img-wrap {
+  border-radius: 24px; overflow: hidden; height: 480px;
+  background: linear-gradient(135deg, var(--green-dark), var(--green));
+  display: flex; align-items: center; justify-content: center;
+  position: relative;
+}
+.about-img-wrap svg { opacity: 0.3; }
+.about-img-badge {
+  position: absolute; bottom: -1.5rem; right: -1.5rem;
+  background: white; border-radius: 16px; padding: 1.25rem 1.5rem;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.12);
+  display: flex; align-items: center; gap: 1rem;
+}
+.about-img-badge .num { font-size: 2rem; font-weight: 800; color: var(--green); line-height: 1; }
+.about-img-badge .lbl { font-size: 0.8rem; color: var(--gray-500); }
+.vmv-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 1rem; margin-top: 2rem; }
+.vmv-card {
+  background: white; border-radius: 14px; padding: 1.25rem;
+  border: 1px solid var(--gray-200); transition: all 0.3s;
+}
+.vmv-card:hover { border-color: var(--green); transform: translateY(-2px); box-shadow: 0 8px 24px rgba(22,163,74,0.1); }
+.vmv-card .icon { font-size: 1.75rem; margin-bottom: 0.5rem; }
+.vmv-card h4 { font-size: 0.85rem; font-weight: 700; color: var(--green-dark); margin-bottom: 0.35rem; text-transform: uppercase; letter-spacing: 0.5px; }
+.vmv-card p { font-size: 0.8rem; color: var(--gray-500); line-height: 1.5; }
+
+/* FOCUS AREAS */
+.focus-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.5rem; margin-top: 3rem; }
+.focus-card {
+  background: white; border-radius: 20px;
+  border: 1px solid var(--gray-200);
+  padding: 2rem 1.5rem;
+  transition: all 0.35s cubic-bezier(0.4,0,0.2,1);
+  position: relative; overflow: hidden;
+}
+.focus-card::before {
+  content: ''; position: absolute; top: 0; left: 0; right: 0; height: 4px;
+  background: var(--card-color, var(--green));
+}
+.focus-card:hover { transform: translateY(-8px); box-shadow: 0 20px 48px rgba(0,0,0,0.1); border-color: transparent; }
+.focus-icon {
+  width: 64px; height: 64px; border-radius: 16px;
+  background: var(--card-bg, var(--green-light));
+  display: flex; align-items: center; justify-content: center;
+  font-size: 2rem; margin-bottom: 1.25rem;
+}
+.focus-card h3 { font-size: 1.05rem; font-weight: 700; margin-bottom: 0.75rem; color: var(--gray-800); }
+.focus-card p { font-size: 0.875rem; color: var(--gray-500); line-height: 1.65; margin-bottom: 1.5rem; }
+.btn-link {
+  display: inline-flex; align-items: center; gap: 6px;
+  font-size: 0.875rem; font-weight: 600; color: var(--green);
+  text-decoration: none; transition: gap 0.2s;
+}
+.btn-link:hover { gap: 10px; }
+.btn-link::after { content: '→'; }
+
+/* STATS */
+.stats { background: linear-gradient(135deg, #0A3D1F, #15803D); color: white; padding: 4rem 1.5rem; }
+.stats-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 2rem; }
+.stat-item { text-align: center; }
+.stat-num { font-size: clamp(2rem, 4vw, 3rem); font-weight: 800; color: var(--green-mid); line-height: 1; margin-bottom: 0.5rem; }
+.stat-label { font-size: 0.85rem; opacity: 0.8; }
+
+/* TEAM / FOUNDERS */
+.team-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; margin-top: 3rem; }
+.member-card {
+  background: white; border-radius: 20px; overflow: hidden;
+  border: 1px solid var(--gray-200); transition: all 0.3s;
+  text-align: center;
+}
+.member-card:hover { transform: translateY(-6px); box-shadow: 0 16px 40px rgba(22,163,74,0.12); }
+.member-photo {
+  height: 200px; background: linear-gradient(135deg, var(--green-light), var(--green-mid));
+  display: flex; align-items: center; justify-content: center; position: relative; overflow: hidden;
+}
+.member-photo .initials {
+  font-size: 2.5rem; font-weight: 800; color: var(--green-dark);
+  position: relative; z-index: 2;
+}
+.member-photo::after {
+  content: ''; position: absolute; inset: 0;
+  background: radial-gradient(circle at 50% 120%, rgba(22,163,74,0.3) 0%, transparent 60%);
+}
+.member-info { padding: 1.25rem; }
+.member-name { font-size: 1rem; font-weight: 700; color: var(--gray-800); margin-bottom: 0.25rem; }
+.member-role { font-size: 0.8rem; color: var(--green); font-weight: 600; margin-bottom: 0.75rem; }
+.member-socials { display: flex; justify-content: center; gap: 0.5rem; }
+.social-btn {
+  width: 32px; height: 32px; border-radius: 8px;
+  background: var(--gray-100); border: none; cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 0.75rem; transition: all 0.2s; color: var(--gray-600); text-decoration: none;
+}
+.social-btn:hover { background: var(--green); color: white; }
+
+/* FOUNDERS */
+.founders { background: var(--gray-900); color: white; }
+.founders-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem; margin-top: 3rem; }
+.founder-card {
+  background: rgba(255,255,255,0.05); border-radius: 24px;
+  border: 1px solid rgba(255,255,255,0.1); overflow: hidden;
+  transition: all 0.3s; position: relative;
+}
+.founder-card:hover { border-color: var(--green); transform: translateY(-6px); }
+.founder-photo {
+  height: 260px; background: linear-gradient(135deg, rgba(22,163,74,0.3), rgba(21,128,61,0.5));
+  display: flex; align-items: center; justify-content: center; position: relative;
+}
+.founder-photo .initials-lg {
+  font-size: 4rem; font-weight: 800; color: var(--green-mid); opacity: 0.8;
+}
+.founder-badge {
+  position: absolute; top: 1rem; left: 1rem;
+  background: var(--green); color: white;
+  font-size: 0.7rem; font-weight: 700; letter-spacing: 1px;
+  padding: 4px 12px; border-radius: 999px; text-transform: uppercase;
+}
+.founder-info { padding: 1.75rem; }
+.founder-name { font-size: 1.2rem; font-weight: 700; margin-bottom: 0.25rem; }
+.founder-title { font-size: 0.85rem; color: var(--green-mid); font-weight: 600; margin-bottom: 1rem; }
+.founder-bio { font-size: 0.875rem; color: rgba(255,255,255,0.65); line-height: 1.65; }
+
+/* PARTNERS */
+.partners-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.5rem; margin-top: 3rem; }
+.partner-card {
+  background: white; border-radius: 16px; padding: 1.75rem;
+  border: 1px solid var(--gray-200); text-align: center;
+  transition: all 0.3s; display: flex; flex-direction: column; align-items: center; gap: 0.75rem;
+}
+.partner-card:hover { border-color: var(--green); transform: translateY(-4px); box-shadow: 0 8px 24px rgba(22,163,74,0.1); }
+.partner-logo {
+  width: 72px; height: 72px; border-radius: 50%;
+  background: linear-gradient(135deg, var(--green-light), var(--green-mid));
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.5rem; font-weight: 800; color: var(--green-dark);
+}
+.partner-name { font-size: 0.9rem; font-weight: 700; color: var(--gray-700); }
+.partner-link { font-size: 0.75rem; color: var(--green); text-decoration: none; }
+
+/* PROJECTS */
+.projects-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; margin-top: 3rem; }
+.project-card {
+  background: white; border-radius: 20px; overflow: hidden;
+  border: 1px solid var(--gray-200); transition: all 0.3s;
+}
+.project-card:hover { transform: translateY(-6px); box-shadow: 0 16px 40px rgba(0,0,0,0.1); }
+.project-img {
+  height: 200px; position: relative; overflow: hidden;
+}
+.project-img-bg {
+  width: 100%; height: 100%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 4rem;
+}
+.project-tag {
+  position: absolute; top: 1rem; left: 1rem;
+  background: var(--green); color: white;
+  font-size: 0.7rem; font-weight: 700; padding: 4px 12px; border-radius: 999px;
+}
+.project-body { padding: 1.5rem; }
+.project-date { font-size: 0.75rem; color: var(--gray-400); margin-bottom: 0.5rem; }
+.project-title { font-size: 1.05rem; font-weight: 700; color: var(--gray-800); margin-bottom: 0.5rem; }
+.project-desc { font-size: 0.875rem; color: var(--gray-500); line-height: 1.6; }
+
+/* GALLERY */
+.gallery { background: var(--gray-50); }
+.gallery-grid { display: grid; grid-template-columns: repeat(4, 1fr); grid-auto-rows: 180px; gap: 12px; margin-top: 3rem; }
+.gallery-item {
+  border-radius: 12px; overflow: hidden; cursor: pointer;
+  position: relative; transition: all 0.3s;
+}
+.gallery-item:nth-child(3), .gallery-item:nth-child(7) { grid-column: span 2; }
+.gallery-item:hover { transform: scale(1.02); }
+.gallery-img {
+  width: 100%; height: 100%; 
+  display: flex; align-items: center; justify-content: center;
+  font-size: 3rem; position: relative;
+}
+.gallery-overlay {
+  position: absolute; inset: 0; background: rgba(22,163,74,0.7);
+  display: flex; align-items: center; justify-content: center;
+  opacity: 0; transition: 0.3s; color: white; font-size: 2rem;
+}
+.gallery-item:hover .gallery-overlay { opacity: 1; }
+
+/* LIGHTBOX */
+.lightbox {
+  display: none; position: fixed; inset: 0; z-index: 9999;
+  background: rgba(0,0,0,0.9); align-items: center; justify-content: center;
+}
+.lightbox.open { display: flex; }
+.lightbox-content { max-width: 90vw; max-height: 90vh; border-radius: 12px; overflow: hidden; position: relative; }
+.lightbox-close {
+  position: fixed; top: 1.5rem; right: 1.5rem;
+  background: white; border: none; width: 44px; height: 44px;
+  border-radius: 50%; cursor: pointer; font-size: 1.25rem;
+  display: flex; align-items: center; justify-content: center;
+}
+
+/* JOIN */
+.join { background: linear-gradient(135deg, var(--green-dark) 0%, var(--green) 100%); color: white; text-align: center; }
+.join h2 { font-size: clamp(2rem, 4vw, 3rem); font-weight: 800; margin-bottom: 1rem; letter-spacing: -0.5px; }
+.join p { font-size: 1.1rem; opacity: 0.85; margin-bottom: 2.5rem; max-width: 600px; margin-left: auto; margin-right: auto; }
+.btn-white {
+  background: white; color: var(--green-dark);
+  padding: 16px 40px; border-radius: 12px; font-weight: 700; font-size: 1.05rem;
+  border: none; cursor: pointer; transition: all 0.25s;
+  display: inline-flex; align-items: center; gap: 8px;
+}
+.btn-white:hover { transform: translateY(-3px); box-shadow: 0 12px 32px rgba(0,0,0,0.2); }
+
+/* NEWS */
+.news-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; margin-top: 3rem; }
+.news-card {
+  background: white; border-radius: 16px; overflow: hidden;
+  border: 1px solid var(--gray-200); transition: all 0.3s;
+}
+.news-card:hover { transform: translateY(-4px); box-shadow: 0 12px 32px rgba(0,0,0,0.08); }
+.news-img { height: 160px; display: flex; align-items: center; justify-content: center; font-size: 3rem; }
+.news-body { padding: 1.25rem; }
+.news-date { font-size: 0.75rem; color: var(--gray-400); margin-bottom: 0.5rem; }
+.news-title { font-size: 0.95rem; font-weight: 700; color: var(--gray-800); margin-bottom: 0.5rem; line-height: 1.4; }
+.news-excerpt { font-size: 0.8rem; color: var(--gray-500); line-height: 1.6; }
+
+/* CONTACT */
+.contact { background: var(--gray-50); }
+.contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: start; }
+.contact-form { background: white; border-radius: 20px; padding: 2rem; border: 1px solid var(--gray-200); }
+.form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+.form-group { margin-bottom: 1.25rem; }
+.form-group label { display: block; font-size: 0.8rem; font-weight: 600; color: var(--gray-700); margin-bottom: 0.4rem; }
+.form-group input, .form-group textarea, .form-group select {
+  width: 100%; padding: 10px 14px; border-radius: 10px;
+  border: 1px solid var(--gray-200); font-family: inherit; font-size: 0.9rem;
+  color: var(--gray-800); transition: border-color 0.2s; background: var(--gray-50);
+  outline: none;
+}
+.form-group input:focus, .form-group textarea:focus { border-color: var(--green); background: white; }
+.form-group textarea { resize: vertical; min-height: 120px; }
+.btn-submit {
+  width: 100%; background: var(--green); color: white;
+  padding: 12px; border-radius: 10px; font-weight: 700; font-size: 1rem;
+  border: none; cursor: pointer; transition: all 0.25s;
+}
+.btn-submit:hover { background: var(--green-dark); }
+.contact-info { }
+.contact-info h3 { font-size: 1.4rem; font-weight: 700; margin-bottom: 1.5rem; color: var(--gray-800); }
+.info-item { display: flex; gap: 1rem; margin-bottom: 1.5rem; align-items: flex-start; }
+.info-icon { width: 44px; height: 44px; border-radius: 12px; background: var(--green-light); display: flex; align-items: center; justify-content: center; font-size: 1.2rem; flex-shrink: 0; }
+.info-text h4 { font-size: 0.85rem; font-weight: 700; color: var(--gray-700); margin-bottom: 0.2rem; }
+.info-text p { font-size: 0.85rem; color: var(--gray-500); }
+.socials-row { display: flex; gap: 0.75rem; margin-top: 1.5rem; }
+.social-icon-btn {
+  width: 44px; height: 44px; border-radius: 12px; background: var(--gray-100);
+  display: flex; align-items: center; justify-content: center; font-size: 1.2rem;
+  transition: all 0.2s; cursor: pointer; text-decoration: none; color: var(--gray-600); border: 1px solid var(--gray-200);
+}
+.social-icon-btn:hover { background: var(--green); color: white; border-color: var(--green); }
+.map-placeholder { margin-top: 1.5rem; border-radius: 16px; overflow: hidden; height: 200px; background: var(--gray-200); display: flex; align-items: center; justify-content: center; font-size: 0.9rem; color: var(--gray-500); border: 1px solid var(--gray-200); }
+
+/* FOOTER */
+footer { background: var(--gray-900); color: white; padding: 4rem 1.5rem 2rem; }
+.footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 3rem; margin-bottom: 3rem; }
+.footer-brand p { font-size: 0.875rem; color: rgba(255,255,255,0.5); margin: 1rem 0; line-height: 1.7; max-width: 280px; }
+.footer-socials { display: flex; gap: 0.5rem; }
+.footer-social {
+  width: 36px; height: 36px; border-radius: 8px;
+  background: rgba(255,255,255,0.08); display: flex; align-items: center; justify-content: center;
+  font-size: 1rem; text-decoration: none; color: rgba(255,255,255,0.6); transition: all 0.2s;
+}
+.footer-social:hover { background: var(--green); color: white; }
+.footer-col h4 { font-size: 0.85rem; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: rgba(255,255,255,0.9); margin-bottom: 1.25rem; }
+.footer-col ul { list-style: none; }
+.footer-col ul li { margin-bottom: 0.6rem; }
+.footer-col ul li a { font-size: 0.875rem; color: rgba(255,255,255,0.5); text-decoration: none; transition: color 0.2s; }
+.footer-col ul li a:hover { color: var(--green-mid); }
+.footer-bottom { border-top: 1px solid rgba(255,255,255,0.1); padding-top: 2rem; display: flex; justify-content: space-between; align-items: center; flex-wrap: gap; gap: 1rem; }
+.footer-bottom p { font-size: 0.8rem; color: rgba(255,255,255,0.4); }
+.footer-bottom-links { display: flex; gap: 1.5rem; }
+.footer-bottom-links a { font-size: 0.8rem; color: rgba(255,255,255,0.4); text-decoration: none; transition: color 0.2s; }
+.footer-bottom-links a:hover { color: var(--green-mid); }
+
+/* MODAL */
+.modal-overlay {
+  display: none; position: fixed; inset: 0; z-index: 9998;
+  background: rgba(0,0,0,0.6); backdrop-filter: blur(4px);
+  align-items: center; justify-content: center;
+}
+.modal-overlay.open { display: flex; }
+.modal-box {
+  background: white; border-radius: 24px; padding: 2.5rem; width: 90%; max-width: 520px;
+  position: relative; animation: modal-in 0.3s cubic-bezier(0.34,1.56,0.64,1);
+}
+@keyframes modal-in { from{opacity:0;transform:scale(0.9) translateY(20px)} to{opacity:1;transform:scale(1) translateY(0)} }
+.modal-close { position: absolute; top: 1.25rem; right: 1.25rem; background: var(--gray-100); border: none; width: 36px; height: 36px; border-radius: 50%; cursor: pointer; font-size: 1rem; display: flex; align-items: center; justify-content: center; }
+.modal-icon { font-size: 3rem; margin-bottom: 1rem; }
+.modal-box h3 { font-size: 1.4rem; font-weight: 800; margin-bottom: 0.5rem; color: var(--gray-800); }
+.modal-box p { font-size: 0.9rem; color: var(--gray-500); margin-bottom: 1.5rem; line-height: 1.6; }
+.btn-modal-primary {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: var(--green); color: white;
+  padding: 12px 28px; border-radius: 10px; font-weight: 700; font-size: 0.95rem;
+  text-decoration: none; transition: all 0.25s; border: none; cursor: pointer;
+}
+.btn-modal-primary:hover { background: var(--green-dark); transform: translateY(-2px); }
+
+/* ANIMATIONS */
+.reveal { opacity: 0; transform: translateY(30px); transition: opacity 0.6s ease, transform 0.6s ease; }
+.reveal.visible { opacity: 1; transform: translateY(0); }
+
+/* RESPONSIVE */
+@media (max-width: 1024px) {
+  .focus-grid { grid-template-columns: repeat(2, 1fr); }
+  .stats-grid { grid-template-columns: repeat(3, 1fr); }
+  .team-grid { grid-template-columns: repeat(3, 1fr); }
+
+  .footer-grid { grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 768px) {
+  .nav-links { display: none; }
+  .hamburger { display: flex; }
+  .hero-content { grid-template-columns: 1fr; text-align: center; }
+  .hero-visual { display: none; }
+  .hero-btns { justify-content: center; }
+  .about-grid { grid-template-columns: 1fr; }
+  .about-img-wrap { height: 300px; }
+  .about-img-badge { bottom: 1rem; right: 1rem; }
+  .vmv-grid { grid-template-columns: 1fr; }
+  .focus-grid { grid-template-columns: 1fr; }
+  .stats-grid { grid-template-columns: repeat(2, 1fr); gap: 1.5rem; }
+  .team-grid { grid-template-columns: repeat(2, 1fr); }
+
+  .founders-grid { grid-template-columns: 1fr; }
+  .partners-grid { grid-template-columns: repeat(2, 1fr); }
+  .projects-grid { grid-template-columns: 1fr; }
+  .gallery-grid { grid-template-columns: repeat(2, 1fr); }
+  .gallery-item:nth-child(3), .gallery-item:nth-child(7) { grid-column: span 1; }
+  .news-grid { grid-template-columns: 1fr; }
+  .contact-grid { grid-template-columns: 1fr; }
+  .form-row { grid-template-columns: 1fr; }
+  .footer-grid { grid-template-columns: 1fr; gap: 2rem; }
+  .footer-bottom { flex-direction: column; text-align: center; }
+}
+@media (max-width: 480px) {
+  section { padding: 3rem 1rem; }
+  .team-grid { grid-template-columns: 1fr; }
+  .partners-grid { grid-template-columns: 1fr; }
+}
+
+/* TOAST */
+.toast {
+  position: fixed; bottom: 2rem; left: 50%; transform: translateX(-50%) translateY(100px);
+  background: var(--gray-800); color: white; padding: 12px 24px; border-radius: 10px;
+  font-size: 0.9rem; z-index: 9999; transition: transform 0.4s cubic-bezier(0.34,1.56,0.64,1);
+  display: flex; align-items: center; gap: 8px;
+}
+.toast.show { transform: translateX(-50%) translateY(0); }
+</style>
 </head>
-
 <body>
 
-  <!-- NAVBAR -->
+<!-- NAV -->
+<nav id="mainNav">
+  <div class="nav-inner">
+    <a href="#" class="nav-logo">
+      <div style="width:48px;height:48px;background:linear-gradient(135deg,#15803D,#4ADE80);border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:1.4rem;font-weight:900;color:white;letter-spacing:-1px">CY</div>
+      <span class="nav-logo-text">CYDO</span>
+    </a>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="#about">About</a></li>
+      <li><a href="#focus">Focus Areas</a></li>
+      <li><a href="#team">Team</a></li>
+      <li><a href="#projects">Projects</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+    <div class="nav-right">
+      <button class="btn-nav" onclick="openModal()">
+        Join CYDO
+        
+      </button>
+      <button class="hamburger" id="hamburger" onclick="toggleMenu()" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="#about" onclick="toggleMenu()">About</a>
+    <a href="#focus" onclick="toggleMenu()">Focus Areas</a>
+    <a href="#team" onclick="toggleMenu()">Team</a>
+    <a href="#founders" onclick="toggleMenu()">Founders</a>
+    <a href="#projects" onclick="toggleMenu()">Projects</a>
+    <a href="#gallery" onclick="toggleMenu()">Gallery</a>
+    <a href="#news" onclick="toggleMenu()">News</a>
+    <a href="#contact" onclick="toggleMenu()">Contact</a>
+  </div>
+</nav>
 
-  <header>
-    <nav>
-
-      <div class="logo">
-        <i class="fa-solid fa-leaf"></i>
-        CYDO
+<!-- HERO -->
+<section class="hero" id="home">
+  <div class="hero-bg"></div>
+  <div class="hero-pattern"></div>
+  <div class="hero-content container">
+    <div class="hero-text">
+      <div class="hero-badge">
+        <span></span>
+        Bangladesh's Youth Climate Movement
+        
       </div>
-
-      <ul class="nav-links" id="navLinks">
-        <li><a href="#home">Home</a></li>
-        <li><a href="#about">About</a></li>
-        <li><a href="#programs">Programs</a></li>
-        <li><a href="#impact">Impact</a></li>
-        <li><a href="#gallery">Gallery</a></li>
-        <li><a href="#team">Team</a></li>
-        <li><a href="#videos">Videos</a></li>
-        <li><a href="#contact">Contact</a></li>
-      </ul>
-
-      <div class="hamburger" id="hamburger">
-        <i class="fa-solid fa-bars"></i>
+      <h1>
+        Empowering Youth <em>for a</em> Greener Tomorrow
+        
+      </h1>
+      <p>
+        CYDO unites passionate young leaders across Bangladesh to drive climate action, advance SRHR awareness, promote quality education, and build sustainable communities.
+        
+      </p>
+      <div class="hero-btns">
+        <button class="btn-primary" onclick="openModal()">
+          🌱 Join CYDO
+          
+        </button>
+        <a href="#about" class="btn-outline">
+          Learn More
+          
+        </a>
       </div>
+    </div>
+    <div class="hero-visual">
+      <div class="hero-card-stack">
+        <div class="hero-card">
+          <div class="hero-card-icon">♻️</div>
+          <h4>Waste Management</h4>
+          <p>Clean communities</p>
+        </div>
+        <div class="hero-card">
+          <div class="hero-card-icon">🌍</div>
+          <h4>Climate Action</h4>
+          <p>500+ volunteers</p>
+        </div>
+        <div class="hero-card">
+          <div class="hero-card-icon">🎓</div>
+          <h4>Quality Education</h4>
+          <p>5000+ beneficiaries</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="hero-scroll">
+    <span style="font-size:0.75rem;opacity:0.6" class="lang-en">Scroll down</span>
+    
+    <div class="hero-scroll-line"></div>
+  </div>
+</section>
 
-    </nav>
-  </header>
-
-  <!-- HERO -->
-
-  <section class="hero" id="home">
-
-    <div class="blob one"></div>
-    <div class="blob two"></div>
-
-    <div class="container">
-
-      <div class="hero-content reveal">
-
-        <span>Youth-Led Climate Organization</span>
-
-        <h1>Empowering Youth for Climate Justice</h1>
-
-        <p>
-          Climate and Youth Development Organization (CYDO) works to inspire,
-          engage, and empower young people through climate action,
-          sustainability initiatives, leadership development,
-          and community resilience programs across Bangladesh.
+<!-- ABOUT -->
+<section class="about" id="about">
+  <div class="container">
+    <div class="about-grid">
+      <div class="about-visual reveal">
+        <div class="about-img-wrap">
+          <svg width="200" height="200" viewBox="0 0 200 200">
+            <circle cx="100" cy="100" r="80" fill="none" stroke="white" stroke-width="2"/>
+            <path d="M100 40 Q130 70 100 100 Q70 130 100 160" fill="none" stroke="white" stroke-width="3"/>
+            <circle cx="100" cy="100" r="15" fill="white"/>
+            <path d="M40 100 Q70 70 100 100 Q130 130 160 100" fill="none" stroke="white" stroke-width="2"/>
+          </svg>
+          <div class="about-img-badge">
+            <div>
+              <div class="num">2020</div>
+              <div class="lbl">Founded</div>
+            </div>
+            <div style="font-size:2rem">🌿</div>
+          </div>
+        </div>
+      </div>
+      <div class="reveal">
+        <div class="section-label">About Us</div>
+        <h2 class="section-title">
+          Who We <em>Are</em>
+          
+        </h2>
+        <p style="color:var(--gray-500);line-height:1.75;margin-bottom:1.5rem">
+          CYDO — Climate and Youth Development Organization — is a youth-led non-governmental organization based in Bangladesh. Founded in 2020, CYDO mobilizes young people to take meaningful action on climate change, waste management, reproductive health, and inclusive education.
+          
         </p>
-
-        <div class="hero-buttons">
-
-          <a href="#contact" class="btn btn-primary">
-            <i class="fa-solid fa-handshake-angle"></i>
-            Join Us
-          </a>
-
-          <a href="#programs" class="btn btn-outline">
-            <i class="fa-solid fa-earth-asia"></i>
-            Our Programs
-          </a>
-
+        <div class="vmv-grid">
+          <div class="vmv-card">
+            <div class="icon">🔭</div>
+            <h4>Vision</h4>
+            <p>A sustainable, equitable Bangladesh led by empowered youth.</p>
+          </div>
+          <div class="vmv-card">
+            <div class="icon">🎯</div>
+            <h4>Mission</h4>
+            <p>Mobilize youth for climate resilience, education, and social justice.</p>
+          </div>
+          <div class="vmv-card">
+            <div class="icon">💎</div>
+            <h4>Values</h4>
+            <p>Integrity, inclusion, innovation, collaboration.</p>
+          </div>
         </div>
-
       </div>
-
-      <div class="floating-cards">
-
-        <div class="float-card">
-          <i class="fa-solid fa-users"></i>
-          <h3>500+ Volunteers</h3>
-          <p>Active youth climate leaders.</p>
-        </div>
-
-        <div class="float-card">
-          <i class="fa-solid fa-tree"></i>
-          <h3>100+ Campaigns</h3>
-          <p>Environmental awareness programs.</p>
-        </div>
-
-        <div class="float-card">
-          <i class="fa-solid fa-bullhorn"></i>
-          <h3>Climate Advocacy</h3>
-          <p>Driving social and policy impact.</p>
-        </div>
-
-        <div class="float-card">
-          <i class="fa-solid fa-globe"></i>
-          <h3>Nationwide Reach</h3>
-          <p>Communities across Bangladesh.</p>
-        </div>
-
-      </div>
-
     </div>
+  </div>
+</section>
 
-  </section>
-
-  <!-- ABOUT -->
-
-  <section id="about">
-
-    <div class="container">
-
-      <div class="section-title reveal">
-        <span>Who We Are</span>
-        <h2>About CYDO</h2>
-        <p>
-          CYDO is a youth-led nonprofit organization dedicated to climate
-          resilience, environmental sustainability, and empowering youth
-          to become changemakers in their communities.
-        </p>
-      </div>
-
-      <div class="about-grid">
-
-        <div class="about-image reveal">
-          <img src="https://images.unsplash.com/photo-1529156069898-49953e39b3ac?q=80&w=1400&auto=format&fit=crop">
-        </div>
-
-        <div class="about-content reveal">
-
-          <h3>Building a Sustainable Future Together</h3>
-
-          <p>
-            Through community engagement, leadership development,
-            and innovative environmental initiatives, CYDO works
-            to create a greener, more resilient future led by youth.
-          </p>
-
-          <div class="mission-grid">
-
-            <div class="mission-card">
-              <i class="fa-solid fa-bullseye"></i>
-              <h4>Mission</h4>
-              <p>Empower youth to lead sustainable climate solutions.</p>
-            </div>
-
-            <div class="mission-card">
-              <i class="fa-solid fa-eye"></i>
-              <h4>Vision</h4>
-              <p>Create climate-resilient communities through youth action.</p>
-            </div>
-
-            <div class="mission-card">
-              <i class="fa-solid fa-heart"></i>
-              <h4>Values</h4>
-              <p>Leadership, sustainability, equality, and collaboration.</p>
-            </div>
-
-          </div>
-
-          <div class="stats">
-
-            <div class="stat">
-              <h2 class="counter" data-target="500">0</h2>
-              <p>Volunteers</p>
-            </div>
-
-            <div class="stat">
-              <h2 class="counter" data-target="100">0</h2>
-              <p>Campaigns</p>
-            </div>
-
-            <div class="stat">
-              <h2 class="counter" data-target="50000">0</h2>
-              <p>Youth Reached</p>
-            </div>
-
-            <div class="stat">
-              <h2 class="counter" data-target="35">0</h2>
-              <p>Partners</p>
-            </div>
-
-          </div>
-
-        </div>
-
-      </div>
-
+<!-- FOCUS AREAS -->
+<section id="focus">
+  <div class="container">
+    <div class="text-center reveal">
+      <div class="section-label">What We Do</div>
+      <h2 class="section-title">Our <em>Focus Areas</em></h2>
+      <p class="section-sub center">Four interconnected pillars driving sustainable development and youth empowerment across Bangladesh.</p>
     </div>
-
-  </section>
-
-  <!-- PROGRAMS -->
-
-  <section id="programs">
-
-    <div class="container">
-
-      <div class="section-title reveal">
-        <span>Focus Areas</span>
-        <h2>Our Programs</h2>
+    <div class="focus-grid">
+      <div class="focus-card reveal" style="--card-color:#16A34A;--card-bg:#DCFCE7">
+        <div class="focus-icon">♻️</div>
+        <h3>Waste Management</h3>
+        <p>Promoting zero-waste communities through awareness campaigns, recycling drives, and sustainable waste disposal practices across urban and rural areas.</p>
+        <a href="#" class="btn-link">Learn More</a>
       </div>
-
-      <div class="program-grid">
-
-        <div class="program-card reveal">
-          <i class="fa-solid fa-leaf"></i>
-          <h3>Climate Action</h3>
-          <p>Promoting climate awareness and sustainable practices.</p>
-        </div>
-
-        <div class="program-card reveal">
-          <i class="fa-solid fa-users"></i>
-          <h3>Youth Leadership</h3>
-          <p>Developing future leaders through engagement and training.</p>
-        </div>
-
-        <div class="program-card reveal">
-          <i class="fa-solid fa-handshake"></i>
-          <h3>Community Development</h3>
-          <p>Empowering local communities through collaborative action.</p>
-        </div>
-
-        <div class="program-card reveal">
-          <i class="fa-solid fa-book-open"></i>
-          <h3>Environmental Education</h3>
-          <p>Educational workshops and sustainability awareness sessions.</p>
-        </div>
-
-        <div class="program-card reveal">
-          <i class="fa-solid fa-scale-balanced"></i>
-          <h3>Advocacy & Policy</h3>
-          <p>Encouraging policy dialogue and climate justice initiatives.</p>
-        </div>
-
-        <div class="program-card reveal">
-          <i class="fa-solid fa-house-flood-water"></i>
-          <h3>Disaster Resilience</h3>
-          <p>Supporting vulnerable communities through resilience programs.</p>
-        </div>
-
+      <div class="focus-card reveal" style="--card-color:#2563EB;--card-bg:#DBEAFE">
+        <div class="focus-icon" style="background:#DBEAFE">🌟</div>
+        <h3>Youth Empowerment</h3>
+        <p>Building leadership skills, civic engagement, and entrepreneurial mindsets among young Bangladeshis through workshops, mentorship, and community-led initiatives.</p>
+        <a href="#" class="btn-link" style="color:#2563EB">Learn More</a>
       </div>
-
+      <div class="focus-card reveal" style="--card-color:#DC2626;--card-bg:#FEE2E2">
+        <div class="focus-icon" style="background:#FEE2E2">❤️</div>
+        <h3>SRHR Awareness</h3>
+        <p>Advocating for sexual and reproductive health rights through peer education, safe spaces, and evidence-based campaigns that break stigma and foster informed choices.</p>
+        <a href="#" class="btn-link" style="color:#DC2626">Learn More</a>
+      </div>
+      <div class="focus-card reveal" style="--card-color:#D97706;--card-bg:#FEF3C7">
+        <div class="focus-icon" style="background:#FEF3C7">📚</div>
+        <h3>Quality Education</h3>
+        <p>Ensuring access to quality, inclusive education for marginalized youth through digital literacy programs, scholarship campaigns, and teacher training initiatives.</p>
+        <a href="#" class="btn-link" style="color:#D97706">Learn More</a>
+      </div>
     </div>
+  </div>
+</section>
 
-  </section>
-
-  <!-- IMPACT -->
-
-  <section id="impact">
-
-    <div class="container">
-
-      <div class="section-title reveal">
-        <span>Our Achievements</span>
-        <h2>Impact & Achievements</h2>
+<!-- STATS -->
+<section class="stats">
+  <div class="container">
+    <div class="stats-grid">
+      <div class="stat-item reveal">
+        <div class="stat-num" data-target="500">0</div>
+        <div class="stat-label">Volunteers</div>
       </div>
-
-      <div class="impact-grid">
-
-        <div class="impact-card reveal">
-          <h3>Climate Campaigns</h3>
-          <div class="progress">
-            <span style="width:90%"></span>
-          </div>
-        </div>
-
-        <div class="impact-card reveal">
-          <h3>Youth Engagement</h3>
-          <div class="progress">
-            <span style="width:85%"></span>
-          </div>
-        </div>
-
-        <div class="impact-card reveal">
-          <h3>Community Awareness</h3>
-          <div class="progress">
-            <span style="width:80%"></span>
-          </div>
-        </div>
-
+      <div class="stat-item reveal">
+        <div class="stat-num" data-target="1200">0</div>
+        <div class="stat-label">Members</div>
       </div>
-
+      <div class="stat-item reveal">
+        <div class="stat-num" data-target="5000">0</div>
+        <div class="stat-label">Beneficiaries</div>
+      </div>
+      <div class="stat-item reveal">
+        <div class="stat-num" data-target="48">0</div>
+        <div class="stat-label">Projects Completed</div>
+      </div>
+      <div class="stat-item reveal">
+        <div class="stat-num" data-target="15">0</div>
+        <div class="stat-label">Partner Organizations</div>
+      </div>
     </div>
+  </div>
+</section>
 
-  </section>
-
-  <!-- TEAM -->
-
-  <section id="team">
-
-    <div class="container">
-
-      <div class="section-title reveal">
-        <span>Leadership</span>
-        <h2>Meet Our Team</h2>
-      </div>
-
-      <div class="team-grid">
-
-        <div class="team-card reveal">
-          <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?q=80&w=900&auto=format&fit=crop">
-          <div class="team-info">
-            <h3>Shuvro</h3>
-            <p>Finance Secretary</p>
-
-            <div class="team-social">
-              <a href="#"><i class="fab fa-facebook-f"></i></a>
-              <a href="#"><i class="fab fa-linkedin-in"></i></a>
-            </div>
-          </div>
-        </div>
-
-        <div class="team-card reveal">
-          <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&w=900&auto=format&fit=crop">
-          <div class="team-info">
-            <h3>Team Member</h3>
-            <p>Youth Coordinator</p>
-
-            <div class="team-social">
-              <a href="#"><i class="fab fa-facebook-f"></i></a>
-              <a href="#"><i class="fab fa-linkedin-in"></i></a>
-            </div>
-          </div>
-        </div>
-
-        <div class="team-card reveal">
-          <img src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?q=80&w=900&auto=format&fit=crop">
-          <div class="team-info">
-            <h3>Team Member</h3>
-            <p>Program Coordinator</p>
-
-            <div class="team-social">
-              <a href="#"><i class="fab fa-facebook-f"></i></a>
-              <a href="#"><i class="fab fa-linkedin-in"></i></a>
-            </div>
-          </div>
-        </div>
-
-      </div>
-
+<!-- EXECUTIVE COMMITTEE -->
+<section id="team">
+  <div class="container">
+    <div class="text-center reveal">
+      <div class="section-label">Our Leadership</div>
+      <h2 class="section-title">Executive <em>Committee</em></h2>
+      <p class="section-sub center">Dedicated young leaders steering CYDO's mission forward with passion and purpose.</p>
     </div>
-
-  </section>
-
-  <!-- GALLERY -->
-
-  <section id="gallery">
-
-    <div class="container">
-
-      <div class="section-title reveal">
-        <span>Activities</span>
-        <h2>Gallery</h2>
-      </div>
-
-      <div class="gallery-grid">
-
-        <div class="gallery-item reveal">
-          <img src="https://images.unsplash.com/photo-1494526585095-c41746248156?q=80&w=1000&auto=format&fit=crop">
-        </div>
-
-        <div class="gallery-item reveal">
-          <img src="https://images.unsplash.com/photo-1517048676732-d65bc937f952?q=80&w=1000&auto=format&fit=crop">
-        </div>
-
-        <div class="gallery-item reveal">
-          <img src="https://images.unsplash.com/photo-1521737604893-d14cc237f11d?q=80&w=1000&auto=format&fit=crop">
-        </div>
-
-        <div class="gallery-item reveal">
-          <img src="https://images.unsplash.com/photo-1509099863731-ef4bff19e808?q=80&w=1000&auto=format&fit=crop">
-        </div>
-
-        <div class="gallery-item reveal">
-          <img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?q=80&w=1000&auto=format&fit=crop">
-        </div>
-
-      </div>
-
-    </div>
-
-  </section>
-
-  <!-- VIDEOS -->
-
-  <section id="videos">
-
-    <div class="container">
-
-      <div class="section-title reveal">
-        <span>Media</span>
-        <h2>Latest Videos</h2>
-      </div>
-
-      <div class="video-grid" id="videoContainer">
-
-        <div style="text-align:center;padding:50px;">
-          <i class="fa-solid fa-spinner fa-spin"></i>
-          Loading Videos...
-        </div>
-
-      </div>
-
-    </div>
-
-  </section>
-
-  <!-- TESTIMONIALS -->
-
-  <section>
-
-    <div class="container">
-
-      <div class="section-title reveal">
-        <span>Voices</span>
-        <h2>Testimonials</h2>
-      </div>
-
-      <div class="testimonial-slider">
-
-        <div class="testimonial reveal">
-          <i class="fa-solid fa-quote-left"></i>
-          <p>
-            CYDO inspired our community to take climate action and empower young leaders.
-          </p>
-          <h4>Community Volunteer</h4>
-        </div>
-
-        <div class="testimonial reveal">
-          <i class="fa-solid fa-quote-left"></i>
-          <p>
-            The organization creates opportunities for youth to make meaningful impact.
-          </p>
-          <h4>Youth Activist</h4>
-        </div>
-
-        <div class="testimonial reveal">
-          <i class="fa-solid fa-quote-left"></i>
-          <p>
-            Their environmental awareness campaigns are truly inspiring and impactful.
-          </p>
-          <h4>Program Partner</h4>
-        </div>
-
-      </div>
-
-    </div>
-
-  </section>
-
-  <!-- CONTACT -->
-
-  <section id="contact">
-
-    <div class="container">
-
-      <div class="section-title reveal">
-        <span>Get In Touch</span>
-        <h2>Contact Us</h2>
-      </div>
-
-      <div class="contact-grid">
-
-        <div class="contact-info reveal">
-
-          <div class="contact-card">
-            <i class="fa-solid fa-location-dot"></i>
-            <div>
-              <h4>Location</h4>
-              <p>Bangladesh</p>
-            </div>
+    <div class="team-grid">
+      <!-- Row 1 -->
+      <div class="member-card reveal">
+        <div class="member-photo"><div class="initials">AR</div></div>
+        <div class="member-info">
+          <div class="member-name">Arafat Rahman</div>
+          <div class="member-role">President</div>
+          <div class="member-socials">
+            <a class="social-btn" href="#" title="Facebook">f</a>
+            <a class="social-btn" href="#" title="LinkedIn">in</a>
+            <a class="social-btn" href="#" title="Twitter/X">𝕏</a>
           </div>
-
-          <div class="contact-card">
-            <i class="fa-solid fa-envelope"></i>
-            <div>
-              <h4>Email</h4>
-              <p>contact@cydo.org</p>
-            </div>
-          </div>
-
-          <div class="contact-card">
-            <i class="fa-brands fa-facebook-f"></i>
-            <div>
-              <h4>Facebook Page</h4>
-              <p>facebook.com/CydoBangladesh</p>
-            </div>
-          </div>
-
-          <iframe class="map"
-          src="https://maps.google.com/maps?q=bangladesh&t=&z=5&ie=UTF8&iwloc=&output=embed">
-          </iframe>
-
         </div>
+      </div>
+      <div class="member-card reveal">
+        <div class="member-photo" style="background:linear-gradient(135deg,#DBEAFE,#93C5FD)"><div class="initials" style="color:#1E40AF">SB</div></div>
+        <div class="member-info">
+          <div class="member-name">Sumaiya Begum</div>
+          <div class="member-role">Vice President</div>
+          <div class="member-socials">
+            <a class="social-btn" href="#" title="Facebook">f</a>
+            <a class="social-btn" href="#" title="LinkedIn">in</a>
+          </div>
+        </div>
+      </div>
+      <div class="member-card reveal">
+        <div class="member-photo" style="background:linear-gradient(135deg,#FEE2E2,#FCA5A5)"><div class="initials" style="color:#991B1B">TI</div></div>
+        <div class="member-info">
+          <div class="member-name">Tanvir Islam</div>
+          <div class="member-role">General Secretary</div>
+          <div class="member-socials">
+            <a class="social-btn" href="#" title="Facebook">f</a>
+            <a class="social-btn" href="#" title="LinkedIn">in</a>
+          </div>
+        </div>
+      </div>
+      <!-- Row 2 -->
+      <div class="member-card reveal">
+        <div class="member-photo" style="background:linear-gradient(135deg,#FEF3C7,#FCD34D)"><div class="initials" style="color:#92400E">NK</div></div>
+        <div class="member-info">
+          <div class="member-name">Nusrat Khanam</div>
+          <div class="member-role">Treasurer</div>
+          <div class="member-socials">
+            <a class="social-btn" href="#" title="Facebook">f</a>
+            <a class="social-btn" href="#" title="LinkedIn">in</a>
+          </div>
+        </div>
+      </div>
+      <div class="member-card reveal">
+        <div class="member-photo" style="background:linear-gradient(135deg,#E9D5FF,#C084FC)"><div class="initials" style="color:#6B21A8">RH</div></div>
+        <div class="member-info">
+          <div class="member-name">Rafiqul Hasan</div>
+          <div class="member-role">Program Director</div>
+          <div class="member-socials">
+            <a class="social-btn" href="#" title="Facebook">f</a>
+            <a class="social-btn" href="#" title="LinkedIn">in</a>
+          </div>
+        </div>
+      </div>
+      <div class="member-card reveal">
+        <div class="member-photo" style="background:linear-gradient(135deg,#CCFBF1,#5EEAD4)"><div class="initials" style="color:#0F766E">FA</div></div>
+        <div class="member-info">
+          <div class="member-name">Fatema Akter</div>
+          <div class="member-role">Communications Lead</div>
+          <div class="member-socials">
+            <a class="social-btn" href="#" title="Facebook">f</a>
+            <a class="social-btn" href="#" title="LinkedIn">in</a>
+          </div>
+        </div>
+      </div>
+      <!-- Row 3 -->
+      <div class="member-card reveal">
+        <div class="member-photo" style="background:linear-gradient(135deg,#FCE7F3,#F9A8D4)"><div class="initials" style="color:#9D174D">MR</div></div>
+        <div class="member-info">
+          <div class="member-name">Mahbub Rahman</div>
+          <div class="member-role">Research Officer</div>
+          <div class="member-socials">
+            <a class="social-btn" href="#" title="Facebook">f</a>
+            <a class="social-btn" href="#" title="LinkedIn">in</a>
+          </div>
+        </div>
+      </div>
+      <div class="member-card reveal">
+        <div class="member-photo" style="background:linear-gradient(135deg,#ECFDF5,#6EE7B7)"><div class="initials" style="color:#065F46">ZA</div></div>
+        <div class="member-info">
+          <div class="member-name">Zara Ahmed</div>
+          <div class="member-role">Youth Coordinator</div>
+          <div class="member-socials">
+            <a class="social-btn" href="#" title="Facebook">f</a>
+            <a class="social-btn" href="#" title="LinkedIn">in</a>
+          </div>
+        </div>
+      </div>
+      <div class="member-card reveal">
+        <div class="member-photo" style="background:linear-gradient(135deg,#EFF6FF,#BFDBFE)"><div class="initials" style="color:#1E3A8A">SI</div></div>
+        <div class="member-info">
+          <div class="member-name">Sabbir Islam</div>
+          <div class="member-role">Volunteer Manager</div>
+          <div class="member-socials">
+            <a class="social-btn" href="#" title="Facebook">f</a>
+            <a class="social-btn" href="#" title="LinkedIn">in</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
 
-        <form class="reveal">
+<!-- FOUNDERS -->
+<section class="founders" id="founders">
+  <div class="container">
+    <div class="text-center reveal">
+      <div class="section-label" style="background:rgba(74,222,128,0.15);color:#4ADE80">Our Story</div>
+      <h2 class="section-title" style="color:white">Meet the <em>Founders</em></h2>
+      <p class="section-sub center" style="color:rgba(255,255,255,0.6)">Three visionary young leaders who dared to imagine a climate-resilient Bangladesh and built CYDO from the ground up.</p>
+    </div>
+    <div class="founders-grid">
+      <div class="founder-card reveal">
+        <div class="founder-photo">
+          <div class="founder-badge">Co-Founder</div>
+          <div class="initials-lg">KA</div>
+        </div>
+        <div class="founder-info">
+          <div class="founder-name">Kamrul Ahsan</div>
+          <div class="founder-title">Executive Director & Co-Founder</div>
+          <p class="founder-bio">A climate activist and social entrepreneur with a background in environmental science. Kamrul has led grassroots campaigns across 15 districts of Bangladesh and represented youth voices at COP summits.</p>
+        </div>
+      </div>
+      <div class="founder-card reveal">
+        <div class="founder-photo" style="background:linear-gradient(135deg,rgba(37,99,235,0.3),rgba(30,64,175,0.5))">
+          <div class="founder-badge">Co-Founder</div>
+          <div class="initials-lg" style="color:#93C5FD">PR</div>
+        </div>
+        <div class="founder-info">
+          <div class="founder-name">Priya Roy</div>
+          <div class="founder-title">Program Director & Co-Founder</div>
+          <p class="founder-bio">A passionate SRHR advocate and women's rights champion. Priya established CYDO's flagship sexual health education programs and has trained over 300 peer educators across Bangladesh.</p>
+        </div>
+      </div>
+      <div class="founder-card reveal">
+        <div class="founder-photo" style="background:linear-gradient(135deg,rgba(217,119,6,0.3),rgba(180,83,9,0.5))">
+          <div class="founder-badge">Co-Founder</div>
+          <div class="initials-lg" style="color:#FCD34D">MH</div>
+        </div>
+        <div class="founder-info">
+          <div class="founder-name">Minhaj Hossain</div>
+          <div class="founder-title">Strategy Lead & Co-Founder</div>
+          <p class="founder-bio">An education reform advocate with expertise in inclusive curriculum design. Minhaj spearheaded CYDO's quality education pillar and partnership strategy, forging alliances with 15 national and international organizations.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
 
+<!-- PARTNERS -->
+<section id="partners">
+  <div class="container">
+    <div class="text-center reveal">
+      <div class="section-label">Collaboration</div>
+      <h2 class="section-title">Our Working <em>Partners</em></h2>
+      <p class="section-sub center">Organizations we collaborate with to maximize our impact across Bangladesh.</p>
+    </div>
+    <div class="partners-grid">
+      <div class="partner-card reveal">
+        <div class="partner-logo">UN</div>
+        <div class="partner-name">UNDP Bangladesh</div>
+        <a href="#" class="partner-link">undp.org →</a>
+      </div>
+      <div class="partner-card reveal">
+        <div class="partner-logo" style="background:linear-gradient(135deg,#DBEAFE,#93C5FD);color:#1E40AF">UN</div>
+        <div class="partner-name">UNICEF Bangladesh</div>
+        <a href="#" class="partner-link">unicef.org →</a>
+      </div>
+      <div class="partner-card reveal">
+        <div class="partner-logo" style="background:linear-gradient(135deg,#FEE2E2,#FCA5A5);color:#991B1B">BD</div>
+        <div class="partner-name">BRAC Bangladesh</div>
+        <a href="#" class="partner-link">brac.net →</a>
+      </div>
+      <div class="partner-card reveal">
+        <div class="partner-logo" style="background:linear-gradient(135deg,#FEF3C7,#FCD34D);color:#92400E">GI</div>
+        <div class="partner-name">Green Initiatives BD</div>
+        <a href="#" class="partner-link">greenbd.org →</a>
+      </div>
+      <div class="partner-card reveal">
+        <div class="partner-logo" style="background:linear-gradient(135deg,#E9D5FF,#C084FC);color:#6B21A8">YN</div>
+        <div class="partner-name">Youth Net Global</div>
+        <a href="#" class="partner-link">youthnet.org →</a>
+      </div>
+      <div class="partner-card reveal">
+        <div class="partner-logo" style="background:linear-gradient(135deg,#CCFBF1,#5EEAD4);color:#0F766E">DE</div>
+        <div class="partner-name">Dhaka Environment Council</div>
+        <a href="#" class="partner-link">dec.gov.bd →</a>
+      </div>
+      <div class="partner-card reveal">
+        <div class="partner-logo" style="background:linear-gradient(135deg,#FCE7F3,#F9A8D4);color:#9D174D">SE</div>
+        <div class="partner-name">SRHR Education Forum</div>
+        <a href="#" class="partner-link">srhref.org →</a>
+      </div>
+      <div class="partner-card reveal">
+        <div class="partner-logo" style="background:linear-gradient(135deg,#D1FAE5,#6EE7B7);color:#065F46">EF</div>
+        <div class="partner-name">EduForward BD</div>
+        <a href="#" class="partner-link">eduforward.bd →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section id="projects" style="background:var(--gray-50)">
+  <div class="container">
+    <div class="text-center reveal">
+      <div class="section-label">Recent Work</div>
+      <h2 class="section-title">Projects & <em>Activities</em></h2>
+      <p class="section-sub center">Impactful programs and events shaping a better Bangladesh for future generations.</p>
+    </div>
+    <div class="projects-grid">
+      <div class="project-card reveal">
+        <div class="project-img">
+          <div class="project-img-bg" style="background:linear-gradient(135deg,#DCFCE7,#86EFAC)">♻️</div>
+          <div class="project-tag">Waste Management</div>
+        </div>
+        <div class="project-body">
+          <div class="project-date">March 2025</div>
+          <div class="project-title">Green Khulna: City-Wide Recycling Campaign</div>
+          <div class="project-desc">Mobilized 400 volunteers across 12 wards to collect and sort 8 tons of recyclable waste in partnership with Khulna City Corporation.</div>
+        </div>
+      </div>
+      <div class="project-card reveal">
+        <div class="project-img">
+          <div class="project-img-bg" style="background:linear-gradient(135deg,#DBEAFE,#93C5FD)">🎓</div>
+          <div class="project-tag" style="background:#2563EB">Education</div>
+        </div>
+        <div class="project-body">
+          <div class="project-date">January 2025</div>
+          <div class="project-title">Digital Literacy for Rural Youth</div>
+          <div class="project-desc">Launched 5 community learning centers across Bagerhat district, providing free digital skills training to 800 young people aged 14–25.</div>
+        </div>
+      </div>
+      <div class="project-card reveal">
+        <div class="project-img">
+          <div class="project-img-bg" style="background:linear-gradient(135deg,#FEE2E2,#FCA5A5)">❤️</div>
+          <div class="project-tag" style="background:#DC2626">SRHR</div>
+        </div>
+        <div class="project-body">
+          <div class="project-date">November 2024</div>
+          <div class="project-title">Safe Spaces: SRHR Peer Education Program</div>
+          <div class="project-desc">Trained 150 peer educators across 6 universities to deliver SRHR awareness sessions reaching over 2,000 students in a stigma-free environment.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- GALLERY -->
+<section class="gallery" id="gallery">
+  <div class="container">
+    <div class="text-center reveal">
+      <div class="section-label">Moments</div>
+      <h2 class="section-title">Our <em>Gallery</em></h2>
+      <p class="section-sub center">Snapshots from our campaigns, events, and community activities across Bangladesh.</p>
+    </div>
+    <div class="gallery-grid">
+      <div class="gallery-item reveal" onclick="openLightbox('🌱 Green Campus Drive')">
+        <div class="gallery-img" style="background:linear-gradient(135deg,#DCFCE7,#86EFAC)">🌱</div>
+        <div class="gallery-overlay">🔍</div>
+      </div>
+      <div class="gallery-item reveal" onclick="openLightbox('♻️ Recycling Workshop')">
+        <div class="gallery-img" style="background:linear-gradient(135deg,#FEF3C7,#FCD34D)">♻️</div>
+        <div class="gallery-overlay">🔍</div>
+      </div>
+      <div class="gallery-item reveal" onclick="openLightbox('🌍 Climate March 2024')">
+        <div class="gallery-img" style="background:linear-gradient(135deg,#DBEAFE,#93C5FD)">🌍</div>
+        <div class="gallery-overlay">🔍</div>
+      </div>
+      <div class="gallery-item reveal" onclick="openLightbox('🎓 Education Seminar')">
+        <div class="gallery-img" style="background:linear-gradient(135deg,#FEE2E2,#FCA5A5)">🎓</div>
+        <div class="gallery-overlay">🔍</div>
+      </div>
+      <div class="gallery-item reveal" onclick="openLightbox('👥 Youth Leadership Summit')">
+        <div class="gallery-img" style="background:linear-gradient(135deg,#E9D5FF,#C084FC)">👥</div>
+        <div class="gallery-overlay">🔍</div>
+      </div>
+      <div class="gallery-item reveal" onclick="openLightbox('🤝 Partner Meeting')">
+        <div class="gallery-img" style="background:linear-gradient(135deg,#CCFBF1,#5EEAD4)">🤝</div>
+        <div class="gallery-overlay">🔍</div>
+      </div>
+      <div class="gallery-item reveal" onclick="openLightbox('🏕️ Community Camp')">
+        <div class="gallery-img" style="background:linear-gradient(135deg,#FCE7F3,#F9A8D4)">🏕️</div>
+        <div class="gallery-overlay">🔍</div>
+      </div>
+      <div class="gallery-item reveal" onclick="openLightbox('🌿 Tree Plantation Drive')">
+        <div class="gallery-img" style="background:linear-gradient(135deg,#D1FAE5,#6EE7B7)">🌿</div>
+        <div class="gallery-overlay">🔍</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- JOIN -->
+<section class="join" id="join">
+  <div class="container">
+    <div class="reveal">
+      <div class="section-label" style="background:rgba(255,255,255,0.2);color:white;margin-bottom:1.5rem">Be the Change</div>
+      <h2>
+        Ready to Make a <em style="color:#4ADE80;font-style:normal">Difference?</em>
+        
+      </h2>
+      <p>
+        Join thousands of young climate champions across Bangladesh. CYDO needs passionate volunteers, advocates, and changemakers like you to drive meaningful impact in your community.
+        
+      </p>
+      <button class="btn-white" onclick="openModal()">
+        🚀 Apply Now
+        
+      </button>
+    </div>
+  </div>
+</section>
+
+<!-- NEWS -->
+<section id="news">
+  <div class="container">
+    <div class="text-center reveal">
+      <div class="section-label">Stay Updated</div>
+      <h2 class="section-title">News & <em>Updates</em></h2>
+      <p class="section-sub center">Latest announcements, achievements, and stories from CYDO's work across Bangladesh.</p>
+    </div>
+    <div class="news-grid">
+      <div class="news-card reveal">
+        <div class="news-img" style="background:linear-gradient(135deg,#DCFCE7,#86EFAC)">🌿</div>
+        <div class="news-body">
+          <div class="news-date">May 15, 2025</div>
+          <div class="news-title">CYDO Receives National Youth Excellence Award 2025</div>
+          <div class="news-excerpt">CYDO was honored with the National Youth Excellence Award for outstanding contributions to climate action and education...</div>
+        </div>
+      </div>
+      <div class="news-card reveal">
+        <div class="news-img" style="background:linear-gradient(135deg,#DBEAFE,#93C5FD)">🤝</div>
+        <div class="news-body">
+          <div class="news-date">April 22, 2025</div>
+          <div class="news-title">New Partnership with UNDP for Climate Resilience Program</div>
+          <div class="news-excerpt">CYDO signs a landmark MoU with UNDP Bangladesh to implement a 2-year youth climate resilience program across coastal districts...</div>
+        </div>
+      </div>
+      <div class="news-card reveal">
+        <div class="news-img" style="background:linear-gradient(135deg,#FEF3C7,#FCD34D)">📣</div>
+        <div class="news-body">
+          <div class="news-date">March 8, 2025</div>
+          <div class="news-title">CYDO Launches Women-Led Climate Action Initiative</div>
+          <div class="news-excerpt">On International Women's Day, CYDO launched its flagship Women for Climate initiative, empowering 200 young women as frontline climate leaders...</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="contact" id="contact">
+  <div class="container">
+    <div class="text-center reveal" style="margin-bottom:3rem">
+      <div class="section-label">Get in Touch</div>
+      <h2 class="section-title">Contact <em>Us</em></h2>
+      <p class="section-sub center">Have a question, partnership proposal, or want to get involved? We'd love to hear from you.</p>
+    </div>
+    <div class="contact-grid">
+      <div class="contact-form reveal">
+        <h3 style="font-size:1.2rem;font-weight:700;margin-bottom:1.5rem;color:var(--gray-800)">
+          Send us a Message
+          
+        </h3>
+        <div class="form-row">
           <div class="form-group">
-            <input type="text" placeholder="Your Name">
+            <label>Full Name</label>
+            <input type="text" placeholder="Your name">
           </div>
-
           <div class="form-group">
-            <input type="email" placeholder="Your Email">
+            <label>Email Address</label>
+            <input type="email" placeholder="your@email.com">
           </div>
-
-          <div class="form-group">
-            <input type="text" placeholder="Subject">
-          </div>
-
-          <div class="form-group">
-            <textarea placeholder="Your Message"></textarea>
-          </div>
-
-          <button class="btn btn-primary">
-            <i class="fa-solid fa-paper-plane"></i>
-            Send Message
-          </button>
-
-        </form>
-
+        </div>
+        <div class="form-group">
+          <label>Subject</label>
+          <input type="text" placeholder="How can we help?">
+        </div>
+        <div class="form-group">
+          <label>Message</label>
+          <textarea placeholder="Write your message here..."></textarea>
+        </div>
+        <button class="btn-submit" onclick="showToast()">
+          Send Message ✉️
+          
+        </button>
       </div>
-
+      <div class="contact-info reveal">
+        <h3>
+          Contact Information
+          
+        </h3>
+        <div class="info-item">
+          <div class="info-icon">📍</div>
+          <div class="info-text">
+            <h4>Office Address</h4>
+            <p>House 12, Road 5, Sonadanga R/A, Khulna 9100, Bangladesh</p>
+          </div>
+        </div>
+        <div class="info-item">
+          <div class="info-icon">✉️</div>
+          <div class="info-text">
+            <h4>Email</h4>
+            <p>info@cydo-bd.org</p>
+          </div>
+        </div>
+        <div class="info-item">
+          <div class="info-icon">📞</div>
+          <div class="info-text">
+            <h4>Phone</h4>
+            <p>+880 41 123 4567</p>
+          </div>
+        </div>
+        <div class="info-item">
+          <div class="info-icon">🕒</div>
+          <div class="info-text">
+            <h4>Office Hours</h4>
+            <p>Sunday – Thursday, 9:00 AM – 5:00 PM</p>
+          </div>
+        </div>
+        <div class="socials-row">
+          <a class="social-icon-btn" href="#" title="Facebook">f</a>
+          <a class="social-icon-btn" href="#" title="Twitter/X">𝕏</a>
+          <a class="social-icon-btn" href="#" title="Instagram">📸</a>
+          <a class="social-icon-btn" href="#" title="LinkedIn">in</a>
+          <a class="social-icon-btn" href="#" title="YouTube">▶</a>
+        </div>
+        <div class="map-placeholder">
+          📍 Google Maps — Khulna, Bangladesh
+        </div>
+      </div>
     </div>
+  </div>
+</section>
 
-  </section>
-
-  <!-- FOOTER -->
-
-  <footer>
-
+<!-- FOOTER -->
+<footer>
+  <div class="container">
     <div class="footer-grid">
-
-      <div>
-        <div class="logo" style="color:white;">
-          <i class="fa-solid fa-leaf"></i>
-          CYDO
+      <div class="footer-brand">
+        <div style="display:flex;align-items:center;gap:10px;margin-bottom:0.5rem">
+          <div style="width:44px;height:44px;background:linear-gradient(135deg,#15803D,#4ADE80);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:1.1rem;font-weight:900;color:white">CY</div>
+          <span style="font-size:1.2rem;font-weight:800;color:white">CYDO</span>
         </div>
-
-        <p style="margin-top:20px;line-height:1.8;">
-          Climate and Youth Development Organization working for
-          climate justice, sustainability, and youth empowerment.
+        <p>
+          Climate and Youth Development Organization — empowering Bangladesh's youth for a sustainable, equitable future.
+          
         </p>
-
-        <div class="socials">
-
-          <a href="https://www.facebook.com/CydoBangladesh" target="_blank">
-            <i class="fab fa-facebook-f"></i>
-          </a>
-
-          <a href="#"><i class="fab fa-youtube"></i></a>
-          <a href="#"><i class="fab fa-instagram"></i></a>
-          <a href="#"><i class="fab fa-linkedin-in"></i></a>
-
+        <div class="footer-socials">
+          <a class="footer-social" href="#">f</a>
+          <a class="footer-social" href="#">𝕏</a>
+          <a class="footer-social" href="#">in</a>
+          <a class="footer-social" href="#">📸</a>
+          <a class="footer-social" href="#">▶</a>
         </div>
-
       </div>
-
-      <div>
-
-        <h3 style="margin-bottom:20px;">Quick Links</h3>
-
-        <div class="footer-links">
-          <a href="#about">About</a>
-          <a href="#programs">Programs</a>
-          <a href="#impact">Impact</a>
-          <a href="#contact">Contact</a>
-        </div>
-
+      <div class="footer-col">
+        <h4>Quick Links</h4>
+        <ul>
+          <li><a href="#about">About CYDO</a></li>
+          <li><a href="#focus">Focus Areas</a></li>
+          <li><a href="#team">Our Team</a></li>
+          <li><a href="#founders">Founders</a></li>
+          <li><a href="#projects">Projects</a></li>
+          <li><a href="#gallery">Gallery</a></li>
+        </ul>
       </div>
-
-      <div>
-
-        <h3 style="margin-bottom:20px;">Newsletter</h3>
-
-        <p>Subscribe for updates and activities.</p>
-
-        <div class="newsletter">
-          <input type="email" placeholder="Email">
-          <button class="btn btn-primary">Join</button>
-        </div>
-
+      <div class="footer-col">
+        <h4>Get Involved</h4>
+        <ul>
+          <li><a href="#" onclick="openModal()">Join CYDO</a></li>
+          <li><a href="#">Volunteer</a></li>
+          <li><a href="#">Donate</a></li>
+          <li><a href="#partners">Partner With Us</a></li>
+          <li><a href="#news">Newsletter</a></li>
+        </ul>
       </div>
-
+      <div class="footer-col">
+        <h4>Contact</h4>
+        <ul>
+          <li><a href="mailto:info@cydo-bd.org">info@cydo-bd.org</a></li>
+          <li><a href="tel:+8804112345678">+880 41 123 4567</a></li>
+          <li><a href="#contact">Khulna, Bangladesh</a></li>
+          <li><a href="#">Privacy Policy</a></li>
+          <li><a href="#">Terms of Use</a></li>
+        </ul>
+      </div>
     </div>
-
-    <div class="copyright">
-      © 2026 CYDO - Climate & Youth Development Organization. All Rights Reserved.
+    <div class="footer-bottom">
+      <p>
+        © 2025 CYDO — Climate and Youth Development Organization. All rights reserved.
+        
+      </p>
+      <div class="footer-bottom-links">
+        <a href="#">Privacy Policy</a>
+        <a href="#">Terms of Use</a>
+        <a href="#">Sitemap</a>
+      </div>
     </div>
-
-  </footer>
-
-  <!-- SCROLL TOP -->
-
-  <div class="scroll-top" id="scrollTop">
-    <i class="fa-solid fa-arrow-up"></i>
   </div>
+</footer>
 
-  <!-- LIGHTBOX -->
-
-  <div class="lightbox" id="lightbox">
-    <img id="lightboxImg">
+<!-- LIGHTBOX -->
+<div class="lightbox" id="lightbox" onclick="closeLightbox()">
+  <div class="lightbox-content" style="background:white;padding:2rem;text-align:center;max-width:400px;border-radius:20px;">
+    <div style="font-size:4rem;margin-bottom:1rem" id="lightbox-icon">🌱</div>
+    <div style="font-size:1.1rem;font-weight:700;color:var(--gray-800)" id="lightbox-label">Gallery Item</div>
+    <p style="font-size:0.85rem;color:var(--gray-500);margin-top:0.5rem">
+      Click anywhere to close
+      
+    </p>
   </div>
-
-  <!-- JS -->
-
-  <script>
-
-    // MOBILE NAV
-
-    const hamburger = document.getElementById('hamburger');
-    const navLinks = document.getElementById('navLinks');
-
-    hamburger.addEventListener('click',()=>{
-      navLinks.classList.toggle('active');
-    });
-
-    document.querySelectorAll('.nav-links a').forEach(link=>{
-      link.addEventListener('click',()=>{
-        navLinks.classList.remove('active');
-      });
-    });
-
-    // SCROLL TOP
-
-    const scrollTopBtn = document.getElementById('scrollTop');
-
-    window.addEventListener('scroll',()=>{
-
-      if(window.scrollY > 300){
-        scrollTopBtn.classList.add('active');
-      }else{
-        scrollTopBtn.classList.remove('active');
-      }
-
-    });
-
-    scrollTopBtn.addEventListener('click',()=>{
-      window.scrollTo({
-        top:0,
-        behavior:'smooth'
-      });
-    });
-
-    // COUNTER
-
-    const counters = document.querySelectorAll('.counter');
-
-    counters.forEach(counter=>{
-
-      const updateCounter = ()=>{
-
-        const target = +counter.getAttribute('data-target');
-        const current = +counter.innerText;
-
-        const increment = target / 100;
-
-        if(current < target){
-
-          counter.innerText = `${Math.ceil(current + increment)}`;
-          setTimeout(updateCounter,20);
-
-        }else{
-
-          counter.innerText = target.toLocaleString() + '+';
-
-        }
-
-      };
-
-      updateCounter();
-
-    });
-
-    // REVEAL ANIMATION
-
-    const reveals = document.querySelectorAll('.reveal');
-
-    const observer = new IntersectionObserver(entries=>{
-
-      entries.forEach(entry=>{
-
-        if(entry.isIntersecting){
-          entry.target.classList.add('active');
-        }
-
-      });
-
-    },{threshold:0.15});
-
-    reveals.forEach(reveal=>{
-      observer.observe(reveal);
-    });
-
-    // GALLERY LIGHTBOX
-
-    const galleryImages = document.querySelectorAll('.gallery-item img');
-    const lightbox = document.getElementById('lightbox');
-    const lightboxImg = document.getElementById('lightboxImg');
-
-    galleryImages.forEach(img=>{
-
-      img.addEventListener('click',()=>{
-
-        lightbox.style.display = 'flex';
-        lightboxImg.src = img.src;
-
-      });
-
-    });
-
-    lightbox.addEventListener('click',()=>{
-      lightbox.style.display='none';
-    });
-
-    // YOUTUBE RSS FEED
-
-    const feedURL =
-    "https://www.youtube.com/feeds/videos.xml?channel_id=UC_x5XG1OV2P6uZZ5FSM9Ttw";
-
-    const rssAPI =
-    `https://api.rss2json.com/v1/api.json?rss_url=${encodeURIComponent(feedURL)}`;
-
-    async function loadVideos(){
-
-      const container = document.getElementById('videoContainer');
-
-      try{
-
-        const response = await fetch(rssAPI);
-        const data = await response.json();
-
-        const videos = data.items.slice(0,3);
-
-        container.innerHTML = videos.map(video=>{
-
-          const videoId = video.guid.split(':').pop();
-
-          return `
-
-            <div class="video-card reveal">
-
-              <iframe
-              src="https://www.youtube.com/embed/${videoId}"
-              allowfullscreen>
-              </iframe>
-
-              <div class="video-content">
-
-                <h3>${video.title}</h3>
-
-                <span>
-                  ${new Date(video.pubDate).toDateString()}
-                </span>
-
-              </div>
-
-            </div>
-
-          `;
-
-        }).join('');
-
-      }catch(error){
-
-        container.innerHTML = `
-          <div style="padding:40px;text-align:center;">
-            Failed to load videos.
-          </div>
-        `;
-
-      }
-
+</div>
+
+<!-- JOIN MODAL -->
+<div class="modal-overlay" id="joinModal">
+  <div class="modal-box" onclick="event.stopPropagation()">
+    <button class="modal-close" onclick="closeModal()">✕</button>
+    <div class="modal-icon">🌱</div>
+    <h3>
+      Join the CYDO Movement
+      
+    </h3>
+    <p>
+      Be part of Bangladesh's most impactful youth climate organization. Fill out our membership application to get started.
+      
+    </p>
+    <!-- EDITABLE: Change this URL to your actual application form -->
+    <a href="https://forms.google.com/cydo-application" target="_blank" class="btn-modal-primary" id="applyLink">
+      🚀 Open Application Form
+      
+    </a>
+    <p style="margin-top:1rem;font-size:0.8rem;color:var(--gray-400)">
+      Questions? Email us at info@cydo-bd.org
+      
+    </p>
+  </div>
+</div>
+
+<!-- TOAST -->
+<div class="toast" id="toast">
+  ✅ Message sent successfully!
+</div>
+
+<script>
+// =====================
+// LANGUAGE
+// =====================
+const APPLICATION_FORM_URL = 'https://forms.google.com/cydo-application';
+
+// Language: English only
+
+// =====================
+// NAV SCROLL
+// =====================
+window.addEventListener('scroll', () => {
+  document.getElementById('mainNav').classList.toggle('scrolled', window.scrollY > 50);
+});
+
+// =====================
+// HAMBURGER
+// =====================
+function toggleMenu() {
+  document.getElementById('mobileMenu').classList.toggle('open');
+}
+
+// =====================
+// SCROLL REVEAL
+// =====================
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach((e, i) => {
+    if (e.isIntersecting) {
+      setTimeout(() => e.target.classList.add('visible'), i * 60);
     }
+  });
+}, { threshold: 0.1 });
+document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 
-    loadVideos();
+// =====================
+// COUNTER ANIMATION
+// =====================
+function animateCounter(el) {
+  const target = parseInt(el.dataset.target);
+  const duration = 2000;
+  const step = target / (duration / 16);
+  let current = 0;
+  const timer = setInterval(() => {
+    current += step;
+    if (current >= target) {
+      current = target;
+      clearInterval(timer);
+    }
+    el.textContent = Math.floor(current).toLocaleString() + '+';
+  }, 16);
+}
 
-    // FORM
+const counterObserver = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting && !e.target.dataset.animated) {
+      e.target.dataset.animated = 'true';
+      animateCounter(e.target);
+    }
+  });
+}, { threshold: 0.5 });
+document.querySelectorAll('[data-target]').forEach(el => counterObserver.observe(el));
 
-    document.querySelector('form').addEventListener('submit',e=>{
+// =====================
+// MODAL
+// =====================
+function openModal() {
+  document.getElementById('joinModal').classList.add('open');
+  document.getElementById('applyLink').href = APPLICATION_FORM_URL;
+}
+function closeModal() {
+  document.getElementById('joinModal').classList.remove('open');
+}
+document.getElementById('joinModal').addEventListener('click', function(e) {
+  if (e.target === this) closeModal();
+});
 
-      e.preventDefault();
+// =====================
+// LIGHTBOX
+// =====================
+function openLightbox(label) {
+  const parts = label.split(' ');
+  document.getElementById('lightbox-icon').textContent = parts[0];
+  document.getElementById('lightbox-label').textContent = parts.slice(1).join(' ');
+  document.getElementById('lightbox').classList.add('open');
+}
+function closeLightbox() {
+  document.getElementById('lightbox').classList.remove('open');
+}
 
-      alert('Thank you for contacting CYDO!');
-      e.target.reset();
+// =====================
+// TOAST
+// =====================
+function showToast() {
+  const t = document.getElementById('toast');
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 3500);
+}
 
-    });
-
-  </script>
-
+// =====================
+// KEYBOARD ESCAPE
+// =====================
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape') { closeModal(); closeLightbox(); }
+});
+</script>
 </body>
 </html>
