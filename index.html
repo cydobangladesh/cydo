@@ -865,48 +865,129 @@ footer { background: var(--gray-900); color: white; padding: 4rem 1.5rem 2rem; }
 <!-- FOUNDERS -->
 <section class="founders" id="founders">
   <div class="container">
+    
     <div class="text-center reveal">
-      <div class="section-label" style="background:rgba(74,222,128,0.15);color:#4ADE80">Our Story</div>
-      <h2 class="section-title" style="color:white">Meet the <em>Founders</em></h2>
-      <p class="section-sub center" style="color:rgba(255,255,255,0.6)">Three visionary young leaders who dared to imagine a climate-resilient Bangladesh and built CYDO from the ground up.</p>
+      <div class="section-label" style="background:rgba(74,222,128,0.15);color:#4ADE80">
+        Our Story
+      </div>
+      <h2 class="section-title" style="color:white">
+        Meet the <em>Founders</em>
+      </h2>
+      <p class="section-sub center" style="color:rgba(255,255,255,0.6)">
+        Three visionary young leaders who built CYDO from the ground up.
+      </p>
     </div>
+
     <div class="founders-grid">
+
+      <!-- Founder 1 -->
       <div class="founder-card reveal">
         <div class="founder-photo">
-          <div class="founder-badge">Co-Founder</div>
-          <div class="initials-lg">KA</div>
+          <img src="https://i.ibb.co.com/Zp2ytTpd/3.jpg" alt="Amit Das Shuvro">
         </div>
         <div class="founder-info">
-          <div class="founder-name">Kamrul Ahsan</div>
-          <div class="founder-title">Executive Director & Co-Founder</div>
-          <p class="founder-bio">A climate activist and social entrepreneur with a background in environmental science. Kamrul has led grassroots campaigns across 15 districts of Bangladesh and represented youth voices at COP summits.</p>
+          <div class="founder-name">Amit Das Shuvro</div>
+          <div class="founder-title">Co-Founder</div>
+          <p class="founder-bio">
+            Climate activist and social entrepreneur working on youth-led climate action in Bangladesh.
+          </p>
         </div>
       </div>
+
+      <!-- Founder 2 -->
       <div class="founder-card reveal">
-        <div class="founder-photo" style="background:linear-gradient(135deg,rgba(37,99,235,0.3),rgba(30,64,175,0.5))">
-          <div class="founder-badge">Co-Founder</div>
-          <div class="initials-lg" style="color:#93C5FD">PR</div>
+        <div class="founder-photo">
+          <img src="https://i.ibb.co.com/8grJMCGS/1.jpg" alt="Md. Mahide Hasan">
         </div>
         <div class="founder-info">
-          <div class="founder-name">Priya Roy</div>
-          <div class="founder-title">Program Director & Co-Founder</div>
-          <p class="founder-bio">A passionate SRHR advocate and women's rights champion. Priya established CYDO's flagship sexual health education programs and has trained over 300 peer educators across Bangladesh.</p>
+          <div class="founder-name">Md. Mahide Hasan</div>
+          <div class="founder-title">Co-Founder</div>
+          <p class="founder-bio">
+            SRHR advocate focused on youth awareness and community health education.
+          </p>
         </div>
       </div>
+
+      <!-- Founder 3 -->
       <div class="founder-card reveal">
-        <div class="founder-photo" style="background:linear-gradient(135deg,rgba(217,119,6,0.3),rgba(180,83,9,0.5))">
-          <div class="founder-badge">Co-Founder</div>
-          <div class="initials-lg" style="color:#FCD34D">MH</div>
+        <div class="founder-photo">
+          <img src="https://i.ibb.co.com/8g6ZXs9N/2.jpg" alt="Khan Asadur Rahman">
         </div>
         <div class="founder-info">
-          <div class="founder-name">Minhaj Hossain</div>
-          <div class="founder-title">Strategy Lead & Co-Founder</div>
-          <p class="founder-bio">An education reform advocate with expertise in inclusive curriculum design. Minhaj spearheaded CYDO's quality education pillar and partnership strategy, forging alliances with 8 national and international organizations.</p>
+          <div class="founder-name">Khan Asadur Rahman</div>
+          <div class="founder-title">Co-Founder</div>
+          <p class="founder-bio">
+            Education reform advocate working on inclusive and quality education initiatives.
+          </p>
         </div>
       </div>
+
     </div>
   </div>
 </section>
+
+<style>
+/* GRID */
+.founders-grid{
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 24px;
+  margin-top: 40px;
+}
+
+/* CARD */
+.founder-card{
+  background: rgba(255,255,255,0.05);
+  border-radius: 18px;
+  overflow: hidden;
+  backdrop-filter: blur(10px);
+  transition: 0.3s ease;
+}
+
+.founder-card:hover{
+  transform: translateY(-6px);
+}
+
+/* IMAGE BOX */
+.founder-photo{
+  width: 100%;
+  height: 280px;
+  overflow: hidden;
+  background: #111;
+}
+
+/* 🔥 MAIN FIX */
+.founder-photo img{
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top; /* ছবি উপরের দিক থেকে শুরু হবে */
+  display: block;
+}
+
+/* TEXT */
+.founder-info{
+  padding: 16px;
+}
+
+.founder-name{
+  font-size: 18px;
+  font-weight: 700;
+  color: #fff;
+}
+
+.founder-title{
+  font-size: 14px;
+  color: #4ADE80;
+  margin-bottom: 8px;
+}
+
+.founder-bio{
+  font-size: 13px;
+  color: rgba(255,255,255,0.7);
+  line-height: 1.5;
+}
+</style>
 
 <!-- PARTNERS -->
 <section id="partners">
