@@ -155,7 +155,7 @@ section { padding: clamp(3rem, 7vw, 5.5rem) 0; }
   transition: max-height 0.38s cubic-bezier(0.4,0,0.2,1), padding 0.3s;
   box-shadow: 0 12px 32px rgba(0,0,0,0.1);
 }
-.mobile-menu.open { max-height: 520px; padding: 0.75rem 1rem 1.5rem; }
+.mobile-menu.open { max-height: 600px; padding: 0.75rem 1rem 1.5rem; overflow-y: auto; }
 .mobile-menu a {
   display: flex; align-items: center; gap: 10px;
   padding: 0.875rem 0; font-family: var(--font-head);
@@ -420,9 +420,70 @@ section { padding: clamp(3rem, 7vw, 5.5rem) 0; }
 .member-role { font-size: 0.68rem; color: var(--green); font-weight: 600; line-height: 1.35; }
 
 /* ============================================================
+   MEMBERS LIST (Active / Inactive directory)
+============================================================ */
+#members { background: white; }
+.members-filter-tabs { display: flex; gap: 0.6rem; margin-top: 2.75rem; flex-wrap: wrap; }
+.members-tab {
+  font-family: var(--font-head); font-size: 0.8rem; font-weight: 600;
+  padding: 8px 18px; border-radius: 999px; border: 1.5px solid var(--gray-200);
+  background: white; color: var(--gray-600); cursor: pointer;
+  transition: all var(--transition);
+}
+.members-tab:hover { border-color: var(--green); color: var(--green); }
+.members-tab.active { background: var(--green); border-color: var(--green); color: white; }
+
+.members-table-wrap {
+  margin-top: 1.5rem;
+  background: white;
+  border: 1px solid var(--gray-200);
+  border-radius: var(--radius-lg);
+  overflow-x: auto;
+  box-shadow: var(--shadow-sm);
+}
+.members-table { width: 100%; border-collapse: collapse; min-width: 620px; }
+.members-table thead th {
+  font-family: var(--font-head); font-size: 0.72rem; font-weight: 700;
+  text-transform: uppercase; letter-spacing: 0.6px; color: var(--gray-500);
+  background: var(--gray-50); text-align: left;
+  padding: 0.9rem 1.1rem; border-bottom: 1px solid var(--gray-200);
+  white-space: nowrap;
+}
+.members-table tbody td {
+  padding: 0.85rem 1.1rem; font-size: 0.85rem; color: var(--gray-700);
+  border-bottom: 1px solid var(--gray-100); white-space: nowrap;
+}
+.members-table tbody tr:last-child td { border-bottom: none; }
+.members-table tbody tr { transition: background var(--transition); }
+.members-table tbody tr:hover { background: var(--gray-50); }
+.member-id { font-family: var(--font-head); font-weight: 600; color: var(--gray-500); }
+.member-table-name { font-family: var(--font-head); font-weight: 700; color: var(--gray-800); }
+
+.status-badge {
+  display: inline-flex; align-items: center; gap: 6px;
+  font-family: var(--font-head); font-size: 0.72rem; font-weight: 700;
+  padding: 4px 11px; border-radius: 999px; letter-spacing: 0.3px;
+}
+.status-dot { width: 7px; height: 7px; border-radius: 50%; flex-shrink: 0; }
+.status-active { background: var(--green-light); color: var(--green-dark); }
+.status-active .status-dot { background: var(--green); }
+.status-inactive { background: #FEE2E2; color: #B91C1C; }
+.status-inactive .status-dot { background: #DC2626; }
+<table id="memberTable">
+    <thead>
+        <tr>
+            <th>SL</th>
+            <th>Member ID</th>
+            <th>Name</th>
+            <th>Joined</th>
+            <th>Status</th>
+        </tr>
+    </thead>
+   
+/* ============================================================
    PARTNERS
 ============================================================ */
-#partners { background: white; }
+#partners { background: var(--gray-50); }
 .partners-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.1rem; margin-top: 2.75rem; }
 .partner-card {
   background: white; border-radius: var(--radius-md); padding: 1.5rem 1rem;
@@ -442,7 +503,7 @@ section { padding: clamp(3rem, 7vw, 5.5rem) 0; }
 /* ============================================================
    PROJECTS
 ============================================================ */
-#projects { background: var(--gray-50); }
+#projects { background: white; }
 .projects-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.35rem; margin-top: 2.75rem; }
 .project-card {
   background: white; border-radius: var(--radius-lg); overflow: hidden;
@@ -464,7 +525,7 @@ section { padding: clamp(3rem, 7vw, 5.5rem) 0; }
 /* ============================================================
    GALLERY
 ============================================================ */
-#gallery { background: white; }
+#gallery { background: var(--gray-50); }
 .gallery-grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
@@ -491,7 +552,7 @@ section { padding: clamp(3rem, 7vw, 5.5rem) 0; }
 /* ============================================================
    NEWS
 ============================================================ */
-#news { background: var(--gray-50); }
+#news { background: white; }
 .news-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.25rem; margin-top: 2.75rem; }
 .news-card {
   background: white; border-radius: var(--radius-md); overflow: hidden;
@@ -722,6 +783,7 @@ footer {
   .footer-grid { grid-template-columns: 1fr; gap: 1.75rem; }
   .footer-brand p { max-width: 100%; }
   .footer-bottom { flex-direction: column; text-align: center; }
+  .members-table { min-width: 560px; }
 }
 
 /* ============================================================
@@ -780,6 +842,7 @@ footer {
       <li><a href="#focus">Focus Areas</a></li>
       <li><a href="#founders">Founders</a></li>
       <li><a href="#team">Team</a></li>
+      <li><a href="#members">Members</a></li>
       <li><a href="#projects">Projects</a></li>
       <li><a href="#gallery">Gallery</a></li>
       <li><a href="#contact">Contact</a></li>
@@ -799,6 +862,7 @@ footer {
   <a href="#focus" onclick="closeMenu()" role="menuitem">Focus Areas</a>
   <a href="#founders" onclick="closeMenu()" role="menuitem">Founders</a>
   <a href="#team" onclick="closeMenu()" role="menuitem">Team</a>
+  <a href="#members" onclick="closeMenu()" role="menuitem">Members</a>
   <a href="#projects" onclick="closeMenu()" role="menuitem">Projects</a>
   <a href="#gallery" onclick="closeMenu()" role="menuitem">Gallery</a>
   <a href="#news" onclick="closeMenu()" role="menuitem">News</a>
@@ -1057,6 +1121,139 @@ footer {
   </div>
 </section>
 
+<!-- ============================================================
+     MEMBERS DIRECTORY  — Active / Inactive list with filters
+============================================================ -->
+<section id="members">
+  <div class="container">
+    <div class="text-center reveal">
+      <div class="section-label">Our Community</div>
+      <h2 class="section-title">Members <em>Directory</em></h2>
+      <p class="section-sub">A complete list of CYDO's active and inactive members.</p>
+    </div>
+
+    <div class="members-filter-tabs reveal">
+      <button class="members-tab active" data-filter="all" onclick="filterMembers('all', this)">All</button>
+      <button class="members-tab" data-filter="active" onclick="filterMembers('active', this)">Active</button>
+      <button class="members-tab" data-filter="inactive" onclick="filterMembers('inactive', this)">Inactive</button>
+    </div>
+
+    <div class="members-table-wrap reveal">
+      <table class="members-table" id="membersTable">
+        <thead>
+          <tr>
+            <th>SL</th>
+            <th>ID No.</th>
+            <th>Name</th>
+            <th>Member Since</th>
+            <th>Status</th>
+          </tr>
+        </thead>
+        <tbody>
+          <!-- ===== ADD / EDIT MEMBER ROWS BELOW =====
+               - Keep data-status="active" or data-status="inactive" on each <tr>
+               - SL = serial number, ID No. = your custom member ID
+               - Member Since = month + year they joined
+          -->
+          <tr data-status="active">
+            <td>01</td>
+            <td class="member-id">1224-712501</td>
+            <td class="member-table-name">Amit Das Shuvro</td>
+            <td>Dec 2024</td>
+            <td><span class="status-badge status-active"><span class="status-dot"></span>Active</span></td>
+          </tr>
+          <tr data-status="active">
+            <td>02</td>
+            <td class="member-id">1224-712502</td>
+            <td class="member-table-name">Amit Das Shuvro</td>
+            <td>Dec 2024</td>
+            <td><span class="status-badge status-active"><span class="status-dot"></span>Active</span></td>
+          </tr>
+          <tr data-status="active">
+            <td>03</td>
+            <td class="member-id">1224-712501</td>
+            <td class="member-table-name">Amit Das Shuvro</td>
+            <td>Dec 2024</td>
+            <td><span class="status-badge status-active"><span class="status-dot"></span>Active</span></td>
+          </tr>
+          <tr data-status="active">
+            <td>04</td>
+            <td class="member-id">1224-712501</td>
+            <td class="member-table-name">Amit Das Shuvro</td>
+            <td>Dec 2024</td>
+            <td><span class="status-badge status-active"><span class="status-dot"></span>Active</span></td>
+          </tr>
+          <tr data-status="active">
+            <td>05</td>
+            <td class="member-id">1224-712501</td>
+            <td class="member-table-name">Amit Das Shuvro</td>
+            <td>Dec 2024</td>
+            <td><span class="status-badge status-active"><span class="status-dot"></span>Active</span></td>
+          </tr>
+          <tr data-status="active">
+            <td>06</td>
+            <td class="member-id">1224-712501</td>
+            <td class="member-table-name">Amit Das Shuvro</td>
+            <td>Dec 2024</td>
+            <td><span class="status-badge status-active"><span class="status-dot"></span>Active</span></td>
+          </tr>
+          <tr data-status="active">
+            <td>07</td>
+            <td class="member-id">1224-712501</td>
+            <td class="member-table-name">Amit Das Shuvro</td>
+            <td>Dec 2024</td>
+            <td><span class="status-badge status-active"><span class="status-dot"></span>Active</span></td>
+          </tr>
+          <tr data-status="active">
+            <td>08</td>
+            <td class="member-id">1224-712501</td>
+            <td class="member-table-name">Amit Das Shuvro</td>
+            <td>Dec 2024</td>
+            <td><span class="status-badge status-active"><span class="status-dot"></span>Active</span></td>
+          </tr>
+          
+          <tr data-status="active">
+            <td>09</td>
+            <td class="member-id">CYDO-002</td>
+            <td class="member-table-name">Khan Asadur Rahman</td>
+            <td>Jan 2024</td>
+            <td><span class="status-badge status-active"><span class="status-dot"></span>Active</span></td>
+          </tr>
+          <tr data-status="active">
+            <td>10</td>
+            <td class="member-id">CYDO-003</td>
+            <td class="member-table-name">Amit Das Shuvro</td>
+            <td>Jan 2024</td>
+            <td><span class="status-badge status-active"><span class="status-dot"></span>Active</span></td>
+          </tr>
+          <tr data-status="active">
+            <td>11</td>
+            <td class="member-id">CYDO-004</td>
+            <td class="member-table-name">Shalaha Ahmad Rabby</td>
+            <td>Feb 2024</td>
+            <td><span class="status-badge status-active"><span class="status-dot"></span>Active</span></td>
+          </tr>
+          <tr data-status="active">
+            <td>12</td>
+            <td class="member-id">CYDO-005</td>
+            <td class="member-table-name">Farista Islam Aysha</td>
+            <td>Feb 2024</td>
+            <td><span class="status-badge status-active"><span class="status-dot"></span>Active</span></td>
+          </tr>
+          <tr data-status="inactive">
+            <td>13</td>
+            <td class="member-id">CYDO-006</td>
+            <td class="member-table-name">Example Member</td>
+            <td>Mar 2024</td>
+            <td><span class="status-badge status-inactive"><span class="status-dot"></span>Inactive</span></td>
+          </tr>
+          <!-- ===== END MEMBER ROWS ===== -->
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
 <!-- PARTNERS -->
 <section id="partners">
   <div class="container">
@@ -1302,6 +1499,7 @@ footer {
           <li><a href="#focus">Focus Areas</a></li>
           <li><a href="#founders">Founders</a></li>
           <li><a href="#team">Our Team</a></li>
+          <li><a href="#members">Members</a></li>
           <li><a href="#projects">Projects</a></li>
         </ul>
       </div>
@@ -1446,6 +1644,14 @@ function showToast() {
   const t = document.getElementById('toast');
   t.classList.add('show');
   setTimeout(() => t.classList.remove('show'), 3500);
+}
+
+function filterMembers(status, btn) {
+  document.querySelectorAll('.members-tab').forEach(t => t.classList.remove('active'));
+  btn.classList.add('active');
+  document.querySelectorAll('#membersTable tbody tr').forEach(row => {
+    row.style.display = (status === 'all' || row.dataset.status === status) ? '' : 'none';
+  });
 }
 
 document.addEventListener('keydown', e => {
